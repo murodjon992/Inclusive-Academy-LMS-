@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+
+
+<div class="custom-breadcrumns border-bottom">
+        <div style="background-color: #320266">
+    <div class="container">
+           <div style="min-height:400px;" class="d-flex mt-5 py-5 flex-column align-items-center justify-content-center">
+
+               <h2 class="text-light pt-5">So'ngi Ma'lumotlarga ega bo'ling</h2>
+               <div class="col-8 my-3">
+               <input class="form-control rounded" type="text" placeholder="Qidiriuv...">
+               </div>
+               <div class="col-lg-8 d-flex flex-wrap justify-content-center">
+                   <a href="{% url 'inclusive_app:kutubxona' %}" class="btn m-2 btn-outline-primary {% if not active_category%} active {% endif %}">Barchasi</a>
+                {% for i in manbalar %}
+                     <a href="{% url 'inclusive_app:kutubxona_category' i.id %}" class="btn btn-outline-primary text-light m-2 {% if active_category == i %} active {% endif %}"> {{ i }}</a>
+               {% endfor %}
+               </div>
+           </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 mb-4">
+                <div class="row">
+                    {% for manba in items %}
+                <div class="col-lg-4">
+                    <div class="card text-center p-2">
+
+                        <h5 class="card-title">{{ manba.title }}</h5>
+                        <smal>{{ manba.category }}</smal>
+                        <div class="card-body">
+                            <small class="badge bg-warning">{{ manba.created_at|date:"d M Y" }}</small>
+                            {% if manba.file %}
+                            <a class="btn btn-primary" target="_blank" href="{{ manba.file.url }}">Yuklab olish</a>
+                            {% else %}
+                            <a class="btn btn-primary" href="{{ manba.external_link }}" target="_blank">Ko'proq</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 ml-auto">
+                <h2 class="section-title-underline mb-5">
+                    Turkumlar
+                </h2>
+                <ul>
+                {% for i in manbalar %}
+                    <li class="text-dark">{{ i }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

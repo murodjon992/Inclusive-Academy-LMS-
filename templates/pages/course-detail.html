@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="custom-breadcrumns border-bottom">
+    <div class="container">
+        <a href="index.html">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="courses.html">Courses</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Courses</span>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ml-auto align-self-center">
+                <h2 class="section-title-underline mb-5">
+                    <span>{{ course.title }}</span>
+
+                </h2>
+                <p class="mb-5"><strong class="text-black d-block">Davomiyligi:</strong>{{ course.duration }} min</p>
+                <ul class="ml-0">
+                    {% for modul in course.modules.all %}
+                    <li>
+                        <h5>{{ modul.title }}</h5>
+                        <ul>
+                            {% for dars in modul.lessons.all %}
+                            <li>
+                                <p>{{ dars.title }}</p>
+                                {% if user.is_authenticated and enrolled %}
+                                {% if dars.video %}
+                                <video id="lessonVideo" controls width="100%">
+                                    <source src="{{ dars.video.url }}" type="video/mp4">
+                                </video>
+                                {% endif %}
+                                <p>{{ dars.content }}</p>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <p>
+                    <a href="{% url 'inclusive_app:index' %}#courseDetail"
+                       class="btn btn-primary rounded-0 btn-lg px-5"><i class="icon-arrow-left"></i></a>
+                </p>
+                {% if enrolled and course_progress == 100 %}
+                <a href="">Testni boshlash</a>
+                {% else %}
+                <span class="text-light badge bg-danger">Test yopiq</span>
+                {% endif %}
+
+            </div>
+            <div class="col-lg-4 mb-4">
+                <img width="100%" src="{{ course.image.url }}" alt="">
+                {% if user.is_authenticated %}
+                {% if not enrolled %}
+                <form method="post" action="{% url 'inclusive_app:course_enroll' course.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-3">
+                        Kursga yozilish
+                    </button>
+                </form>
+                {% else %}
+                {% if enrolled %}
+                <h4 class="fs-5 mt-3">Kursdagi jarayon: {{ course_progress }}%</h4>
+
+                <div class="progress">
+                    <div class="progress-bar"
+                         style="width: {{ course_progress }}%">
+                    </div>
+                </div>
+                {% else %}
+                <p>Kursga yozilmagansiz</p>
+                {% endif %}
+                <span class="badge bg-warning text-light"> Siz allaqachon bu kursga yozilgansiz</span>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'inclusive_app:login_user' %}" class="btn btn-outline-primary mt-3">
+                    Kirish va yozilish
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+const video = document.getElementById('lessonVideo');
+
+if (video) {
+    let sent = false;
+
+    video.addEventListener('timeupdate', function () {
+        if (!video.duration) return;
+
+        const percent =
+            (video.currentTime / video.duration) * 100;
+
+        if (percent >= 80 && !sent) {
+            sent = true;
+
+            fetch("{% url 'inclusive_app:mark_lesson_complete' lesson.id %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                }
+            });
+        }
+    });
+}
+
+
+
+
+{% endblock %}

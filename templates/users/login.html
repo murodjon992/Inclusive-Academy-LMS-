@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Kirish{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+
+<div class="pt-5 mt-5"></div>
+<div class="pt-2 mt-2"></div>
+  <h1 class="text-center">Kirish</h1>
+  <div class="container">
+  <div class="row">
+  <div class="col-6 offset-3">
+<form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+<!--    {{ form.as_p }}-->
+    <button class="btn btn-primary" type="submit">Login</button>
+</form>
+  </div>
+  </div>
+  </div>
+
+
+{% endblock%}

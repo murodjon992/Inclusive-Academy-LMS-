@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+
+
+ <div class="custom-breadcrumns border-bottom">
+      <div class="container">
+        <a href="index.html">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <a href="courses.html">Courses</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Courses</span>
+      </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+                    <p>
+                        <img src="{{ yangilik.image.url }}" alt="Image" class="img-fluid">
+                    </p>
+                </div>
+                <div class="col-lg-5 ml-auto align-self-center">
+                        <h2 class="section-title-underline mb-5">
+                            <span>{{ yangilik.title }}</span>
+                        </h2>
+                        <p class="mb-5"><strong class="text-black d-block">Sana:</strong>{{ yangilik.created_at|date:"d F Y" }}</p>
+
+                        <p>{{ yangilik.content|linebreaks }}</p>
+
+
+
+                        <p>
+                            <a href="{% url 'inclusive_app:index' %}#yangilik" class="btn btn-primary rounded-0 btn-lg px-5"><i class="icon-arrow-left"></i></a>
+                        </p>
+
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

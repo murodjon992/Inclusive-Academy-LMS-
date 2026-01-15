@@ -1,0 +1,201 @@
+ <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'inclusive_app:admin_dashboard' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard 12</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Testlar bo'limi</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_coursetest' %}">
+              <i class="bi bi-circle"></i><span>Test Qo'shish</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_question' %}">
+              <i class="bi bi-circle"></i><span>Savollar Qo'shish</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_variable' %}">
+              <i class="bi bi-circle"></i><span>Savollarga Variantlar</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Kurslar</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_course' %}">
+              <i class="bi bi-circle"></i><span>Kurslar turlari</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_coursemodule' %}">
+              <i class="bi bi-circle"></i><span>Kurs Bo'limlari</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_lesson' %}">
+              <i class="bi bi-circle"></i><span>Kurs Bo'lim Darslari</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-validation.html">
+              <i class="bi bi-circle"></i><span>Form Validation</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Foydalanuvchilar</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_user' %}">
+              <i class="bi bi-circle"></i><span>Foydalanuvchilar</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_courseenrollement' %}">
+              <i class="bi bi-circle"></i><span>Foydalanuvchi Kurslari</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_course_progress' %}">
+              <i class="bi bi-circle"></i><span>Kursdagi Holati</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>O'qitish Amaliyotlari</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-chartjs.html">
+              <i class="bi bi-circle"></i><span>Amaliyot Qo'shish</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_amaliyot'%}">
+              <i class="bi bi-circle"></i><span>Amaliyotlar Ro'yxati</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>ECharts</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Yangiliklar</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_yangiliklar'%}">
+              <i class="bi bi-circle"></i><span>Yangiliklar</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_sahifarasm'%}">
+              <i class="bi bi-circle"></i><span>Yangiliklari(Banner)</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#ikutubxona-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Kutubxona</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="ikutubxona-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_catkutubxona'%}">
+              <i class="bi bi-circle"></i><span>Kutubxona Bo'limlari</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_mankutubxona'%}">
+              <i class="bi bi-card-list"></i><span>Kutubxona Fayllar</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- End Icons Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-faq.html">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-register.html">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-login.html">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-error-404.html">
+          <i class="bi bi-dash-circle"></i>
+          <span>Error 404</span>
+        </a>
+      </li><!-- End Error 404 Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-blank.html">
+          <i class="bi bi-file-earmark"></i>
+          <span>Blank</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

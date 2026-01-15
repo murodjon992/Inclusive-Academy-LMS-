@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ test.title }}</title>
+</head>
+<body>
+
+<h1>{{ test.title }}</h1>
+<p>{{ test.description }}</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for q in questions %}
+        <h3>{{ forloop.counter }}. {{ q.text }}</h3>
+
+        {% for option in q.options.all %}
+            <label>
+                <input type="radio" name="{{ q.id }}" value="{{ option.id }}">
+                {{ option.text }}
+            </label><br>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+
+    <button type="submit">Testni Yakunlash</button>
+</form>
+
+</body>
+</html>

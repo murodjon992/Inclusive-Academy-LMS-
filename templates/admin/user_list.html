@@ -1,0 +1,103 @@
+{% extends "admin/base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+      <h1>Data Tables</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">Data</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+          <div class="col-lg-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Foydalanuvchi qo'shish</h5>
+                    <form method="post">
+                      {% csrf_token %}
+                      {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                    </form>
+
+                <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const userType = document.getElementById("id_user_type");
+  const schoolDiv = document.getElementById("div_id_school");
+  const universityDiv = document.getElementById("div_id_university");
+
+  function toggleFields() {
+    if (!userType) return;
+
+    if (userType.value === "teacher") {
+      schoolDiv.style.display = "block";
+      universityDiv.style.display = "none";
+    } else if (userType.value === "student") {
+      schoolDiv.style.display = "none";
+      universityDiv.style.display = "block";
+    }
+  }
+
+  toggleFields();
+  userType.addEventListener("change", toggleFields);
+});
+</script>
+
+
+          </div>
+          </div>
+          </div>
+        <div class="col-lg-9">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Datatables</h5>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">username</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Tug'ilgan sana</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                 <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.last_name }} {{ user.first_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.user_type }}</td>
+                    <td>{{ user.date_of_birth }}</td>
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-success" href="{% url 'inclusive_app:admin_add_user' user.id %}"><i class="bi bi-pen"></i></a>
+                        <a class="btn btn-sm btn-danger" href=""><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}
+

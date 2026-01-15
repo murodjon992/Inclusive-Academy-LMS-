@@ -1,0 +1,94 @@
+{% extends "admin/base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+      <h1>Form Layouts</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Layouts</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+
+ <div class="col-lg-3">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+               {% if course %}
+                        Kursni Tahrirlash
+                        {% else %}
+                        Kurs Qo'shish
+                        {% endif %}
+              </h5>
+
+              <!-- Vertical Form -->
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                        {% if course  %}
+                                <div class="my-3">
+                                    <img width="100" src="{{ course.image.url }}" alt="">
+                                </div>
+                        {% endif %}
+                    <button class="btn btn-success" type="submit">
+                        {% if course %}
+                            Kursni tahrirlash
+                        {% else %}
+                            Kurs qo'shish
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+          </div>
+ </div>
+<div class="col-lg-9">
+      <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Kurslar ro'yxati</h5>
+              <!-- Active Table -->
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nomi</th>
+                    <th>Davomiyligi</th>
+                    <th>Rasmi</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      {% for i in kurslar %}
+                  <tr>
+                    <th scope="row">{{ i.id }}</th>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.duration }}min</td>
+                      {% if i.image %}
+                    <td><img width="100" src="{{ i.image.url }}" alt=""></td>
+                      {% else %}
+                    <td>yoq </td>
+                      {% endif %}
+                    <td>
+                        <a href="{% url 'inclusive_app:admin_add_course' i.id %}" class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
+                        <a href="{% url 'inclusive_app:admin_delete_course' i.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                        {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Tables without borders -->
+
+            </div>
+          </div>
+</div>
+      </div>
+    </section>
+
+{% endblock %}

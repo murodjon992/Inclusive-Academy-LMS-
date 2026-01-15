@@ -1,0 +1,54 @@
+<header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <div class="site-logo">
+                <a href="{% url 'inclusive_app:index' %} " class="d-block">
+                    Inclusive ta'lim
+                </a>
+            </div>
+            <div class="mr-auto">
+                <nav class="site-navigation position-relative text-right" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                        <li class="active">
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Bosh sahifa</a>
+                        </li>
+                        <li class="has-children">
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">O'qitish amaliyoti</a>
+                            <ul class="dropdown">
+                                {% for amal in amaliyotlar %}
+                                <li><a href="">{{ amal }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kutubxona</a>
+                            <ul class="dropdown">
+                                <li><a href="">Online Do'kon</a></li>
+                                <li><a href="{% url 'inclusive_app:kutubxona' %}">Kutubxona</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="admissions.html" class="nav-link text-left">Yangiliklar</a>
+                        </li>
+                        <li class="has-children">
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kurslar</a>
+                            <ul class="dropdown">
+                                <li><a href="">Kurslar</a></li>
+                                <li><a href="">Videolar</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="nav-link text-left">Biz Haqimizda</a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="nav-link text-left">Yordam</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+</header>

@@ -1,0 +1,74 @@
+{% extends "admin/base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+      <h1>Form Layouts</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Layouts</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section">
+      <div class="row">
+
+ <div class="col-lg-3">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Test qo'shish</h5>
+
+              <!-- Vertical Form -->
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-success" type="submit">Test qo'shish</button>
+                </form>
+
+            </div>
+          </div>
+ </div>
+<div class="col-lg-9">
+      <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Test ro'yxati</h5>
+              <!-- Active Table -->
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Kurn Nomi</th>
+                    <th>Test Nomi</th>
+                    <th>O'tish Foizi</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      {% for i in testlar %}
+                  <tr>
+                    <th scope="row">{{ i.id }}</th>
+                    <td>{{ i.course }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.min_percentage }}%</td>
+                    <td>
+                        <a href="{% url 'inclusive_app:admin_add_coursetest' i.id %}" class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
+                        <a href="{% url 'inclusive_app:admin_delete_coursetest' i.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- End Tables without borders -->
+
+            </div>
+          </div>
+</div>
+      </div>
+    </section>
+
+{% endblock %}

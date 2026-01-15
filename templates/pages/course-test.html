@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+<div class="site-section">
+    <div class="container pt-5">
+<form method="post">
+    {% csrf_token %}
+
+    {% for q in questions %}
+        <p><h5 class="text-dark">{{ forloop.counter }}. {{ q.text }}</h5></p>
+
+        {% for a in q.answers.all %}
+            <label>
+                <input type="radio"
+                       name="question_{{ q.id }}"
+                       value="{{ a.id }}">
+                {{ a.text }}
+            </label><br>
+        {% endfor %}
+    {% endfor %}
+
+    <button class="btn btn-outline-warning" type="submit">Testni yakunlash</button>
+</form>
+    </div>
+    </div>
+{% endblock %}

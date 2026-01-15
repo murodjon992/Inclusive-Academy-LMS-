@@ -416,24 +416,30 @@ def kutubxona(request, cat_id=None):
 
 def course_detail(request,slug):
     course = Course.objects.prefetch_related('modules__lessons').get(slug=slug)
-    enrolled = False
+    quiz = CourseTest.objects.filter(course=course).first()
+    quiz_result = None
+    enrolled = None
     course_progress = 0
-
-
     if request.user.is_authenticated:
         enrolled = CourseEnrollment.objects.filter(
             user=request.user,
             course=course
         ).first()
-
         if enrolled:
-            course_progress = enrolled.get_course_progress()
+            course_progress = enrolled.progress
+    active_lesson = Lesson.objects.filter(
+        module__course=course
+    ).first()
 
-    return render(request, 'pages/course-detail.html', {'course': course,'enrolled': enrolled, 'course_progress': course_progress})
-
+    if request.user.is_authenticated and quiz:
+        quiz_result = QuizResult.objects.filter(
+            user=request.user,
+            quiz=quiz
+        ).first()
+    return render(request, 'pages/course-detail.html', {'course': course,'enrolled': enrolled, 'active_lesson': active_lesson, 'quiz_result':quiz_result, 'course_progress': course_progress})
 @login_required
 def mark_lesson_complete(request, lesson_id):
-    if request.method != 'POST':
+    if request.method != "POST":
         return HttpResponseNotAllowed(['POST'])
 
     lesson = get_object_or_404(Lesson, id=lesson_id)
@@ -444,17 +450,83 @@ def mark_lesson_complete(request, lesson_id):
         course=lesson.module.course
     )
 
-    progress, created = LessonProgress.objects.get_or_create(
+    progress_obj, created = LessonProgress.objects.get_or_create(
         enrollment=enrollment,
         lesson=lesson
     )
 
-    if not progress.is_completed:
-        progress.is_completed = True
-        progress.completed_at = timezone.now()
-        progress.save()
+    if not progress_obj.is_completed:
+        progress_obj.is_completed = True
+        progress_obj.completed_at = timezone.now()
+        progress_obj.save()
 
-    return JsonResponse({'status': 'ok'})
+        # 🔥 ENG MUHIM QISM
+        enrollment.get_course_progress()
+
+    return JsonResponse({"status": "ok"})
+
+@login_required
+def course_test(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+
+    enrollment = get_object_or_404(
+        CourseEnrollment,
+        user=request.user,
+        course=course
+    )
+
+    # ❌ agar kurs tugamagan bo‘lsa
+    if enrollment.get_course_progress() < 100:
+        return redirect('inclusive_app:course_detail', slug=course.slug)
+
+    quiz = get_object_or_404(CourseTest, course=course)
+    if request.method == 'POST':
+        correct = 0
+        total = quiz.questions.count()
+
+        for question in quiz.questions.all():
+            selected = request.POST.get(f'question_{question.id}')
+            if selected:
+                answer = Answer.objects.get(id=selected)
+                if answer.is_correct:
+                    correct += 1
+
+        score = int((correct / total) * 100)
+        passed = score >= quiz.min_percentage
+
+        QuizResult.objects.create(
+            user=request.user,
+            quiz=quiz,
+            score=score,
+            passed=passed
+        )
+
+        return redirect('inclusive_app:test_result', quiz.id)
+
+    # agar test allaqachon topshirilgan bo‘lsa
+    if QuizResult.objects.filter(user=request.user, quiz=quiz).exists():
+        return redirect('inclusive_app:test_result', quiz.id)
+
+    questions = quiz.questions.prefetch_related('answers')
+
+    return render(request, 'pages/course-test.html', {
+        'quiz': quiz,
+        'questions': questions
+    })
+@login_required
+def test_result(request, quiz_id):
+    quiz = get_object_or_404(CourseTest, id=quiz_id)
+
+    result = get_object_or_404(
+        QuizResult,
+        user=request.user,
+        quiz=quiz
+    )
+
+    return render(request, 'pages/test-result.html', {
+        'quiz': quiz,
+        'result': result
+    })
 
 
 @login_required

@@ -109,19 +109,22 @@ class CourseEnrollment(models.Model):
     def __str__(self):
         return f"{self.user} - {self.course}"
 
-    def get_course_progress(enrollment):
+    def get_course_progress(self):
         total_lessons = Lesson.objects.filter(
-            module__course=enrollment.course
+            module__course=self.course
         ).count()
-
-        completed_lessons = enrollment.lesson_progress.filter(
+        completed_lessons = self.lesson_progress.filter(
             is_completed=True
         ).count()
-
         if total_lessons == 0:
             return 0
-
-        return int((completed_lessons / total_lessons) * 100)
+        progress = int((completed_lessons / total_lessons) * 100)
+        # 100% bo‘lsa kurs tugadi
+        if progress == 100:
+            self.completed = True
+        self.progress = progress
+        self.save(update_fields=['progress', 'completed'])
+        return progress
 
 
 class LessonProgress(models.Model):

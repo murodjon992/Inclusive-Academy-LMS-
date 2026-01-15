@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+<div class="site-section">
+    <div class="container pt-5">
+    <h2>{{ quiz.title }}</h2>
+
+    <p class="fs-4">
+        Sizning natijangiz:
+        <b>{{ result.score }}%</b>
+    </p>
+
+    {% if result.passed %}
+        <div class="alert alert-success">
+            🎉 Tabriklaymiz! Siz testdan o‘tdingiz.
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            ❌ Afsus, siz testdan o‘ta olmadingiz.
+        </div>
+    {% endif %}
+
+    <a href="{% url 'inclusive_app:course_detail' quiz.course.slug %}"
+       class="btn btn-primary mt-3">
+        Kursga qaytish
+    </a>
+     <a href="{% url 'inclusive_app:teacher_dashboard' %}"
+       class="btn btn-info mt-3">
+        Profilga
+    </a>
+
+        </div>
+    </div>
+{% endblock %}

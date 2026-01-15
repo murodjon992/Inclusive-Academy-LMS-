@@ -19,7 +19,6 @@
             <div class="col-lg-8 ml-auto align-self-center">
                 <h2 class="section-title-underline mb-5">
                     <span>{{ course.title }}</span>
-
                 </h2>
                 <p class="mb-5"><strong class="text-black d-block">Davomiyligi:</strong>{{ course.duration }} min</p>
                 <ul class="ml-0">
@@ -28,28 +27,35 @@
                         <h5>{{ modul.title }}</h5>
                         <ul>
                             {% for dars in modul.lessons.all %}
-                            <li>
-                                <p>{{ dars.title }}</p>
-                                {% if user.is_authenticated and enrolled %}
-                                {% if dars.video %}
-                                <video id="lessonVideo" controls width="100%">
-                                    <source src="{{ dars.video.url }}" type="video/mp4">
-                                </video>
-                                {% endif %}
-                                <p>{{ dars.content }}</p>
-                                {% endif %}
-                            </li>
+                                <li>
+                                    <button class="lesson-btn btn my-2" {% if dars.video %} data-video-url="{{ dars.video.url }}" {% endif %} data-lesson-id="{{ dars.id }}">
+                                            ▶ {{ dars.title }}
+                                    </button>
+                                    <div class="lesson-content" id="content-{{ dars.id }}" style="display: none;">
+                                        <p>{{ dars.content|linebreaks }}</p>
+                                    </div>
+                                </li>
                             {% endfor %}
                         </ul>
                     </li>
                     {% endfor %}
                 </ul>
+                        {% if user.is_authenticated and enrolled %}
+                            <video id="lessonVideo" controls width="100%">
+                                <source id="videoSource" src="" type="video/mp4">
+                            </video>
+                            <div id="activeLessonContent"></div>
+                        {% endif %}
                 <p>
                     <a href="{% url 'inclusive_app:index' %}#courseDetail"
                        class="btn btn-primary rounded-0 btn-lg px-5"><i class="icon-arrow-left"></i></a>
                 </p>
                 {% if enrolled and course_progress == 100 %}
-                <a href="">Testni boshlash</a>
+                    {% if quiz_result %}
+                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-info">Natijani ko‘rish</a>
+                    {% else %}
+                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-primary">Testni boshlash</a>
+                    {% endif %}
                 {% else %}
                 <span class="text-light badge bg-danger">Test yopiq</span>
                 {% endif %}
@@ -89,30 +95,53 @@
     </div>
 </div>
 
-const video = document.getElementById('lessonVideo');
 
-if (video) {
-    let sent = false;
+<script>
+const video = document.getElementById("lessonVideo");
+const source = document.getElementById("videoSource");
+const contentBox = document.getElementById("activeLessonContent");
 
-    video.addEventListener('timeupdate', function () {
-        if (!video.duration) return;
+let currentLessonId = null;
+let sent = false;
+// CONTENT
 
-        const percent =
-            (video.currentTime / video.duration) * 100;
 
-        if (percent >= 80 && !sent) {
-            sent = true;
+document.querySelectorAll(".lesson-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        source.src = btn.dataset.videoUrl;
+        video.load();
 
-            fetch("{% url 'inclusive_app:mark_lesson_complete' lesson.id %}", {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',
-                }
-            });
-        }
+        currentLessonId = btn.dataset.lessonId;
+        sent = false;
+
+         const hiddenContent = document.getElementById(
+            `content-${currentLessonId}`
+        );
+
+        contentBox.innerHTML = hiddenContent
+            ? hiddenContent.innerHTML
+            : "";
+
+        console.log("ACTIVE LESSON:", currentLessonId, contentBox);
     });
-}
+});
 
+video.addEventListener("timeupdate", () => {
+    if (!video.duration || sent || !currentLessonId) return;
+
+    const percent = (video.currentTime / video.duration) * 100;
+
+    if (percent >= 80) {
+        sent = true;
+        fetch(`/lesson-complete/${currentLessonId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}"
+            }
+        });
+    }
+});
+</script>
 
 
 

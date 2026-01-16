@@ -19,6 +19,7 @@ urlpatterns = [
     path('course-enroll/<int:course_id>/', views.course_enroll, name='course_enroll'),
     path('kutubxona/', views.kutubxona, name='kutubxona'),
     path('kutubxona/category/<int:cat_id>', views.kutubxona, name='kutubxona_category'),
+    path('certificate/<int:course_id>/', views.download_certificate, name='download_certificate'),
     # admin uchun
     path('manage-admin/', views.admin_dashboard, name='admin_dashboard'),
     # Course uchun
@@ -56,7 +57,6 @@ urlpatterns = [
     path('admin-add-user/', views.admin_add_user, name='admin_add_user'),
     path('admin-edit-user/<int:user_id>', views.admin_add_user, name='admin_add_user'),
     # path('admin-sertificate-list/', views.admin_certificate_list, name='admin_certificate_list'),
-    # path('certificate/create/<int:result_id>/', views.create_certificate, name='create_certificate'),
     path('admin-add-amaliyot/', views.admin_add_amaliyot, name='admin_add_amaliyot'),
     path('admin-edit-amaliyot/<int:amaliyot_id>', views.admin_add_amaliyot, name='admin_add_amaliyot'),
     path('admin-delele-amaliyot/<int:amaliyot_id>', views.admin_delete_amaliyot, name='admin_delete_amaliyot'),

@@ -77,16 +77,25 @@
               <button class="btn btn-outline-secondary btn-sm">Avatarni o'zgartirish</button>
             </div>
           </div>
+            <hr>
+            <ul class="mt-3">
+{% for enroll in enrollments %}
 
+    <li>
+        <strong>{{ enroll.course.title }}</strong> kursi bo'yicha
 
-  <a href="" target="_blank" class="btn btn-success mt-4">
-    📄ning Sertifikatni yuklab olish
-  </a>
-
-
-
-  Sertifikat hali tayyor emas
-
+        {% for cert in certificates %}
+            {% if cert.course == enroll.course %}
+                <a href="{{ cert.pdf.url }}" class="btn btn-success btn-sm mt-3">
+                    Sertifikatni yuklab olish
+                </a>
+            {% endif %}
+        {% empty %}
+            <span class="badge bg-warning">Sertifikat yo‘q</span>
+        {% endfor %}
+    </li>
+{% endfor %}
+</ul>
         </div>
 
         <!-- Details -->
@@ -113,32 +122,26 @@
               </div>
             </div>
           </div>
-
-
            <div class="profile-box mb-4">
             <h6 class="mb-3">📄 Test ma'lumotlari</h6>
+            {% for i in natija %}
+
             <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">Test</label>
-                <div> i.test </div>
+              <div class="col-md-4 mb-3">
+                <label class="text-muted">Kurs</label>
+                <div>{{ i.quiz }} </div>
               </div>
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
                 <label class="text-muted">Test topshirilgan vaqt</label>
-                <div> i.taken_at|date:"d.m.Y H:i" </div>
+                <div> {{ i.completed_at|date:"d.m.Y H:i" }}</div>
               </div>
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">Jami Savollar</label>
-                <div> i.total_questions </div>
-              </div>
-              <div class="col-md-6 mb-3">
+              <div class="col-md-4 mb-3">
                 <label class="text-muted">To'plagan ball</label>
-                <div> i.score_percent </div>
+                <div> {{ i.score }} %</div>
               </div>
             </div>
+              {% endfor %}
           </div>
-
-            <p>Natijalar hozircha yo'q</p>
-
           <div class="profile-box">
             <h6 class="mb-3">🔐 Xavfsizlik</h6>
             <div class="d-flex justify-content-between align-items-center mb-3">

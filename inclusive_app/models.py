@@ -187,6 +187,12 @@ class Certificate(models.Model):
     pdf = models.FileField(upload_to='certificates/')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'course')
+
+    def __str__(self):
+        return f'{self.user} - {self.course}'
+
 class News(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)

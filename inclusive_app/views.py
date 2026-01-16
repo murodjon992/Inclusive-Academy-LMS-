@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer
 from .utils import fill_certificate
 from django.conf import settings
-from django.http import JsonResponse,HttpResponseNotAllowed
+from django.http import JsonResponse,HttpResponseNotAllowed,FileResponse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
@@ -530,6 +530,20 @@ def test_result(request, quiz_id):
 
 
 @login_required
+def download_certificate(request, course_id):
+    cert = get_object_or_404(
+        Certificate,
+        user=request.user,
+        course_id=course_id
+    )
+
+    return FileResponse(
+        cert.pdf.open(),
+        as_attachment=True,
+        filename=f"certificate_{cert.course.slug}.pdf"
+    )
+
+@login_required
 def course_enroll(request, course_id):
     course = get_object_or_404(Course, id=course_id, is_active=True)
 
@@ -570,8 +584,13 @@ def student_dashboard(request):
 
 @login_required
 def teacher_dashboard(request):
+    certificates = Certificate.objects.filter(user=request.user).select_related('course')
+    enrollments = CourseEnrollment.objects.filter(
+        user=request.user
+    ).select_related('course')
+    natija = QuizResult.objects.filter(user=request.user)
     user = request.user
-    return render(request, 'users/teacher_dashboard.html', {'user': user})
+    return render(request, 'users/teacher_dashboard.html', {'user': user,'certificates': certificates, 'enrollments': enrollments,'natija': natija})
 
 def login_user(request):
     if request.user.is_authenticated:

@@ -12,10 +12,7 @@ class RegistrationForm(UserCreationForm):
     last_name = forms.CharField(label='Familiyangiz', widget=forms.TextInput(attrs={'type': 'text'}), required=True)
     date_of_birth = forms.DateField(label='Tug`ilgan sana', widget=forms.DateInput(attrs={'type': 'date'}), required=False)
 
-    user_type = forms.ChoiceField(
-        choices=CustomUser.USER_TYPE_CHOICES,
-        label='Foydalanuvchi turi'
-    )
+    user_type = forms.ChoiceField(choices=CustomUser.USER_TYPE_CHOICES,label='Foydalanuvchi turi')
 
     class Meta:
         model = CustomUser
@@ -90,6 +87,13 @@ class LoginForm(forms.Form):
 
         cleaned_data["user"] = user
         return cleaned_data
+
+class CustomUserForm(forms.ModelForm):
+    date_of_birth = forms.DateField(label='Tug`ilgan sana', widget=forms.DateInput(attrs={'type': 'date'}),required=False)
+    user_type = forms.ChoiceField(choices=CustomUser.USER_TYPE_CHOICES, label='Foydalanuvchi turi')
+    class Meta:
+        model = CustomUser
+        fields = ['first_name','last_name', 'date_of_birth','user_type']
 
 class AmaliyotTuriForm(forms.ModelForm):
     class Meta:

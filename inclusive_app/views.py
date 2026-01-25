@@ -1,5 +1,5 @@
 from django.contrib import messages
-from .forms import RegistrationForm, LoginForm, AdminUserCreateForm,AmaliyotTuriForm,NewsForm,SahifaRasmiForm,CourseForm,QuestionForm,QuizForm,CourseModuleForm,LessonForm,CourseEnrollmentForm,AnswerForm,KutubxonaCategoryForm,KutubxonaItemForm,AmaliyotItemForm,AmaliyotVideoForm,AmaliyotSectionForm,RelatedPracticeForm
+from .forms import RegistrationForm, LoginForm, AdminUserCreateForm,AmaliyotTuriForm,NewsForm,SahifaRasmiForm,CourseForm,QuestionForm,QuizForm,CourseModuleForm,LessonForm,CourseEnrollmentForm,AnswerForm,KutubxonaCategoryForm,KutubxonaItemForm,AmaliyotItemForm,AmaliyotVideoForm,AmaliyotSectionForm,RelatedPracticeForm,CustomUserForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,8 @@ from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRas
 from django.http import JsonResponse,HttpResponseNotAllowed,FileResponse
 from django.utils import timezone
 import mimetypes
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
 # =============================== COURSE ==========================
 def admin_add_course(request,course_id=None):
@@ -749,10 +751,6 @@ def register_view(request):
         form = RegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
-@login_required
-def student_dashboard(request):
-    user = request.user
-    return render(request, 'users/student_dashboard.html', {'user': user})
 
 @login_required
 def teacher_dashboard(request):
@@ -762,7 +760,28 @@ def teacher_dashboard(request):
     ).select_related('course')
     natija = QuizResult.objects.filter(user=request.user)
     user = request.user
-    return render(request, 'users/teacher_dashboard.html', {'user': user,'certificates': certificates, 'enrollments': enrollments,'natija': natija})
+    return render(request, 'users/user-dashboard.html', {'user': user,'certificates': certificates, 'enrollments': enrollments,'natija': natija})
+
+@login_required
+def teacher_edit_dashboard(request,user_id):
+    if request.user.id != user_id:
+        return redirect('inclusive_app:user_dashboard')
+
+    user = get_object_or_404(CustomUser, id=user_id)
+
+    if request.method == "POST":
+        form = CustomUserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:teacher_dashboard')
+    else:
+        form = CustomUserForm(instance=user)
+    return render(request, 'users/user-edit-dashboard.html', {'form': form})
+
+
+class UserPasswordChangeView(PasswordChangeView):
+    template_name = 'users/password_change.html'
+    success_url = reverse_lazy('inclusive_app:teacher_dashboard')
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -776,10 +795,8 @@ def login_user(request):
             login(request, user)
             if user.is_superuser:
                 return redirect('inclusive_app:admin_dashboard')  # keyin bu urlni yaratasiz
-            elif user.user_type == 'teacher':
-                return redirect('inclusive_app:teacher_dashboard')
             else:
-                return redirect('inclusive_app:student_dashboard')
+                return redirect('inclusive_app:teacher_dashboard')
     else:
         form = LoginForm()
 

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body { background: #eef2f7; }
+    .sidebar {
+      background: #ffffff;
+      min-height: 100vh;
+      border-right: 1px solid #dee2e6;
+    }
+    .sidebar a {
+      display: block;
+      padding: 12px 16px;
+      color: #495057;
+      text-decoration: none;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+    .sidebar a.active, .sidebar a:hover {
+      background: #0d6efd;
+      color: #fff;
+    }
+    .profile-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 sidebar p-3">
+      <h5 class="mb-4">👤 My Account</h5>
+      <a href="{% url 'inclusive_app:index' %}">Bosh Sahifa</a>
+      <a href="#" class="active"><i class="bi bi-person me-2"></i> Profil</a>
+      <a href="#"><i class="bi bi-bell me-2"></i> Bildirishnomalar</a>
+      <a href="#"><i class="bi bi-shield-lock me-2"></i> Xavfsizlik</a>
+      <a href="#"><i class="bi bi-gear me-2"></i> Sozlamalar</a>
+      <a href="{% url 'inclusive_app:user_logout' %} " class="text-danger"><i class="bi bi-box-arrow-right me-2"></i> Chiqish</a>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 col-lg-10 p-4">
+      <h3 class="mb-4">{{ user.first_name }} Dashboard</h3>
+
+      <div class="row g-4">
+        <!-- Profile summary -->
+        <div class="col-lg-4">
+          <div class="profile-box text-center">
+            <img src="" class="avatar mb-3">
+            <h5>{{ user.last_name }} {{ user.first_name }}</h5>
+            <p class="text-muted mb-2">
+              {% if user.user_type == 'teacher' %}
+                O'qituvchi
+                {% else %}
+                Talaba
+                {% endif %}
+            </p>
+            <span class="badge bg-success mb-3">Faol</span>
+            <div class="d-grid gap-2 mt-3">
+              <a href="{% url 'inclusive_app:teacher_edit_dashboard' user.id  %}" class="btn btn-outline-primary btn-sm">Profilni tahrirlash</a>
+              <button class="btn btn-outline-secondary btn-sm">Avatarni o'zgartirish</button>
+            </div>
+          </div>
+            <hr>
+            <ul class="mt-3">
+{% for enroll in enrollments %}
+    <li>
+        <strong>{{ enroll.course.title }}</strong> kursi bo'yicha
+        {% for cert in certificates %}
+            {% if cert.course == enroll.course %}
+                <a href="{{ cert.pdf.url }}" class="btn btn-success btn-sm mt-3">
+                    Sertifikatni yuklab olish
+                </a>
+            {% endif %}
+        {% empty %}
+            <span class="badge bg-warning">Sertifikat yo‘q</span>
+        {% endfor %}
+    </li>
+{% endfor %}
+</ul>
+        </div>
+
+        <!-- Details -->
+
+        <div class="col-lg-8">
+           <div class="profile-box mb-4">
+            <h6 class="mb-3">📄 Test ma'lumotlari</h6>
+             {% if natija %}
+            {% for i in natija %}
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="text-muted">Kurs</label>
+                <div>{{ i.quiz }} </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="text-muted">Test topshirilgan vaqt</label>
+                <div> {{ i.completed_at|date:"d.m.Y H:i" }}</div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="text-muted">To'plagan ball</label>
+                <div> {{ i.score }} %</div>
+              </div>
+            </div>
+              {% endfor %}
+             {% else %}
+             <p>Hozircha hechqanday test topshirmagansiz</p>
+             {% endif %}
+          </div>
+          <div class="profile-box">
+            <h6 class="mb-3">🔐 Xavfsizlik</h6>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span>Parol</span>
+              <a href="{% url 'inclusive_app:password_change' %}" class="btn btn-sm btn-outline-primary">O'zgartirish</a>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>Ikki bosqichli himoya</span>
+              <span class="badge bg-warning">O'chirilgan</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

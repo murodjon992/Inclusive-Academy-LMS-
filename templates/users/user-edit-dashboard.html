@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+{% load crispy_forms_tags %}
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -73,17 +74,15 @@
             </p>
             <span class="badge bg-success mb-3">Faol</span>
             <div class="d-grid gap-2 mt-3">
-              <button class="btn btn-outline-primary btn-sm">Profilni tahrirlash</button>
+              <a href="{% url 'inclusive_app:teacher_dashboard'  %}" class="btn btn-outline-primary btn-sm">Profilni tahrirlash</a>
               <button class="btn btn-outline-secondary btn-sm">Avatarni o'zgartirish</button>
             </div>
           </div>
             <hr>
             <ul class="mt-3">
 {% for enroll in enrollments %}
-
     <li>
         <strong>{{ enroll.course.title }}</strong> kursi bo'yicha
-
         {% for cert in certificates %}
             {% if cert.course == enroll.course %}
                 <a href="{{ cert.pdf.url }}" class="btn btn-success btn-sm mt-3">
@@ -100,59 +99,14 @@
 
         <!-- Details -->
 
-        <div class="col-lg-8">
-          <div class="profile-box mb-4">
-            <h6 class="mb-3">📄 Asosiy ma'lumotlar</h6>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">Email</label>
-                <div>madina@mail.com</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">Telefon</label>
-                <div>+998 93 555 44 33</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">Shahar</label>
-                <div>Samarqand</div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label class="text-muted">A'zo bo'lgan sana</label>
-                <div>2024-03-12</div>
-              </div>
-            </div>
-          </div>
-           <div class="profile-box mb-4">
-            <h6 class="mb-3">📄 Test ma'lumotlari</h6>
-            {% for i in natija %}
-
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <label class="text-muted">Kurs</label>
-                <div>{{ i.quiz }} </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="text-muted">Test topshirilgan vaqt</label>
-                <div> {{ i.completed_at|date:"d.m.Y H:i" }}</div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="text-muted">To'plagan ball</label>
-                <div> {{ i.score }} %</div>
-              </div>
-            </div>
-              {% endfor %}
-          </div>
-          <div class="profile-box">
-            <h6 class="mb-3">🔐 Xavfsizlik</h6>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <span>Parol</span>
-              <button class="btn btn-sm btn-outline-primary">O'zgartirish</button>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <span>Ikki bosqichli himoya</span>
-              <span class="badge bg-warning">O'chirilgan</span>
-            </div>
-          </div>
+        <div class="col-lg-6 offset-lg-1">
+            <div class="profile-box p-5">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-outline-info" type="submit">Yangilash</button>
+            </form>
+                </div>
         </div>
       </div>
 

@@ -73,10 +73,9 @@
                 </form>
                 {% else %}
                 {% if enrolled %}
-                <h4 class="fs-5 mt-3">Kursdagi jarayon: {{ course_progress }}%</h4>
-
+                <h4 class="fs-5 mt-3">Kursdagi jarayon: <span id="progressPercent"> {{ course_progress }}</span>%</h4>
                 <div class="progress">
-                    <div class="progress-bar"
+                    <div id="progressBar" class="progress-bar"
                          style="width: {{ course_progress }}%">
                     </div>
                 </div>
@@ -98,6 +97,8 @@
 
 <script>
 const video = document.getElementById("lessonVideo");
+const progressBar = document.getElementById('progressBar');
+const progressPercent = document.getElementById('progressPercent');
 const source = document.getElementById("videoSource");
 const contentBox = document.getElementById("activeLessonContent");
 
@@ -130,7 +131,8 @@ video.addEventListener("timeupdate", () => {
     if (!video.duration || sent || !currentLessonId) return;
 
     const percent = (video.currentTime / video.duration) * 100;
-
+    progressBar.style.width = percent + '%';
+    progressPercent.textContent = Math.floor(percent);
     if (percent >= 80) {
         sent = true;
         fetch(`/lesson-complete/${currentLessonId}/`, {

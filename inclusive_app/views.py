@@ -1,15 +1,12 @@
 from django.contrib import messages
-from .forms import RegistrationForm, LoginForm, AdminUserCreateForm,AmaliyotTuriForm,NewsForm,SahifaRasmiForm,CourseForm,QuestionForm,QuizForm,CourseModuleForm,LessonForm,CourseEnrollmentForm,AnswerForm,KutubxonaCategoryForm,KutubxonaItemForm
-from django.db.models import Count
+from .forms import RegistrationForm, LoginForm, AdminUserCreateForm,AmaliyotTuriForm,NewsForm,SahifaRasmiForm,CourseForm,QuestionForm,QuizForm,CourseModuleForm,LessonForm,CourseEnrollmentForm,AnswerForm,KutubxonaCategoryForm,KutubxonaItemForm,AmaliyotItemForm,AmaliyotVideoForm,AmaliyotSectionForm,RelatedPracticeForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer
-from .utils import fill_certificate
-from django.conf import settings
+from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice
 from django.http import JsonResponse,HttpResponseNotAllowed,FileResponse
 from django.utils import timezone
-from django.views.decorators.http import require_POST
+import mimetypes
 
 # =============================== COURSE ==========================
 def admin_add_course(request,course_id=None):
@@ -144,26 +141,35 @@ def admin_delete_courseenrollement(request,courseenroll_id):
 # ================== COURSE PROGRESS ==========================
 def admin_course_progress(request):
     enrollments = CourseEnrollment.objects.select_related('user', 'course')
+
     data = []
     for e in enrollments:
-        total = e.course.lessons.count()
-        completed = LessonProgress.objects.filter(
-            user=e.user,
-            lesson__course=e.course,
-            completed=True
+        total = Lesson.objects.filter(
+            module__course=e.course
         ).count()
+
+        completed = LessonProgress.objects.filter(
+            enrollment=e,
+            is_completed=True
+        ).count()
+
         progress = int((completed / total) * 100) if total > 0 else 0
         quiz_unlocked = progress == 100
+
         data.append({
             'user': e.user,
             'course': e.course,
             'completed': completed,
             'total': total,
             'progress': progress,
-            'quiz_unlocked': quiz_unlocked
+            'quiz_unlocked': quiz_unlocked,
         })
 
-    return render(request, 'admin/lesson-progress.html', {'data': data})
+    return render(
+        request,
+        'admin/lesson-progress.html',
+        {'data': data}
+    )
 # ================== COURSE PROGRESS END ==========================
 
 # =================== SAVOLLAR ==========================
@@ -362,10 +368,16 @@ def admin_add_user(request,user_id=None):
         form = AdminUserCreateForm(instance=user)
         users = CustomUser.objects.all().prefetch_related('test_results')
         foydalanuvchi = request.user
-        results = foydalanuvchi.test_results.select_related('test').all()
+        results = foydalanuvchi.test_results.select_related('quiz').all()
     return render(request, "admin/user_list.html",{'users': users,'form': form,'user': user,'results': results})
 
-
+def admin_delete_user(request,user_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    user = get_object_or_404(CustomUser, id=user_id)
+    user.delete()
+    return redirect('inclusive_app:admin_add_user')
+# ================== AMALIYOTLAR ==========================
 def admin_add_amaliyot(request,amaliyot_id=None):
     if not request.user.is_superuser:
         return redirect("inclusive_app:login_user")
@@ -389,8 +401,113 @@ def admin_delete_amaliyot(request,amaliyot_id):
     amaliyot = get_object_or_404(AmaliyotTuri, id=amaliyot_id)
     amaliyot.delete()
     return redirect('inclusive_app:admin_add_amaliyot')
+# ================== AMALIYOTLAR END ======================
+# ================== AMALIYOT ITEMLAR ==========================
+def admin_add_amaliyotitem(request,amaliyotitem_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if amaliyotitem_id:
+        amaliyotitem = get_object_or_404(AmaliyotItem, id=amaliyotitem_id)
+    else:
+        amaliyotitem = None
+    if request.method == "POST":
+        form = AmaliyotItemForm(request.POST, request.FILES, instance=amaliyotitem)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_amaliyotitem')
+    else:
+        form = AmaliyotItemForm(instance=amaliyotitem)
+        amaliyotItemlar = AmaliyotItem.objects.all()
+    return render(request, 'admin/add-amaliyotitem.html', {'form': form, 'amaliyotItemlar': amaliyotItemlar,'amaliyotitem': amaliyotitem})
+
+def admin_delete_amaliyotitem(request,amaliyotitem_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    amaliyotitem = get_object_or_404(AmaliyotItem, id=amaliyotitem_id)
+    amaliyotitem.delete()
+    return redirect('inclusive_app:admin_add_amaliyotitem')
+# ================== AMALIYOT ITEMLAR END ======================
+# ================== AMALIYOT RELATED ITEMLAR ==========================
+def admin_add_relatedamaliyot(request,relamal_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+
+    if relamal_id:
+        relamal = get_object_or_404(RelatedPractice, id=relamal_id)
+    else:
+        relamal = None
+
+    if request.method == "POST":
+        form = RelatedPracticeForm(request.POST, instance=relamal)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_relatedamaliyot')
+    else:
+        form = RelatedPracticeForm(instance=relamal)
+    items = RelatedPractice.objects.select_related(
+            'from_item', 'to_item'
+        )
+    return render(request, 'admin/relatedamaliyot.html', {'form': form,'items': items})
 
 
+def admin_delete_relatedamaliyot(request,relamal_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    relamal = get_object_or_404(RelatedPractice, id=relamal_id)
+    relamal.delete()
+    return redirect('inclusive_app:admin_add_relatedamaliyot')
+
+# ================== AMALIYOT RELATED ITEMLAR END ======================
+# ================== AMALIYOT VIDEOLAR ==========================
+def admin_add_amaliyotvideo(request,amaliyotvideo_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if amaliyotvideo_id:
+        amaliyotvideo = get_object_or_404(AmaliyotVideo, id=amaliyotvideo_id)
+    else:
+        amaliyotvideo = None
+    if request.method == "POST":
+        form = AmaliyotVideoForm(request.POST, request.FILES, instance=amaliyotvideo)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_amaliyotvideo')
+    else:
+        form = AmaliyotVideoForm(instance=amaliyotvideo)
+        amaliyotVideolar = AmaliyotVideo.objects.all()
+    return render(request, 'admin/add-amaliyotvideo.html', {'form': form, 'amaliyotVideolar': amaliyotVideolar,'amaliyotvideo': amaliyotvideo})
+
+def admin_delete_amaliyotvideo(request,amaliyotvideo_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    amaliyotvideo = get_object_or_404(AmaliyotVideo, id=amaliyotvideo_id)
+    amaliyotvideo.delete()
+    return redirect('inclusive_app:admin_add_amaliyotvideo')
+# ================== AMALIYOT VIDEOLAR END ======================
+# ================== AMALIYOT SECTIONLAR ==========================
+def admin_add_amaliyotsection(request,amaliyotsection_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if amaliyotsection_id:
+        amaliyotsection = get_object_or_404(AmaliyotSection, id=amaliyotsection_id)
+    else:
+        amaliyotsection = None
+    if request.method == "POST":
+        form = AmaliyotSectionForm(request.POST, request.FILES, instance=amaliyotsection)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_amaliyotsection')
+    else:
+        form = AmaliyotSectionForm(instance=amaliyotsection)
+        amaliyotSectionlar = AmaliyotSection.objects.all()
+    return render(request, 'admin/add-amaliyotsection.html', {'form': form, 'amaliyotSectionlar': amaliyotSectionlar,'amaliyotsection': amaliyotsection})
+
+def admin_delete_amaliyotsection(request,amaliyotsection_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    amaliyotsection = get_object_or_404(AmaliyotSection, id=amaliyotsection_id)
+    amaliyotsection.delete()
+    return redirect('inclusive_app:admin_add_amaliyotsection')
+# ================== AMALIYOT SECTIONLAR END ======================
 # User Views
 def index(request):
     amaliyotlar = AmaliyotTuri.objects.all()
@@ -403,6 +520,34 @@ def yangilik_detail(request,slug):
     yangilik = get_object_or_404(News, slug=slug,is_published=True)
     return render(request, 'pages/yangilik-detail.html', {'yangilik': yangilik})
 
+def amaliyot_items(request, slug):
+    tur = get_object_or_404(AmaliyotTuri, slug=slug)
+    items = tur.items.all().order_by('-created_at')
+
+    return render(request, 'pages/oqitish-amaliyoti.html', {
+        'tur': tur,
+        'items': items
+    })
+
+def amaliyot_item_detail(request, tur_slug, item_slug):
+    tur = get_object_or_404(AmaliyotTuri, slug=tur_slug)
+    item = get_object_or_404(
+        AmaliyotItem,
+        slug=item_slug,
+        turi=tur
+    )
+
+    related_items = RelatedPractice.objects.filter(
+        from_item=item
+    ).select_related('to_item')
+
+
+    return render(request, 'pages/amaliyot-detail.html', {
+        'tur': tur,
+        'item': item,
+        'related_items': related_items
+    })
+
 def kutubxona(request, cat_id=None):
     manbalar = KutubxonaCategory.objects.all()
     items = KutubxonaItem.objects.filter(is_active=True)
@@ -412,7 +557,34 @@ def kutubxona(request, cat_id=None):
     if cat_id:
         active_category = get_object_or_404(KutubxonaCategory, id=cat_id)
         items = items.filter(category=active_category)
+
+
     return render(request, 'pages/kutubxona.html', {'manbalar': manbalar, 'items': items, 'active_category': active_category})
+
+def kutubxona_file_view(request, pk):
+    item = get_object_or_404(KutubxonaItem, pk=pk, is_active=True)
+
+    file_path = item.file.path
+    mime_type, _ = mimetypes.guess_type(file_path)
+
+    # Agar Word bo‘lsa — yuklab olish
+    if mime_type in [
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    ]:
+        return FileResponse(
+            open(file_path, 'rb'),
+            as_attachment=True,
+            filename=item.file.name
+        )
+
+    # PDF va boshqalar — ko‘rish
+    return FileResponse(
+        open(file_path, 'rb'),
+        content_type=mime_type,
+        as_attachment=False
+    )
+
 
 def course_detail(request,slug):
     course = Course.objects.prefetch_related('modules__lessons').get(slug=slug)

@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+{% block title %}Bosh sahifa{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="pagetitle">
+    <h1>Form Layouts</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">Forms</li>
+            <li class="breadcrumb-item active">Layouts</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+<section class="section">
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Related Amaliyotlar</h5>
+                    <!-- Vertical Form -->
+                    <h2>Related Practices</h2>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button class="btn btn-primary" type="submit">Saqlash</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Related Amaliyotlar ro'yxati</h5>
+                    <!-- Active Table -->
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nomi</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in items %}
+                        <tr>
+                            <th scope="row">{{ i.id }}</th>
+                            <td>{{ i }}</td>
+                            <td>
+                                <a href="{% url 'inclusive_app:admin_add_relatedamaliyot' i.id %}" class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
+                                <a href="{% url 'inclusive_app:admin_delete_relatedamaliyot' i.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Tables without borders -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

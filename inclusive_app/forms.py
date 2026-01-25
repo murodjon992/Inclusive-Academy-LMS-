@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Certificate,Lesson,LessonProgress,QuizResult,Answer
+from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Lesson,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column
 from django.contrib.auth import authenticate
@@ -95,6 +95,34 @@ class AmaliyotTuriForm(forms.ModelForm):
     class Meta:
         model = AmaliyotTuri
         fields = ['nomi']
+
+class AmaliyotItemForm(forms.ModelForm):
+    class Meta:
+        model = AmaliyotItem
+        exclude = ('slug',)
+
+class RelatedPracticeForm(forms.ModelForm):
+    class Meta:
+        model = RelatedPractice
+        fields = ['from_item', 'to_item']
+
+    def clean(self):
+        cleaned = super().clean()
+        if cleaned.get('from_item') == cleaned.get('to_item'):
+            raise forms.ValidationError(
+                "Bir xil amaliyotni o‘ziga bog‘lab bo‘lmaydi"
+            )
+        return cleaned
+
+class AmaliyotVideoForm(forms.ModelForm):
+    class Meta:
+        model = AmaliyotVideo
+        fields = '__all__'
+
+class AmaliyotSectionForm(forms.ModelForm):
+    class Meta:
+        model = AmaliyotSection
+        fields = '__all__'
 
 class AdminUserCreateForm(forms.ModelForm):
     password1 = forms.CharField(label='Parol', widget=forms.PasswordInput)

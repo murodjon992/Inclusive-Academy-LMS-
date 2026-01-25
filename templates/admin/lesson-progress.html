@@ -24,6 +24,7 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>#</th>
                             <th>User</th>
                             <th>Course</th>
                             <th>Lessons</th>
@@ -34,6 +35,7 @@
                         <tbody>
                         {% for row in data %}
                         <tr>
+                            <td>{{ forloop.counter }}</td>
                             <td>{{ row.user.username }}</td>
                             <td>{{ row.course.title }}</td>
                             <td>{{ row.completed }} / {{ row.total }}</td>

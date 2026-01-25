@@ -16,7 +16,7 @@
                             <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">O'qitish amaliyoti</a>
                             <ul class="dropdown">
                                 {% for amal in amaliyotlar %}
-                                <li><a href="">{{ amal }}</a></li>
+                                <li><a href="{% url 'inclusive_app:amaliyot_items' amal.slug %}">{{ amal }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>

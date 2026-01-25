@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.db import models
+import re
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 # Create your models here.
@@ -20,25 +21,109 @@ class AmaliyotTuri(models.Model):
     nomi = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.nomi)
             slug = base_slug
             counter = 1
-
             while AmaliyotTuri.objects.filter(slug=slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
-
             self.slug = slug
         super().save(*args, **kwargs)
     class Meta:
         verbose_name = "Amaliyot turi"
         verbose_name_plural = "Amaliyot turlari"
-
     def __str__(self):
         return self.nomi
+class AmaliyotItem(models.Model):
+    turi = models.ForeignKey(
+        AmaliyotTuri,
+        related_name='items',
+        on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='amaliyot/images/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            while AmaliyotItem.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+    def __str__(self):
+        return self.title
+class AmaliyotVideo(models.Model):
+    item = models.ForeignKey(
+        AmaliyotItem,
+        related_name='videos',
+        on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255)
+    youtube_url = models.URLField()
+    duration = models.CharField(max_length=20, blank=True)
+    order = models.PositiveIntegerField(default=1)
+    class Meta:
+        ordering = ['order']
+    def embed_url(self):
+        """
+        https://youtu.be/abc
+        https://www.youtube.com/watch?v=abc
+        """
+        patterns = [
+            r'youtu\.be/(?P<id>[^/?]+)',
+            r'youtube\.com/watch\?v=(?P<id>[^&]+)'
+        ]
+
+        for p in patterns:
+            match = re.search(p, self.youtube_url)
+            if match:
+                return f"https://www.youtube.com/embed/{match.group('id')}"
+
+        return None
+    def __str__(self):
+        return self.title
+class AmaliyotSection(models.Model):
+    item = models.ForeignKey(
+        AmaliyotItem,
+        related_name='sections',
+        on_delete=models.CASCADE
+    )
+    title = models.CharField(max_length=255)
+    # In the classroom, Practice toolkit, Resources...
+    content = models.TextField()
+    order = models.PositiveIntegerField(default=1)
+    class Meta:
+        ordering = ['order']
+    def __str__(self):
+        return f"{self.item.title} - {self.title}"
+
+
+class RelatedPractice(models.Model):
+    from_item = models.ForeignKey(
+        AmaliyotItem,
+        related_name='related_from',
+        on_delete=models.CASCADE
+    )
+    to_item = models.ForeignKey(
+        AmaliyotItem,
+        related_name='related_to',
+        on_delete=models.CASCADE
+    )
+    order = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ('from_item', 'to_item')
+        ordering = ['order']
+    def __str__(self):
+        return f"{self.from_item} → {self.to_item}"
+
 
 
 # ===================================== OXIRIGI O'ZGARISHLAR =====================================
@@ -171,7 +256,7 @@ class Answer(models.Model):
         return self.text
 
 class QuizResult(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='test_results', on_delete=models.CASCADE)
     quiz = models.ForeignKey(CourseTest, on_delete=models.CASCADE)
     score = models.FloatField()
     passed = models.BooleanField(default=False)

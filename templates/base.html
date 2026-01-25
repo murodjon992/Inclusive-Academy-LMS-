@@ -51,10 +51,11 @@
           </div>
           <div class="col-lg-4 text-right">
             {% if request.user.is_authenticated %}
-                {% if user.user_type == 'teacher' %}
-                  <a href="{% url 'inclusive_app:teacher_dashboard' %}" class="small btn btn-primary px-4 py-2 rounded-0">Kabinet</a>
+
+                {% if user.username == 'admin' %}
+                  <a href="{% url 'inclusive_app:admin_dashboard' %}" class="small btn btn-primary px-4 py-2 rounded-0">Kabinet</a>
                 {% else %}
-                  <a href="{% url 'inclusive_app:student_dashboard' %}" class="small btn btn-primary px-4 py-2 rounded-0">Kabinet</a>
+                  <a href="{% url 'inclusive_app:teacher_dashboard' %}" class="small btn btn-primary px-4 py-2 rounded-0">Kabinet</a>
                 {% endif %}
             {% else %}
             <a href="{% url 'inclusive_app:login_user' %}" class="small mr-3"><span class="icon-unlock-alt"></span> Kirish</a>

@@ -518,6 +518,17 @@ def index(request):
     bannerlar = SahifaRasmi.objects.filter(is_published=True).order_by('-created_at')[:3]
     return render(request, 'pages/index.html', {'amaliyotlar': amaliyotlar,'yangiliklar': yangiliklar,'bannerlar': bannerlar, 'darslar': darslar})
 
+
+def kurslar(request,cat_id=None):
+    kurslar = Course.objects.prefetch_related('modules__lessons')
+
+    active_category = None
+
+    if cat_id:
+        active_category = get_object_or_404(kurslar, id=cat_id)
+    return render(request, 'pages/kurslar.html', {'kurslar': kurslar, 'active_category': active_category})
+
+
 def yangilik_detail(request,slug):
     yangilik = get_object_or_404(News, slug=slug,is_published=True)
     return render(request, 'pages/yangilik-detail.html', {'yangilik': yangilik})

@@ -61,6 +61,7 @@
                     <th>#</th>
                     <th>Nomi</th>
                     <th>Vaqti</th>
+                    <th>Youtube</th>
                     <th>Rasmi</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -71,7 +72,18 @@
                     <th scope="row">{{ i.id }}</th>
                     <td>{{ i.title }}</td>
                     <td>{{ i.created_at }}</td>
-                    <td><img width="100" src="{{ i.image.url }}" alt=""></td>
+                    <td>
+                        {% if i.youtube_link %}
+                       <div class="mb-3">
+                        <iframe width="200" height="115" src="{{ i.youtube_link }}" title="{{ i.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.image %}
+                        <img width="100" src="{{ i.image.url }}" alt="">
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{% url 'inclusive_app:admin_add_yangiliklar' i.id %}" class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
                         <a href="{% url 'inclusive_app:admin_delete_yangiliklar' i.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>

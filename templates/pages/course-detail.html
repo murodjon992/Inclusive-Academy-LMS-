@@ -3,6 +3,14 @@
 {% block content %}
 {% load static %}
 
+<style>
+    .tugma:hover{
+        background-color: #3a0ca3;
+        color: #fff !important;
+    }
+
+</style>
+
 <div class="custom-breadcrumns border-bottom">
     <div class="container">
         <a href="index.html">Home</a>
@@ -28,7 +36,7 @@
                         <ul>
                             {% for dars in modul.lessons.all %}
                                 <li>
-                                    <button class="lesson-btn btn my-2" {% if dars.video %} data-video-url="{{ dars.video.url }}" {% endif %} data-lesson-id="{{ dars.id }}">
+                                    <button class="lesson-btn btn bg-siyoh text-light my-2" {% if dars.video %} data-video-url="{{ dars.video.url }}" {% endif %} data-lesson-id="{{ dars.id }}">
                                             ▶ {{ dars.title }}
                                     </button>
                                     <div class="lesson-content" id="content-{{ dars.id }}" style="display: none;">
@@ -48,7 +56,7 @@
                         {% endif %}
                 <p>
                     <a href="{% url 'inclusive_app:index' %}#courseDetail"
-                       class="btn btn-primary rounded-0 btn-lg px-5"><i class="icon-arrow-left"></i></a>
+                       class="btn bg-siyoh text-light rounded-0 btn-lg px-5"><i class="fas fa-arrow-left"></i></a>
                 </p>
                 {% if enrolled and course_progress == 100 %}
                     {% if quiz_result %}
@@ -57,7 +65,6 @@
                         <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-primary">Testni boshlash</a>
                     {% endif %}
                 {% else %}
-                <span class="text-light badge bg-danger">Test yopiq</span>
                 {% endif %}
 
             </div>
@@ -67,7 +74,7 @@
                 {% if not enrolled %}
                 <form method="post" action="{% url 'inclusive_app:course_enroll' course.id %}">
                     {% csrf_token %}
-                    <button class="btn btn-primary mt-3">
+                    <button class="btn bg-siyoh mt-3">
                         Kursga yozilish
                     </button>
                 </form>
@@ -85,8 +92,8 @@
                 <span class="badge bg-warning text-light"> Siz allaqachon bu kursga yozilgansiz</span>
                 {% endif %}
                 {% else %}
-                <a href="{% url 'inclusive_app:login_user' %}" class="btn btn-outline-primary mt-3">
-                    Kirish va yozilish
+                <a style="border-color: #3a0ca3;" href="{% url 'inclusive_app:login_user' %}" class="btn tugma text-siyoh btn-outline-primary mt-3">
+                    Siz tizimga kirmagansiz avval login qiling keyin kursni boshlang
                 </a>
                 {% endif %}
             </div>

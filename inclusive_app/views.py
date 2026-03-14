@@ -232,17 +232,17 @@ def admin_add_yangiliklar(request,yangilik_id=None):
     if not request.user.is_superuser:
         return redirect("inclusive_app:login_user")
     if yangilik_id:
-        variable = get_object_or_404(News, id=yangilik_id)
+        yangilik = get_object_or_404(News, id=yangilik_id)
     else:
         yangilik = None
 
     yangiliklar = News.objects.all()
 
     if request.method == "POST":
-        form = NewsForm(request.POST, instance=yangilik)
+        form = NewsForm(request.POST, request.FILES, instance=yangilik)
         if form.is_valid():
             form.save()
-            return redirect('inclusive_app:admin_add_yangiliklar')
+        return redirect('inclusive_app:admin_add_yangiliklar')
     else:
         form = NewsForm(instance=yangilik)
     return render(request, 'admin/add-yangiliklar.html', {'form': form, 'yangiliklar': yangiliklar,'yangilik': yangilik})
@@ -518,6 +518,10 @@ def index(request):
     bannerlar = SahifaRasmi.objects.filter(is_published=True).order_by('-created_at')[:3]
     return render(request, 'pages/index.html', {'amaliyotlar': amaliyotlar,'yangiliklar': yangiliklar,'bannerlar': bannerlar, 'darslar': darslar})
 
+def courses(request):
+    kurslar = Course.objects.prefetch_related('modules__lessons')
+    return render(request, 'pages/courses.html', {'kurslar': kurslar})
+
 
 def kurslar(request,cat_id=None):
     kurslar = Course.objects.prefetch_related('modules__lessons')
@@ -527,6 +531,10 @@ def kurslar(request,cat_id=None):
     if cat_id:
         active_category = get_object_or_404(kurslar, id=cat_id)
     return render(request, 'pages/kurslar.html', {'kurslar': kurslar, 'active_category': active_category})
+
+def amaliyot_list(request):
+    amaliyotlar = AmaliyotItem.objects.all()
+    return render(request, 'pages/amaliyotlar.html', {'amaliyotlar': amaliyotlar})
 
 
 def yangilik_detail(request,slug):

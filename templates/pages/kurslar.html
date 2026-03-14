@@ -4,53 +4,94 @@
 {% load static %}
 
 
-<div class="custom-breadcrumns border-bottom">
-        <div style="background-color: #320266">
-    <div class="container">
-           <div style="min-height:400px;" class="d-flex mt-5 py-5 flex-column align-items-center justify-content-center">
+<div class="custom-breadcrumns ">
+    <div>
+    <div class="container border-bottom pb-3">
 
-               <h2 class="text-light pt-5">Kurslar</h2>
-               <div class="col-8 my-3">
-               <input class="form-control rounded" type="text" placeholder="Qidiriuv...">
-               </div>
-               <div class="col-lg-8 d-flex flex-wrap justify-content-center">
-                   <a href="{% url 'inclusive_app:kurslar' %}" class="btn m-2 btn-outline-primary {% if not active_category%} active {% endif %}">Barchasi</a>
-                {% for i in kurslar %}
-                     <a href="{% url 'inclusive_app:kurslar_category' i.id %}" class="btn btn-outline-primary text-light m-2 {% if active_category == i %} active {% endif %}"> {{ i }}</a>
-               {% endfor %}
-               </div>
-           </div>
-        </div>
-    </div>
-</div>
-
-<div class="site-section">
-    <div class="container">
+        <h1 class="text-siyoh pt-5 mt-5 text-center">Malakali Inklyuziv o'qituvchi barcha uchun imkoniyat</h1>
+        <h2 class="text-uppercase text-info w-75 mx-auto text-center">Malakangizni 9 yo'nalish bo'yicha oshiring va tasdiqlang</h2>
         <div class="row">
-            <div class="col-lg-12 mb-4">
+            <div class="col-6 text-center">
+                <img src="{% static 'images/kursrasm.png' %}" alt="">
+                <p class="text-info h4">Nazariy bilimlar olishni xohlayman</p>
+                <a style="font-size: 26px; font-weight: 700;" class="bg-orange rounded text-light p-2" href="{% url 'inclusive_app:courses'%}">O'quv testidan o'ting</a>
+            </div>
+            <div class="col-6 text-center">
+                <img src="{% static 'images/kursrasm2.png' %}" alt="">
+                <p class="text-info h4">Bilimim bor, menga sertifikat kerak!</p>
+                <a style="font-size: 26px; font-weight: 700;" class="bg-orange rounded text-light p-2" href="">Bevosita imtihonni topshiring</a>
+            </div>
+        </div>
+        </div>
+            <div class="container">
+                 <h1 class="text-info py-3 text-center text-uppercase">Web platformaning afzalliklari</h1>
                 <div class="row">
-                    {% for manba in kurslar %}
-                <div class="col-lg-4">
-                    <div style="height: 500px;" class="card my-3 shadow text-center p-2">
-                        <img height="250" style="object-fit:cover;" src="{{ manba.image.url }}" alt="">
-                        <h5 class="card-title">{{ manba.title }}</h5>
-                        <smal>{{ manba.category }}</smal>
-                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                            <p>kurs davomiyligi: {{ manba.duration }}min</p>
-                            <small class="badge bg-warning my-2">{{ manba.created_at|date:"d M Y" }}</small>
-                            {% if manba.file %}
-                            <a class="btn btn-primary my-2" target="_blank" href="{{ manba.file.url }}">Yuklab olish</a>
-                            <a class="btn btn-info my-2" target="_blank" href="{% url 'inclusive_app:kutubxona_file_view' manba.id %}">Ko'rish</a>
-                            {% else %}
-                            <a class="btn btn-primary" href="{{ manba.external_link }}" target="_blank">Ko'proq</a>
-                            {% endif %}
+                    <div class="col-6">
+                        <ul>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">1</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Barcha Nazariy materiallar qulay tarzda jamlangan</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">2</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Mashg'ulotlarni istalgan vaqtda o'qish mumkin</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">3</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Oddiy va tushunarli tilda bayon etilgan</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">4</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Geografik joylashuvidan qat'iy nazar qulay o'rganish</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:45px; height:45px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">5</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Barcha kurslar bepul - ortiqcha to'lov talab etilmaydi</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul>
+                             <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:45px; height:45px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">6</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Test savollari inklyuziv ta'limga ixtisoslashtirilgan</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">7</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Har bir o'qituvchi uchun zarur resurslar mavjud</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">8</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Bilimlar xolis va obyektiv baholanadi</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">9</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Harbir o'quvchi uchun individual yondashuv</p>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <p style="font-size: 40px; width:40px; height:40px; border-radius: 50%" class="bg-info d-flex justify-content-center align-items-center text-light">10</p>
+                                <p style="font-size: 22px; line-height:1.2;" class="text-black pl-3">Natija imtihondan so'ng darhol chiqadi</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="row align-items-end">
+                        <div class="col-4">
+                            <img src="{% static 'images/idplat.png' %}" alt="">
+                            <p style="font-size: 22px" class="text-info m-0">Inklyuziv ta'lim platformasi <small class="text-black">|</small> </p>
+                        </div>
+                        <div class="col-4">
+                            <a style="font-size: 22px;" href="" class="text-info">www.ideaacademy.uz <small class="text-black">|</small></a>
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'images/idac.png' %}" alt="">
+                            <p style="font-size: 22px" class="text-info m-0">Inklyuziv ta'lim platformasi <small class="text-black">|</small> </p>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-                </div>
             </div>
-        </div>
     </div>
 </div>
+
+
 {% endblock %}

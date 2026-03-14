@@ -203,13 +203,7 @@ class SahifaRasmiForm(forms.ModelForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = [
-            'title',
-            'short_description',
-            'content',
-            'image',
-            'is_published'
-        ]
+        exclude = ('slug',)
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'short_description': forms.Textarea(attrs={'rows': 3}),

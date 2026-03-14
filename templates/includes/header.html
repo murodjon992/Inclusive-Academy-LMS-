@@ -2,26 +2,27 @@
     <div class="container">
         <div class="d-flex align-items-center">
             <div class="site-logo">
-                <a href="{% url 'inclusive_app:index' %} " class="d-block">
+                <a href="{% url 'inclusive_app:index' %} " class="d-block text-siyoh">
                     Inclusive ta'lim
                 </a>
             </div>
             <div class="mr-auto">
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li class="active">
+                        <li class="text-siyoh">
                             <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Bosh sahifa</a>
                         </li>
                         <li class="has-children">
-                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">O'qitish amaliyoti</a>
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">O'qitish amaliyoti <i class="fa-solid fa-angle-down"></i></a>
                             <ul class="dropdown">
                                 {% for amal in amaliyotlar %}
                                 <li><a href="{% url 'inclusive_app:amaliyot_items' amal.slug %}">{{ amal }}</a></li>
                                 {% endfor %}
+                                <li><a href="{% url 'inclusive_app:amaliyot_list' %}">Barchasi</a></li>
                             </ul>
                         </li>
                         <li class="has-children">
-                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kutubxona</a>
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kutubxona <i class="fa-solid fa-angle-down"></i> </a>
                             <ul class="dropdown">
                                 <li><a href="">Online Do'kon</a></li>
                                 <li><a href="{% url 'inclusive_app:kutubxona' %}">Kutubxona</a></li>
@@ -31,7 +32,7 @@
                             <a href="admissions.html" class="nav-link text-left">Yangiliklar</a>
                         </li>
                         <li class="has-children">
-                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kurslar</a>
+                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kurslar <i class="fa-solid fa-angle-down"></i></a>
                             <ul class="dropdown">
                                 <li><a href="{% url 'inclusive_app:kurslar' %}">Kurslar</a></li>
                                 <li><a href="">Videolar</a></li>
@@ -39,9 +40,6 @@
                         </li>
                         <li>
                             <a href="contact.html" class="nav-link text-left">Biz Haqimizda</a>
-                        </li>
-                        <li>
-                            <a href="contact.html" class="nav-link text-left">Yordam</a>
                         </li>
                     </ul>
                 </nav>

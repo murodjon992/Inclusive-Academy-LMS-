@@ -290,6 +290,8 @@ class News(models.Model):
         blank=True,
         null=True
     )
+    pdf = models.FileField(upload_to='news/', blank=True, null=True)
+    youtube_link = models.URLField("Youtube havolasi",blank=True,null=True)
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def save(self, *args, **kwargs):

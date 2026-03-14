@@ -2,6 +2,12 @@
 {% block title %} Bosh sahifa {% endblock %}
 {% block content %}
 {% load static %}
+
+<style>
+    .tugma:hover{
+     color:#fff !important;
+    }
+</style>
     <div class="hero-slide owl-carousel site-blocks-cover mt-5">
   {% for i in bannerlar %}
       <div class="intro-section mt-5"
@@ -22,14 +28,136 @@
     </div>
 
 
-    <div></div>
+    <div>
+
+    </div>
+<div class="site section">
+  <div class="container">
+     <div class="row my-5 justify-content-center text-center">
+       <div class="col-lg-6 my-5 text-left">
+         <div class="blog mb-5 d-flex align-center">
+            <img src="{% static 'assets/img/ii.png' %}">
+        <h2 class="ml-3 text-siyoh"> Inclusive - Inlyuziv barcha uchun ta'lim</h2>
+         </div>
+         <h4 class="text-black">Har bir o'quvchining imkoniyatlarini ochib beradigan inklyuziv ta'lim strategiyalari</h4>
+         <p class="text-black">Asosiy konsepsiyalar, rahbarlik,o'qitish strategiyalari,hamkorlik,qo'llab-quvvatlash,rejalashtirish, baholash va monitorish bilan yo'naltirilgan,</p>
+         <button class="btn text-light bg-siyoh shadow"  type="submit">Hech kim e'tibordan chetda qolmasligi kerak</button>
+       </div>
+       <div class="col-lg-6 my-5">
+         <img class="img-fluid" src="{% static 'images/s33.png' %}" alt="">
+       </div>
+       <div class="col-lg-6 my-5">
+         <img class="img-fluid" src="{% static 'images/s22.png' %}" alt="">
+       </div>
+       <div class="col-lg-6 my-5 text-left">
+         <div class="blog mb-3 d-flex align-center">
+            <img src="{% static 'assets/img/dd.png' %}">
+        <h2 class="ml-3 text-siyoh"> D - Diversity - Xilma-xillik <small>Individual farqlarni e'tirof etish</small> </h2>
+         </div>
+         <h3 class="text-black">Har bir o'quvchining noyob xususiyatlarini qadrlash va qo'llab quvvatlash orqali xilma-xillikni nishinlash</h3>
+         <h5 class="text-siyoh text-center">O'qituvchining o'rni</h5>
+         <ul class="w-75">
+           <li class="d-flex align-items-center">
+             <i class="fas fa-star text-warning"></i>
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Har bir o'quvchining qobiliyatlari va ehtiyojlarini chuqur anglash</p>
+           </li>
+           <li class="d-flex align-items-center my-3">
+             <i class="fas fa-star text-warning"></i>
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Turli tafovutlarga moslashuvchan va adolatli yondashuv ko'rsatish</p>
+           </li>
+            <li class="d-flex align-items-center">
+             <i class="fas fa-star text-warning"></i>
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Xilma-xil metodikalarni qo'llab, moslashtirilgan ta'limni ta'minlash</p>
+           </li>
+         </ul>
+         <button class="btn text-light btn-warning ml-5 text-black shadow"  type="submit">Xilma Xillikni qabul qilish</button>
+       </div>
+         <div class="col-lg-6 my-5 text-left">
+         <div class="blog mb-3 d-flex align-items-center">
+            <img src="{% static 'assets/img/ee.png' %}">
+            <h2 class="ml-3 text-siyoh"> E - Evidence-based - Dalilga asoslangan <br> <small style="font-size: 17px;" class="text-black">Ilmiy va diagnostik ma'lumotlarga tayangan qarorlar</small> </h2>
+         </div>
+         <h4 class="text-black">Ilmiy va diagnostik ma'lumotlarga asoslangan qarorlarning inklyuziv ta'limdagi ahamiyati</h4>
+             <div class="card mt-2">
+                 <h5 class="card-header text-siyoh">Dalilga asoslangan yondashuvning asosiy vazifalari</h5>
+                 <div class="card-body">
+                     <div class="ul">
+                         <li class="d-flex align-items-center">
+                             <img style="width: 45px" src="{% static 'images/ilashikon.png' %}" alt="">
+                             <p class="text-black pl-1" style="line-height: 1.2; font-size:18px;">Aniqlangan diagnostik usullar yordamida har bir o'quvchining ehtiyojlari va qobiliyatlarini samarali aniqlash</p>
+                         </li>
+                         <li class="d-flex align-items-center">
+                             <img style="width: 45px" src="{% static 'images/malumotikon.png' %}" alt="">
+                             <p class="text-black pl-1" style="line-height: 1.2; font-size:17px; margin-bottom: 0;">Ma'lumotlar asosida individual ta'lim rejalashtirish va yanada samarali metodlarni tanlash</p>
+                         </li>
+                         <li class="d-flex align-items-center">
+                             <img style="width: 45px" src="{% static 'images/aniqikon.png' %}" alt="">
+                             <p class="text-black pl-1" style="line-height: 1.2; font-size:17px; margin-bottom: 0;">Aniqlangan natijalarga tayangan holda oqibatlarni baholash va o'zlashtirishni kuzatish</p>
+                         </li>
+                     </div>
+                 </div>
+             </div>
+              <div class="card mt-2">
+                 <h5 class="card-header text-siyoh">O'qituvchining o'rni</h5>
+                 <div class="card-body">
+                     <div class="ul">
+                         <li class="d-flex align-items-center">
+                             <img style="width: 45px" src="{% static 'images/lampochka.png' %}" alt="">
+                             <p class="text-black pl-1" style="line-height: 1.2; font-size:17px;">Olingan ilmiy ma'lumotlarni o'qitish jarayonini moslashtirishda samarali qo'llash</p>
+                         </li>
+                         <li class="d-flex align-items-center">
+                             <img style="width: 45px" src="{% static 'images/izlashchap.png' %}" alt="">
+                             <p class="text-black pl-1" style="line-height: 1.2; font-size:17px; margin-bottom: 0;">Harbir o'quvchining ehtiyojlari va rivojlanishiga moslangan qarorlar qabul qilish</p>
+                         </li>
+
+                     </div>
+                 </div>
+             </div>
+       </div>
+       <div class="col-lg-6 my-5">
+         <img class="img-fluid mt-5 pt-5" src="{% static 'images/s44.png' %}" alt="">
+         <button class="btn text-light bg-siyoh shadow mt-3"  type="submit">Har bir qarorning asoslanganligi muhim</button>
+       </div>
+         <div class="col-lg-6 my-5">
+         <img class="img-fluid" src="{% static 'images/s11.png' %}" alt="">
+       </div>
+       <div class="col-lg-6 my-5 text-left">
+         <div class="blog mb-3 d-flex align-center">
+            <img width="100" height="100" src="{% static 'assets/img/aa.png' %}">
+        <h2 class="ml-3 text-siyoh"> A - Adaptation - Moslashtirish <br> <small>O'quvchining ehtiyojlariga mos ta'lim</small> </h2>
+         </div>
+         <h3 class="text-warning" style="text-shadow: 2px #000;">Har bir o'quvchining individual ehtiyojlariga moslashtirilgan ta'lim orqali muvaffaqiyatga erishish</h5>
+             <p class="text-black mt-2" style="line-height: 1.2;">Moslashtirish inklyuziv ta'limning asosiy qismidir - har bir bola o'ziga mos usul, tezlik va qo'llab quvvatlash bilan o'rganadi</p>
+        <div style="background: linear-gradient(140deg, #f7f7f7, rgba(242,222,36, 32))" class="card p-3">
+             <ul style="margin:0; padding:0;">
+           <li class="d-flex align-items-center">
+               <img src="{% static 'images/indi.png' %}" alt="">
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Individual O'rganish yo'li</p>
+           </li>
+           <li class="d-flex align-items-center">
+             <img src="{% static 'images/kitob.png' %}" alt="">
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Moslashuvchan Manbalar</p>
+           </li>
+            <li class="d-flex align-items-center">
+             <img src="{% static 'images/shaxs.png' %}" alt="">
+             <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Shaxsiy qo'llab quvvatlash</p>
+           </li>
+         </ul>
+            </div>
+         <button class="btn text-light btn-warning mt-4 text-light shadow"  type="submit">Moslashtirilgan yondashuvni qo'llash</button>
+       </div>
+  </div>
+</div>
+</div>
+
+
 
     <div class="site-section">
       <div class="container">
         <div class="row mb-5 justify-content-center text-center">
           <div class="col-lg-4 mb-5">
-            <h2 class="section-title-underline mb-5">
-              <span>Nega IDEA ACADEMY</span>
+            <h2 class="mb-5">
+              <span class="text-siyoh">Nega IDEA ACADEMY</span>
             </h2>
           </div>
         </div>
@@ -37,37 +165,37 @@
           <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 
             <div class="feature-1 border">
-              <div class="icon-wrapper bg-primary">
-                <span class="flaticon-mortarboard text-white"></span>
+              <div class="icon-wrapper bg-siyoh text-center">
+                <i class="fa-solid fa-book-open fa-3x text-light"></i>
               </div>
               <div class="feature-1-content">
                 <h2>Shaxsiy o'rganish</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn btn-primary px-4 rounded-0">Learn More</a></p>
+                <p><a href="#" class="btn  bg-siyoh text-light px-4 rounded-0">Learn More</a></p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <div class="feature-1 border">
-              <div class="icon-wrapper bg-primary">
-                <span class="flaticon-school-material text-white"></span>
+              <div class="icon-wrapper bg-siyoh text-center">
+                <i class="fa-solid fa-user-graduate fa-3x text-light"></i>
               </div>
               <div class="feature-1-content">
                 <h2>Ishonchli Kurslar</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn btn-primary px-4 rounded-0">Learn More</a></p>
+                <p><a href="#" class="btn bg-siyoh text-light px-4 rounded-0">Learn More</a></p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
             <div class="feature-1 border">
-              <div class="icon-wrapper bg-primary">
-                <span class="flaticon-library text-white"></span>
+              <div class="icon-wrapper bg-siyoh text-center">
+                <i class="fa-solid fa-book-tanakh fa-3x text-light"></i>
               </div>
               <div class="feature-1-content">
                 <h2>O'quvchilar uchun kerakli qo'llanmalar</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                <p><a href="#" class="btn btn-primary px-4 rounded-0">Learn More</a></p>
+                <p><a href="#" class="btn bg-siyoh text-light px-4 rounded-0">Learn More</a></p>
               </div>
             </div>
           </div>
@@ -75,219 +203,31 @@
       </div>
     </div>
 
-
-    <div class="site-section">
-      <div class="container">
-
-
-        <div id="courseDetail" class="row mb-5 justify-content-center text-center">
-          <div class="col-lg-6 mb-5">
-            <h2 class="section-title-underline mb-3">
-              <span>Kurslar</span>
-            </h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, id?</p>
+<div class="site-section bg-siyoh">
+  <div class="container">
+    <h1 class="text-center text-light" style="font-size: 56px;">So'ngi Yangiliklar</h1>
+    <div class="row">
+      {% for i in yangiliklar %}
+      <div class="col-4">
+        <div style="height: 500px !important;" class="card d-flex flex-column align-content-between justify-content-between p-3 border">
+          <div class="mb-3">
+                        <iframe width="100%" height="205" src=" {{ i.youtube_link }}" title="{{ i.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
+          <h2 class="text-siyoh text-capitalize">{{ i.title }}</h2>
+          <p style="line-height: 1.1;" class="text-siyoh">{{ i.short_description }}</p>
+          <span style="width: max-content" class="text-light bg-siyoh badge">{{ i.created_at|date:"d M Y" }}</span>
+        <div class="d-flex justify-content-between">
+            <a href="" class="btn tugma btn-outline-info">Ko'proq...</a>
+            {% if i.pdf %}
+            <a href="{{ i.pdf.url }}" target="_blank" class="btn tugma btn-outline-info">Yuklab olish</a>
+            {% endif %}
         </div>
-
-        <div class="row">
-          <div class="col-12">
-              <div class="owl-slide-3 owl-carousel">
-                {% for i in darslar %}
-                {{ i.modules.title }}
-                  <div class="course-1-item">
-                    <figure class="thumnail">
-                      <a href="{% url 'inclusive_app:course_detail' i.slug %}"><img src="{% static 'images/course_1.jpg' %}" alt="Image" class="img-fluid"></a>
-                      {% if i.is_free %}
-                      <div style="background-color: yellow; color:red;" class="price">BEPUL</div>
-                      {% endif %}
-                      <div class="category"><h3>{{ i.module.course }}</h3></div>
-                    </figure>
-                    <div class="course-1-content pb-4">
-                      <h2>{{ i.title }}</h2>
-                      <div class="rating text-center mb-3">
-                        <span class="icon-star2 text-warning"></span>
-                        <span class="icon-star2 text-warning"></span>
-                        <span class="icon-star2 text-warning"></span>
-                        <span class="icon-star2 text-warning"></span>
-                        <span class="icon-star2 text-warning"></span>
-                      </div>
-                      <p class="desc mb-4">{{ i.content|truncatewords:30 }}</p>
-                      <p><a href="{% url 'inclusive_app:course_detail' i.slug %}" class="btn btn-primary rounded-0 px-4">Ko'proq</a></p>
-                    </div>
-                  </div>
-
-            {% endfor %}
-
-              </div>
-
-          </div>
-        </div>
-
-
-
-      </div>
-    </div>
-
-
-
-
-    <div class="section-bg style-1" style="background-image: url('images/about_1.jpg');">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <h2 class="section-title-underline style-2">
-              <span>About Our University</span>
-            </h2>
-          </div>
-          <div class="col-lg-8">
-            <p class="lead">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem nesciunt quaerat ad reiciendis perferendis voluptate fugiat sunt fuga error totam.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus assumenda omnis tempora ullam alias amet eveniet voluptas, incidunt quasi aut officiis porro ad, expedita saepe necessitatibus rem debitis architecto dolore? Nam omnis sapiente placeat blanditiis voluptas dignissimos, itaque fugit a laudantium adipisci dolorem enim ipsum cum molestias? Quod quae molestias modi fugiat quisquam. Eligendi recusandae officiis debitis quas beatae aliquam?</p>
-            <p><a href="#">Read more</a></p>
-          </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-
-    <!-- // 05 - Block -->
-  <div id="yangilik" class="site-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-lg-4">
-            <h2 class="section-title-underline">
-              <span>Yangiliklar</span>
-            </h2>
-          </div>
-        </div>
-            <div class="row">
-          <div class="col-12">
-              <div class="owl-slide-3 owl-carousel">
-                {% for yangi in yangiliklar %}
-                  <div class="course-1-item">
-                    <h2 class="text-center p-4 text-success text-uppercase">{{ yangi.title }}</h2>
-                    <figure class="thumnail">
-                      <a href="{% url 'inclusive_app:yangilik_detail' yangi.slug %}"><img height="300" style="object-fit:cover;" src="{{ yangi.image.url }}" alt="Image"></a>
-                    </figure>
-                    <div class="course-1-content pb-4">
-                      <h2>{{ yangi.short_description }}</h2>
-                      <p class="desc mb-4">{{ yangi.created_at }}</p>
-                      <p><a href="{% url 'inclusive_app:yangilik_detail' yangi.slug %}" class="btn btn-primary rounded-0 px-4">Ko'ptoq...</a></p>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="section-bg style-1" style="background-image: url('images/hero_1.jpg');">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-            <span class="icon flaticon-mortarboard"></span>
-            <h3>Our Philosphy</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis recusandae, iure repellat quis delectus ea? Dolore, amet reprehenderit.</p>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-            <span class="icon flaticon-school-material"></span>
-            <h3>Academics Principle</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis recusandae, iure repellat quis delectus ea?
-              Dolore, amet reprehenderit.</p>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-            <span class="icon flaticon-library"></span>
-            <h3>Key of Success</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis recusandae, iure repellat quis delectus ea?
-              Dolore, amet reprehenderit.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="news-updates">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-9">
-             <div class="section-heading">
-              <h2 class="text-black">News &amp; Updates</h2>
-              <a href="#">Read All News</a>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="post-entry-big">
-                  <a href="news-single.html" class="img-link"><img src="{% static 'images/blog_large_1.jpg' %}" alt="Image" class="img-fluid"></a>
-                  <div class="post-content">
-                    <div class="post-meta">
-                      <a href="#">June 6, 2019</a>
-                      <span class="mx-1">/</span>
-                      <a href="#">Admission</a>, <a href="#">Updates</a>
-                    </div>
-                    <h3 class="post-heading"><a href="news-single.html">Campus Camping and Learning Session</a></h3>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="post-entry-big horizontal d-flex mb-4">
-                  <a href="news-single.html" class="img-link mr-4"><img src="{% static 'images/blog_1.jpg' %}" alt="Image" class="img-fluid"></a>
-                  <div class="post-content">
-                    <div class="post-meta">
-                      <a href="#">June 6, 2019</a>
-                      <span class="mx-1">/</span>
-                      <a href="#">Admission</a>, <a href="#">Updates</a>
-                    </div>
-                    <h3 class="post-heading"><a href="news-single.html">Campus Camping and Learning Session</a></h3>
-                  </div>
-                </div>
-
-                <div class="post-entry-big horizontal d-flex mb-4">
-                  <a href="news-single.html" class="img-link mr-4"><img src="{% static 'images/blog_2.jpg' %}" alt="Image" class="img-fluid"></a>
-                  <div class="post-content">
-                    <div class="post-meta">
-                      <a href="#">June 6, 2019</a>
-                      <span class="mx-1">/</span>
-                      <a href="#">Admission</a>, <a href="#">Updates</a>
-                    </div>
-                    <h3 class="post-heading"><a href="news-single.html">Campus Camping and Learning Session</a></h3>
-                  </div>
-                </div>
-
-                <div class="post-entry-big horizontal d-flex mb-4">
-                  <a href="news-single.html" class="img-link mr-4"><img src="{% static 'images/blog_1.jpg' %}" alt="Image" class="img-fluid"></a>
-                  <div class="post-content">
-                    <div class="post-meta">
-                      <a href="#">June 6, 2019</a>
-                      <span class="mx-1">/</span>
-                      <a href="#">Admission</a>, <a href="#">Updates</a>
-                    </div>
-                    <h3 class="post-heading"><a href="news-single.html">Campus Camping and Learning Session</a></h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="section-heading">
-              <h2 class="text-black">Campus Videos</h2>
-              <a href="#">View All Videos</a>
-            </div>
-            <a href="https://vimeo.com/45830194" class="video-1 mb-4" data-fancybox="" data-ratio="2">
-              <span class="play">
-                <span class="icon-play"></span>
-              </span>
-              <img src="{% static 'images/course_5.jpg' %}" alt="Image" class="img-fluid">
-            </a>
-            <a href="https://vimeo.com/45830194" class="video-1 mb-4" data-fancybox="" data-ratio="2">
-                <span class="play">
-                  <span class="icon-play"></span>
-                </span>
-                <img src="{% static 'images/course_5.jpg' %}" alt="Image" class="img-fluid">
-              </a>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
 
     <div class="site-section ftco-subscribe-1" style="background-image: url('images/bg_1.jpg')">
       <div class="container">
@@ -300,7 +240,7 @@
             <form action="" class="d-flex">
               <input type="text" class="rounded form-control mr-2 py-3" placeholder="Ismingiz...">
               <input type="email" class="rounded form-control mr-2 py-3" placeholder="Elektron pochta...">
-              <button class="btn btn-primary rounded py-3 px-4" type="submit">Yuborish</button>
+              <button class="btn bg-siyoh text-light rounded py-3 px-4" type="submit">Yuborish</button>
             </form>
           </div>
         </div>

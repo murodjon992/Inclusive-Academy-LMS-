@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <div class="row">
+                    {% for manba in kurslar %}
+                <div class="col-lg-4 mt-4">
+                    <div style="height: 500px; border-radius: 20px; box-shadow: 0 0 10px 1px rgba(58,12,163, 0.3)" class="card my-3 text-center p-2">
+                        <img height="250" style="object-fit:cover;" src="{{ manba.image.url }}" alt="">
+                        <h5 class="card-title">{{ manba.title }}</h5>
+                        <small>{{ manba.category }}</small>
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                            <p>kurs davomiyligi: {{ manba.duration }}min</p>
+                            <small class="badge bg-warning my-2">{{ manba.created_at|date:"d M Y" }}</small>
+                            {% if manba.file %}
+                            <a class="btn btn-primary my-2" target="_blank" href="{{ manba.file.url }}">Yuklab olish</a>
+                            <a class="btn btn-info my-2" target="_blank" href="{% url 'inclusive_app:kutubxona_file_view' manba.id %}">Ko'rish</a>
+                            {% else %}
+                            <a class="btn bg-siyoh text-light" href="{% url 'inclusive_app:course_detail' manba.slug %}" target="_blank">Ko'proq</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

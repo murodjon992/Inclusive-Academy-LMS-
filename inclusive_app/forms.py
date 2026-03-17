@@ -223,7 +223,7 @@ class KutubxonaCategoryForm(forms.ModelForm):
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ('slug',)
 
 class LessonForm(forms.ModelForm):
     class Meta:

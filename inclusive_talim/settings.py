@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-7^9n$oh7%a=%&z0b_ker5i(%pcn6r5q$p%#iz4ula=oa#fb8ta
 
 DEBUG = True
 import os
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['170.168.6.199', 'ideaacademy.uz','127.0.0.1','localhost']
 INSTALLED_APPS = []
 
 

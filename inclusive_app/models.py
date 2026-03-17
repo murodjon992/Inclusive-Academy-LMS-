@@ -173,6 +173,7 @@ class Lesson(models.Model):
     )
     title = models.CharField(max_length=255)
     video = models.FileField(upload_to='lessons/videos/', blank=True, null=True)
+    pdf = models.FileField(upload_to='lessons/files', blank=True, null=True)
     content = models.TextField(blank=True)
     duration = models.PositiveIntegerField(help_text="Dars davomiyligi (daqiqa)")
     order = models.PositiveIntegerField(default=1)

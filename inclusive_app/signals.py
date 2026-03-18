@@ -5,33 +5,43 @@ from .models import  Certificate,QuizResult
 from .utils import fill_certificate
 import os
 
+
 @receiver(post_save, sender=QuizResult)
 def create_certificate_after_test(sender, instance, created, **kwargs):
-    # faqat yangi test bo‘lsa
-    if not created:
-        return
-
+    # 'created' tekshiruvini olib tashlaymiz, chunki update bo'lganda ham o'tgan bo'lishi mumkin
     if not instance.passed:
         return
 
+    # Allaqachon sertifikat borligini tekshirish (bu qism to'g'ri)
     if Certificate.objects.filter(user=instance.user, course=instance.quiz.course).exists():
         return
 
+    # Sertifikat yaratish
     cert = Certificate.objects.create(
         user=instance.user,
         course=instance.quiz.course,
         score=instance.score
     )
 
-    template_path = settings.BASE_DIR / 'static/certificates/inc_sertifikat.pdf'
-    output_path = settings.MEDIA_ROOT / f'certificates/cert_{cert.id}.pdf'
+    # PDF generatsiya (bu qismni alohida try-except ichiga olish xavfsizroq)
+    try:
+        template_path = settings.BASE_DIR / 'static/certificates/inc_sertifikat.pdf'
+        # Media papkasi borligini tekshirish
+        cert_dir = settings.MEDIA_ROOT / 'certificates'
+        cert_dir.mkdir(parents=True, exist_ok=True)
 
-    fill_certificate(
-        template_path=template_path,
-        output_path=output_path,
-        user=instance.user,
-        test_name=instance.quiz.title
-    )
+        output_filename = f'certificates/cert_{cert.id}.pdf'
+        output_path = settings.MEDIA_ROOT / output_filename
 
-    cert.pdf.name = f'certificates/cert_{cert.id}.pdf'
-    cert.save()
+        fill_certificate(
+            template_path=template_path,
+            output_path=output_path,
+            user=instance.user,
+            test_name=instance.quiz.title
+        )
+
+        # Sertifikat modelini yangilash
+        cert.pdf.name = output_filename
+        cert.save()
+    except Exception as e:
+        print(f"PDF yaratishda xato: {e}")

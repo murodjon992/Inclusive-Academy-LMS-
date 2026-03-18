@@ -78,22 +78,36 @@
             </div>
           </div>
             <hr>
-            <ul class="mt-3">
-{% for enroll in enrollments %}
-    <li>
-        <strong>{{ enroll.course.title }}</strong> kursi bo'yicha
+
+            <div class="certificate-section mt-4">
+    <h3>Mening sertifikatlarim</h3>
+    <div class="row">
         {% for cert in certificates %}
-            {% if cert.course == enroll.course %}
-                <a href="{{ cert.pdf.url }}" class="btn btn-success btn-sm mt-3">
-                    Sertifikatni yuklab olish
-                </a>
-            {% endif %}
+            <div class="mb-3">
+                <div class="card shadow-sm border-primary">
+                    <div class="card-body text-center">
+                        <i class="fas fa-certificate fa-3x text-warning mb-2"></i>
+                        <h5 class="card-title">{{ cert.course.title }}</h5>
+                        <p class="small text-muted">Ball: {{ cert.score }}%</p>
+
+                        {% if cert.pdf %}
+                            <a href="{{ cert.pdf.url }}" class="btn btn-success btn-sm" download>
+                                <i class="fas fa-download"></i> Yuklab olish (PDF)
+                            </a>
+                        {% else %}
+                            <span class="badge badge-secondary">Fayl tayyorlanmoqda...</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% empty %}
-            <span class="badge bg-warning">Sertifikat yo‘q</span>
+            <div class="col-12">
+                <p class="text-muted">Sizda hali sertifikatlar yo'q.</p>
+            </div>
         {% endfor %}
-    </li>
-{% endfor %}
-</ul>
+    </div>
+</div>
+
         </div>
 
         <!-- Details -->
@@ -114,8 +128,13 @@
               </div>
               <div class="col-md-4 mb-3">
                 <label class="text-muted">To'plagan ball</label>
-                <div> {{ i.score }} %</div>
+                <div> {{ i.score }} % </div>
               </div>
+                {% if i.passed %}
+                <div class="alert alert-success">Tabriklaymiz siz testni muvaffaqqiaytli yakunladingiz</div>
+                {% else %}
+                <div class="alert alert-danger"> Afsuski testni qayta topshiringiz kerak bo'ladi </div>
+                {% endif %}
             </div>
               {% endfor %}
              {% else %}

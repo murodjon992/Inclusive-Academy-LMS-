@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .hover-effect:hover {
+        background-color: #f8f9fa;
+        border-color: #3a0ca3 !important;
+        cursor: pointer;
+    }
+    .custom-control-input:checked ~ .custom-control-label {
+        color: #3a0ca3;
+        font-weight: bold;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card shadow-sm p-4">
+        <h2 class="text-siyoh border-bottom pb-3">{{ quiz.title }}</h2>
+        <p class="text-muted">Minimal o'tish ko'rsatkichi: <strong>{{ quiz.min_percentage }}%</strong></p>
+
+       <form method="post" action="{% url 'inclusive_app:check_test' quiz.id %}">
+    {% csrf_token %}
+
+    {% for question in questions %}
+    <div class="card mb-4 shadow-sm border-0 rounded-lg">
+        <div class="card-body">
+            <h5 class="font-weight-bold mb-3">
+                <span class="text-siyoh">{{ forloop.counter }}.</span> {{ question.text }}
+            </h5>
+
+            <div class="options-group">
+                {% for answer in question.answers.all %}
+                <div class="custom-control custom-radio mb-2 p-2 border rounded hover-effect">
+                    <input type="radio"
+                           id="ans_{{ answer.id }}"
+                           name="question_{{ question.id }}"
+                           value="{{ answer.id }}"
+                           class="custom-control-input"
+                           required>
+                    <label class="custom-control-label d-block ml-4" for="ans_{{ answer.id }}">
+                        {{ answer.text }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="text-center my-5">
+        <button type="submit" class="btn bg-siyoh text-light btn-lg px-5 shadow">
+            Testni yakunlash va natijani ko'rish
+        </button>
+    </div>
+</form>
+    </div>
+</div>
+{% endblock %}

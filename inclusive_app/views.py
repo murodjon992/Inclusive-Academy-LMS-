@@ -510,7 +510,8 @@ def admin_delete_amaliyotsection(request,amaliyotsection_id):
     amaliyotsection.delete()
     return redirect('inclusive_app:admin_add_amaliyotsection')
 # ================== AMALIYOT SECTIONLAR END ======================
-# User Views
+# =====================================================USER VIEWS=================================================================
+# ======================================================================================================================
 def index(request):
     amaliyotlar = AmaliyotTuri.objects.all()
     yangiliklar = News.objects.all()
@@ -525,12 +526,64 @@ def courses(request):
 
 def kurslar(request,cat_id=None):
     kurslar = Course.objects.prefetch_related('modules__lessons')
-
     active_category = None
 
     if cat_id:
         active_category = get_object_or_404(kurslar, id=cat_id)
     return render(request, 'pages/kurslar.html', {'kurslar': kurslar, 'active_category': active_category})
+
+def testlar(request):
+    testlar = CourseTest.objects.all()
+    return render(request, 'pages/testlar.html', {'testlar': testlar})
+
+
+def test_detail(request, test_id):
+    # Tanlangan testni va unga tegishli savollarni bittada olamiz
+    quiz = get_object_or_404(CourseTest.objects.prefetch_related('questions__answers'), id=test_id)
+
+    context = {
+        'quiz': quiz,
+        'questions': quiz.questions.all()
+    }
+    return render(request, 'pages/test_savollari.html', context)
+
+
+@login_required
+def check_test(request, quiz_id):
+    if request.method == "POST":
+        quiz = get_object_or_404(CourseTest, id=quiz_id)
+        questions = quiz.questions.all()
+        total_questions = questions.count()
+        correct_answers_count = 0
+
+        for question in questions:
+            # Har bir savol uchun tanlangan variant ID sini olamiz
+            selected_answer_id = request.POST.get(f'question_{question.id}')
+
+            if selected_answer_id:
+                # Bazadagi Answer modelidan shu ID ni va u to'g'riligini tekshiramiz
+                is_correct = Answer.objects.filter(id=selected_answer_id, is_correct=True).exists()
+                if is_correct:
+                    correct_answers_count += 1
+
+        # Foizni hisoblash
+        score_percentage = (correct_answers_count / total_questions) * 100 if total_questions > 0 else 0
+        is_passed = score_percentage >= quiz.min_percentage
+
+        # Natijani bazaga saqlash (update_or_create ishlatish yaxshi, agar qayta topshirsa yangilanadi)
+        QuizResult.objects.update_or_create(
+            user=request.user,
+            quiz=quiz,
+            defaults={
+                'score': score_percentage,
+                'passed': is_passed
+            }
+        )
+
+        # Natija sahifasiga yo'naltirish
+        return redirect('inclusive_app:teacher_dashboard')
+
+    return redirect('inclusive_app:test_detail')
 
 def amaliyot_list(request):
     amaliyotlar = AmaliyotItem.objects.all()
@@ -773,13 +826,22 @@ def register_view(request):
 
 @login_required
 def teacher_dashboard(request):
-    certificates = Certificate.objects.filter(user=request.user).select_related('course')
-    enrollments = CourseEnrollment.objects.filter(
-        user=request.user
-    ).select_related('course')
-    natija = QuizResult.objects.filter(user=request.user)
-    user = request.user
-    return render(request, 'users/user-dashboard.html', {'user': user,'certificates': certificates, 'enrollments': enrollments,'natija': natija})
+    # Eng yangi sertifikatlar birinchi tursin
+    certificates = Certificate.objects.filter(user=request.user).select_related('course').order_by('-id')
+
+    # Kurslarga yozilish tarixi bo'yicha
+    enrollments = CourseEnrollment.objects.filter(user=request.user).select_related('course').order_by('-enrolled_at')
+
+    # Test natijalari
+    natija = QuizResult.objects.filter(user=request.user).select_related('quiz').order_by('-completed_at')
+
+    context = {
+        'certificates': certificates,
+        'enrollments': enrollments,
+        'natija': natija,
+        'user': request.user
+    }
+    return render(request, 'users/user-dashboard.html', context)
 
 @login_required
 def teacher_edit_dashboard(request,user_id):

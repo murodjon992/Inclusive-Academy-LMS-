@@ -17,6 +17,10 @@ urlpatterns = [
     path('yangiliklar/<slug:slug>/', views.yangilik_detail, name='yangilik_detail'),
     path('course-detail/<slug:slug>/', views.course_detail, name='course_detail'),
     path('kurslar/', views.kurslar, name='kurslar'),
+    path('testlar/', views.testlar, name='testlar'),
+    path('test/check/<int:quiz_id>', views.check_test, name='check_test'),
+    path('test/<int:test_id>', views.test_detail, name='test_detail'),
+
     path('courses/', views.courses, name='courses'),
     path('kurslar/category/<int:cat_id>', views.kurslar, name='kurslar_category'),
     path('amaliyot/<slug:slug>/', views.amaliyot_items, name='amaliyot_items'),

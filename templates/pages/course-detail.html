@@ -21,87 +21,211 @@
     </div>
 </div>
 
+<!--<div class="site-section">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-8 ml-auto align-self-center">-->
+<!--                <h2 class="section-title-underline mb-5">-->
+<!--                    <span>{{ course.title }}</span>-->
+<!--                </h2>-->
+<!--                <p class="mb-5"><strong class="text-black d-block">Davomiyligi:</strong>{{ course.duration }} min</p>-->
+<!--                <ul class="ml-0">-->
+<!--                    {% for modul in course.modules.all %}-->
+<!--                    <li>-->
+<!--                        <h5>{{ modul.title }}</h5>-->
+<!--                        <ul>-->
+<!--                            {% for dars in modul.lessons.all %}-->
+<!--                            <li>-->
+<!--                                {% if dars.video %}-->
+<!--                                    <button class="lesson-btn btn bg-siyoh text-light my-2" {% if dars.video %} data-video-url="{{ dars.video.url }}" {% endif %} data-lesson-id="{{ dars.id }}">-->
+<!--                                            ▶ {{ dars.title }}-->
+<!--                                    </button>-->
+<!--                                {% else %}-->
+<!--                                <p class="text-siyoh">{{ dars.title }}-->
+<!--                                     {% if user.is_authenticated and enrolled %}-->
+<!--                                    <a class="btn btn-sm btn-info text-light" href="{{ dars.pdf.url }}"> <i class="fa fa-arrow-down"></i> yuklab olish</a>-->
+<!--                                    {% endif %}-->
+<!--                                </p>-->
+<!--                                {% endif %}-->
+<!--                                    <div class="lesson-content" id="content-{{ dars.id }}" style="display: none;">-->
+<!--                                        <p>{{ dars.content|linebreaks }}</p>-->
+<!--                                    </div>-->
+<!--                            </li>-->
+
+<!--                            {% endfor %}-->
+<!--                        </ul>-->
+<!--                    </li>-->
+<!--                    {% endfor %}-->
+<!--                </ul>-->
+<!--                        {% if user.is_authenticated and enrolled %}-->
+<!--                            <video id="lessonVideo" controls width="100%">-->
+<!--                                <source id="videoSource" src="" type="video/mp4">-->
+<!--                            </video>-->
+<!--                            <div id="activeLessonContent"></div>-->
+<!--                        {% endif %}-->
+<!--                <p>-->
+<!--                    <a href="{% url 'inclusive_app:index' %}#courseDetail"-->
+<!--                       class="btn bg-siyoh text-light rounded-0 btn-lg px-5"><i class="fas fa-arrow-left"></i></a>-->
+<!--                </p>-->
+<!--                {% if enrolled and course_progress == 100 %}-->
+<!--                    {% if quiz_result %}-->
+<!--                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-info">Natijani ko‘rish</a>-->
+<!--                    {% else %}-->
+<!--                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-primary">Testni boshlash</a>-->
+<!--                    {% endif %}-->
+<!--                {% else %}-->
+<!--                {% endif %}-->
+
+<!--            </div>-->
+<!--            <div class="col-lg-4 mb-4">-->
+<!--                <img width="100%" src="{{ course.image.url }}" alt="">-->
+<!--                {% if user.is_authenticated %}-->
+<!--                {% if not enrolled %}-->
+<!--                <form method="post" action="{% url 'inclusive_app:course_enroll' course.id %}">-->
+<!--                    {% csrf_token %}-->
+<!--                    <button class="btn bg-siyoh mt-3">-->
+<!--                        Kursga yozilish-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--                {% else %}-->
+<!--                {% if enrolled %}-->
+<!--                <h4 class="fs-5 mt-3">Kursdagi jarayoni: <span id="progressPercent"> {{ course_progress }}</span>%</h4>-->
+<!--                <div class="progress">-->
+<!--                    <div id="progressBar" class="progress-bar bg-siyoh"-->
+<!--                         style="width: {{ course_progress }}%">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {% else %}-->
+<!--                <p>Kursga yozilmagansiz</p>-->
+<!--                {% endif %}-->
+<!--                <span class="badge bg-warning text-light"> Siz allaqachon bu kursga yozilgansiz</span>-->
+<!--                {% endif %}-->
+<!--                {% else %}-->
+<!--                <a style="border-color: #3a0ca3;" href="{% url 'inclusive_app:login_user' %}" class="btn tugma text-siyoh btn-outline-primary mt-3">-->
+<!--                    Siz tizimga kirmagansiz avval login qiling keyin kursni boshlang-->
+<!--                </a>-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
 <div class="site-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 ml-auto align-self-center">
-                <h2 class="section-title-underline mb-5">
-                    <span>{{ course.title }}</span>
-                </h2>
-                <p class="mb-5"><strong class="text-black d-block">Davomiyligi:</strong>{{ course.duration }} min</p>
-                <ul class="ml-0">
-                    {% for modul in course.modules.all %}
-                    <li>
-                        <h5>{{ modul.title }}</h5>
-                        <ul>
-                            {% for dars in modul.lessons.all %}
-                                <li>
-                                    <button class="lesson-btn btn bg-siyoh text-light my-2" {% if dars.video %} data-video-url="{{ dars.video.url }}" {% endif %} data-lesson-id="{{ dars.id }}">
-                                            ▶ {{ dars.title }}
-                                    </button>
-                                    <div class="lesson-content" id="content-{{ dars.id }}" style="display: none;">
-                                        <p>{{ dars.content|linebreaks }}</p>
-                                    </div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
-                </ul>
-                        {% if user.is_authenticated and enrolled %}
-                            <video id="lessonVideo" controls width="100%">
-                                <source id="videoSource" src="" type="video/mp4">
-                            </video>
-                            <div id="activeLessonContent"></div>
-                        {% endif %}
-                <p>
-                    <a href="{% url 'inclusive_app:index' %}#courseDetail"
-                       class="btn bg-siyoh text-light rounded-0 btn-lg px-5"><i class="fas fa-arrow-left"></i></a>
-                </p>
-                {% if enrolled and course_progress == 100 %}
-                    {% if quiz_result %}
-                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-info">Natijani ko‘rish</a>
-                    {% else %}
-                        <a href="{% url 'inclusive_app:course_test' course.id %}" class="btn btn-primary">Testni boshlash</a>
-                    {% endif %}
-                {% else %}
-                {% endif %}
-
-            </div>
             <div class="col-lg-4 mb-4">
-                <img width="100%" src="{{ course.image.url }}" alt="">
-                {% if user.is_authenticated %}
-                {% if not enrolled %}
-                <form method="post" action="{% url 'inclusive_app:course_enroll' course.id %}">
-                    {% csrf_token %}
-                    <button class="btn bg-siyoh mt-3">
-                        Kursga yozilish
-                    </button>
-                </form>
-                {% else %}
-                {% if enrolled %}
-                <h4 class="fs-5 mt-3">Kursdagi jarayon: <span id="progressPercent"> {{ course_progress }}</span>%</h4>
-                <div class="progress">
-                    <div id="progressBar" class="progress-bar"
-                         style="width: {{ course_progress }}%">
+                <div class="card shadow-sm border-0">
+                    <img width="100%" src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h4 class="h5 font-weight-bold text-siyoh">{{ course.title }}</h4>
+                        <p class="small text-muted mb-3"><i class="fa fa-clock"></i> {{ course.duration }} min</p>
+
+                        {% if user.is_authenticated %}
+                            {% if enrolled %}
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="small font-weight-bold">Jarayon:</span>
+                                        <span class="small font-weight-bold">{{ course_progress }}%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-siyoh" style="width: {{ course_progress }}%"></div>
+                                    </div>
+                                </div>
+                                <span class="badge bg-warning text-dark w-100 py-2">Siz kursga yozilgansiz</span>
+                            {% else %}
+                                <form method="post" action="{% url 'inclusive_app:course_enroll' course.id %}">
+                                    {% csrf_token %}
+                                    <button class="btn bg-siyoh text-white w-100">Kursga yozilish</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'inclusive_app:login_user' %}" class="btn btn-outline-info w-100">
+                                Kirish va o'qish
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
-                {% else %}
-                <p>Kursga yozilmagansiz</p>
-                {% endif %}
-                <span class="badge bg-warning text-light"> Siz allaqachon bu kursga yozilgansiz</span>
-                {% endif %}
-                {% else %}
-                <a style="border-color: #3a0ca3;" href="{% url 'inclusive_app:login_user' %}" class="btn tugma text-siyoh btn-outline-primary mt-3">
-                    Siz tizimga kirmagansiz avval login qiling keyin kursni boshlang
+
+                <a href="{% url 'inclusive_app:index' %}#courseDetail" class="btn btn-light mt-3">
+                    <i class="fas fa-arrow-left"></i> Orqaga
                 </a>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="accordion shadow-sm" id="courseAccordion">
+                    {% for modul in course.modules.all %}
+                    <div class="card border-bottom">
+                        <div class="card-header bg-white py-3 collapse show" id="heading{{ modul.id }}"
+                             data-toggle="collapse" data-target="#collapse{{ modul.id }}"
+                             style="cursor: pointer;">
+                            <h5 class="mb-0 text-siyoh d-flex justify-content-between align-items-center">
+                                <span><i class="fa fa-chevron-down small mr-2"></i> {{ modul.title }}</span>
+                            </h5>
+                        </div>
+
+                        <div id="collapse{{ modul.id }}" class="collapse show"
+                             data-parent="#courseAccordion">
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    {% for dars in modul.lessons.all %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                                        <div class="flex-grow-1">
+                                            {% if dars.video %}
+                                                <button class="lesson-btn btn btn-link text-siyoh p-0 font-weight-bold text-left"
+                                                        data-video-url="{{ dars.video.url }}" data-content-id="content-{{ dars.id }}" data-lesson-id="{{ dars.id }}">
+                                                    {% if user.is_authenticated and enrolled %}
+                                                    <i class="fa fa-play-circle mr-2"></i>
+                                                    {% else %}
+                                                    <i class="fa fa-lock mr-2"></i>
+                                                    {% endif %}
+                                                    {{ dars.title }}
+                                                </button>
+                                            <div class="lesson-content mt-2 text-muted small" id="content-{{ dars.id }}" style="display: none;">
+    {{ dars.content|linebreaks }}
+</div>
+                                            {% else %}
+                                                <span class="text-dark"><i class="fa fa-file-alt mr-2"></i> {{ dars.title }}</span>
+                                                                                       {% endif %}
+                                        </div>
+
+                                        {% if user.is_authenticated and enrolled and dars.pdf %}
+                                            <a href="{{ dars.pdf.url }}" download class="btn btn-sm btn-light border ml-2">
+                                                <i class="fa fa-download text-info"></i> PDF
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if user.is_authenticated and enrolled %}
+                <div class="mt-4 shadow-sm bg-white p-3 rounded">
+                    <video id="lessonVideo" controls width="100%" class="rounded shadow" style="display:none;">
+                        <source id="videoSource" src="" type="video/mp4">
+                    </video>
+                    <div id="activeLessonContent" class="mt-3"></div>
+                                        <div class="lesson-content mt-2 text-muted small" id="content-{{ dars.id }}" style="display: none;">
+                        {{ dars.content|linebreaks }}
+                    </div>
+                    {% if course_progress == 100 %}
+                        <div class="mt-3 text-center">
+                            <a href="{% url 'inclusive_app:course_test' course.id %}"
+                               class="btn btn-success btn-lg px-5 shadow">
+                               {% if quiz_result %}Natijani ko'rish{% else %}Imtihonni topshirish{% endif %}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
-
-
 <script>
 const video = document.getElementById("lessonVideo");
 const progressBar = document.getElementById('progressBar');
@@ -149,6 +273,34 @@ video.addEventListener("timeupdate", () => {
             }
         });
     }
+});
+
+
+   document.querySelectorAll('.lesson-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const videoUrl = this.getAttribute('data-video-url');
+        const contentId = this.getAttribute('data-content-id');
+        const videoPlayer = document.getElementById('lessonVideo');
+        const videoSource = document.getElementById('videoSource');
+        const activeContentArea = document.getElementById('activeLessonContent');
+
+        // 1. Videoni yangilash va ko'rsatish
+        if (videoUrl) {
+            videoSource.src = videoUrl;
+            videoPlayer.style.display = 'block';
+            videoPlayer.load();
+            videoPlayer.play();
+        }
+
+        // 2. Matnni video tagidagi maxsus joyga nusxalash
+        const hiddenContent = document.getElementById(contentId);
+        if (hiddenContent && activeContentArea) {
+            // Yashirin div ichidagi matnni video tagidagi "activeLessonContent"ga o'tkazamiz
+            activeLessonContent.innerHTML = hiddenContent.innerHTML;
+            activeLessonContent.style.padding = "15px";
+            activeLessonContent.className = "mt-3 border-top pt-3"; // Chiroyli ko'rinish uchun
+        }
+    });
 });
 </script>
 

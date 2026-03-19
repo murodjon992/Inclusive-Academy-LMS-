@@ -227,6 +227,7 @@ class LessonProgress(models.Model):
 
 
 class CourseTest(models.Model):
+    image = models.ImageField(upload_to='courses/', blank=True, null=True)
     course = models.OneToOneField(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     min_percentage = models.PositiveIntegerField(default=70)

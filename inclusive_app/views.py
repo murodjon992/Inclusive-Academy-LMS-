@@ -71,7 +71,7 @@ def admin_add_coursetest(request,coursetest_id=None):
     else:
         coursetest = None
     if request.method == "POST":
-        form = QuizForm(request.POST, instance=coursetest)
+        form = QuizForm(request.POST, request.FILES, instance=coursetest)
         if form.is_valid():
             form.save()
             return redirect('inclusive_app:admin_add_coursetest')

@@ -148,7 +148,23 @@
         </ul>
       </li>
 
-
+  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#video-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Video</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="video-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_videocat'%}">
+              <i class="bi bi-circle"></i><span>Video Turkumlar</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'inclusive_app:admin_add_video'%}">
+              <i class="bi bi-card-list"></i><span>Videolar</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
     </ul>
 

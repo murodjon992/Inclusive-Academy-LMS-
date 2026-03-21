@@ -17,6 +17,7 @@ urlpatterns = [
     path('yangiliklar/<slug:slug>/', views.yangilik_detail, name='yangilik_detail'),
     path('course-detail/<slug:slug>/', views.course_detail, name='course_detail'),
     path('kurslar/', views.kurslar, name='kurslar'),
+    path('videolar/', views.videolar, name='videolar'),
     path('testlar/', views.testlar, name='testlar'),
     path('test/check/<int:quiz_id>', views.check_test, name='check_test'),
     path('test/<int:test_id>', views.test_detail, name='test_detail'),
@@ -101,6 +102,14 @@ urlpatterns = [
     path('admin-add-mankutubxona/', views.admin_add_mankutubxona, name='admin_add_mankutubxona'),
     path('admin-edit-mankutubxona/<int:mankutubxona_id>', views.admin_add_mankutubxona, name='admin_add_mankutubxona'),
     path('admin-delete-mankutubxona/<int:mankutubxona_id>', views.admin_delete_mankutubxona, name='admin_delete_mankutubxona'),
+    # VIDEO
+    path('admin-add-video/', views.admin_add_video, name='admin_add_video'),
+    path('admin-add-video/<int:video_id>', views.admin_add_video, name='admin_add_video'),
+    path('admin-delete-video/<int:video_id>', views.admin_delete_video, name='admin_delete_video'),
+    # VIDEO CATEGORY
+    path('admin-add-videocat/', views.admin_add_videocat, name='admin_add_videocat'),
+    path('admin-add-videocat/<int:videocat_id>', views.admin_add_videocat, name='admin_add_videocat'),
+    path('admin-delete-videocat/<int:videocat_id>', views.admin_delete_videocat, name='admin_delete_videocat'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

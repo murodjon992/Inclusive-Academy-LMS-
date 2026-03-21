@@ -112,3 +112,5 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 AUTH_USER_MODEL = 'inclusive_app.CustomUser'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

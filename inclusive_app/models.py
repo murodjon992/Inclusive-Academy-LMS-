@@ -103,8 +103,6 @@ class AmaliyotSection(models.Model):
         ordering = ['order']
     def __str__(self):
         return f"{self.item.title} - {self.title}"
-
-
 class RelatedPractice(models.Model):
     from_item = models.ForeignKey(
         AmaliyotItem,
@@ -123,9 +121,6 @@ class RelatedPractice(models.Model):
         ordering = ['order']
     def __str__(self):
         return f"{self.from_item} → {self.to_item}"
-
-
-
 # ===================================== OXIRIGI O'ZGARISHLAR =====================================
 class Course(models.Model):
     title = models.CharField(max_length=255)
@@ -163,8 +158,6 @@ class CourseModule(models.Model):
         ordering = ['order']
     def __str__(self):
         return f"{self.course.title} - {self.title}"
-
-
 class Lesson(models.Model):
     module = models.ForeignKey(
         CourseModule,
@@ -182,8 +175,6 @@ class Lesson(models.Model):
         ordering = ['order']
     def __str__(self):
         return self.title
-
-
 class CourseEnrollment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -211,8 +202,6 @@ class CourseEnrollment(models.Model):
         self.progress = progress
         self.save(update_fields=['progress', 'completed'])
         return progress
-
-
 class LessonProgress(models.Model):
     enrollment = models.ForeignKey(
         CourseEnrollment,
@@ -224,8 +213,6 @@ class LessonProgress(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
     class Meta:
         unique_together = ('enrollment', 'lesson')
-
-
 class CourseTest(models.Model):
     image = models.ImageField(upload_to='courses/', blank=True, null=True)
     course = models.OneToOneField(Course, on_delete=models.CASCADE)
@@ -234,7 +221,6 @@ class CourseTest(models.Model):
 
     def __str__(self):
         return self.title
-
 class Question(models.Model):
     quiz = models.ForeignKey(
         CourseTest,
@@ -244,7 +230,6 @@ class Question(models.Model):
     text = models.TextField()
     def __str__(self):
         return self.text
-
 class Answer(models.Model):
     question = models.ForeignKey(
         Question,
@@ -256,7 +241,6 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-
 class QuizResult(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='test_results', on_delete=models.CASCADE)
     quiz = models.ForeignKey(CourseTest, on_delete=models.CASCADE)
@@ -266,7 +250,6 @@ class QuizResult(models.Model):
 
     class Meta:
         unique_together = ('user', 'quiz')
-
 class Certificate(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -279,7 +262,6 @@ class Certificate(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.course}'
-
 class News(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
@@ -308,7 +290,6 @@ class News(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return self.title
-
 class SahifaRasmi(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
@@ -321,7 +302,6 @@ class SahifaRasmi(models.Model):
 
     def __str__(self):
         return self.title
-
 class KutubxonaCategory(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
@@ -359,6 +339,42 @@ class KutubxonaItem(models.Model):
 
     def __str__(self):
         return self.title
+class VideoCategory(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Kategoriya nomi")
+    slug = models.SlugField(unique=True, blank=True, null=True) # URL uchun qulay (masalan: sport-videolari)
 
+
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            while VideoCategory.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Video Kategoriya"
+        verbose_name_plural = "Video Kategoriyalar"
+
+class Video(models.Model):
+    VIDEO_TYPE_CHOICES = (
+        ('url', 'YouTube URL'),
+        ('file', 'Fayl Yuklash'),
+    )
+    category = models.ForeignKey(VideoCategory, on_delete=models.CASCADE, related_name='videos', null=True, blank=True)
+    title = models.CharField(max_length=255)
+    video_type = models.CharField(max_length=10, choices=VIDEO_TYPE_CHOICES)
+    youtube_url = models.URLField(blank=True, null=True)
+    video_file = models.FileField(upload_to='videos/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 # ================================= OXIRIGI O'ZGARISHLAR  OXIRI ==================================

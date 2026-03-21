@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %} Bosh sahifa {% endblock %}
+{% block content %}
+{% load static %}
+<style>
+    .custom-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 15px;
+    }
+    .custom-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #b1b1b1;
+        border-radius: 10px;
+    }
+    .flex-shrink-0 {
+        flex-shrink: 0 !important;
+    }
+    .text-siyoh {
+        color: #4B0082; /* Siyoh rang */
+        font-weight: 600;
+        margin-top: 30px;
+    }
+    hr {
+        border-top: 2px solid #ccc;
+        width: 50%; /* Rasmdagidek chiziq yarmi bo'lishi uchun */
+        margin-left: 0;
+    }
+</style>
+
+<div class="custom-breadcrumns border-bottom">
+    <div class="bg-siyoh">
+        <div class="container">
+            <div style="min-height:250px;" class="d-flex py-5 flex-column align-items-center justify-content-center">
+                <h1 class="text-light pt-5 mt-5">VIDEOLAR</h1>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="container mt-4">
+    {% for cat in kategoriyalar %}
+        {% if cat.videos.all %} <div class="category-section mb-5">
+            <h3 class="text-siyoh">{{ cat.name }}</h3>
+
+            <div class="row flex-nowrap custom-scroll mx-0">
+                {% for video in cat.videos.all %}
+
+                <div class="col-10 col-md-4 col-lg-3 flex-shrink-0 px-2">
+                    <div class="video-container my-3">
+                        {% if video.video_type == 'url' %}
+                            <iframe
+                            style="border-radius: 8px;"
+                            width="100%"
+                            height="180"
+                            src="{{ video.youtube_url }}"
+                            title="{{ v.title }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                        {% else %}
+                            <video width="100%" height="180" controls style="border-radius: 8px; background: #000;">
+                                <source src="{{ video.video_file.url }}">
+                            </video>
+                        {% endif %}
+                    </div>
+                    <p class="text-muted small text-truncate">{{ video.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <hr> </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

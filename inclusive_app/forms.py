@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Lesson,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice
+from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Lesson,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Row, Column
+from crispy_forms.layout import Submit, Layout, Row, Column,Field, Div
 from django.contrib.auth import authenticate
 
 class RegistrationForm(UserCreationForm):
@@ -270,3 +270,51 @@ class AnswerForm(forms.ModelForm):
             )
 
         return  cleaned_data
+
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Video
+        fields = ['category','title', 'video_type', 'youtube_url', 'video_file']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('youtube_url', wrapper_class='url_input'),
+            Field('video_file', wrapper_class='file_input'),
+            Div(
+                Field('youtube_url'),
+                css_class='url_input'
+            ),
+
+            Div(
+                Field('video_file'),
+                css_class='file_input'
+            ),
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        video_type = cleaned_data.get("video_type")
+        url = cleaned_data.get("youtube_url")
+        file = cleaned_data.get("video_file")
+
+        if video_type == 'url' and not url:
+            self.add_error('youtube_url', 'YouTube URL required')
+
+        if video_type == 'file' and not file:
+            self.add_error('video_file', 'Video file required')
+
+        if video_type == 'url':
+            cleaned_data['video_file'] = None
+
+        if video_type == 'file':
+            cleaned_data['youtube_url'] = None
+
+        return cleaned_data
+
+class VideoCategoryForm(forms.ModelForm):
+    class Meta:
+        model = VideoCategory
+        exclude = ('slug',)

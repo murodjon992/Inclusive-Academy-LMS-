@@ -1,9 +1,12 @@
 from django.contrib import messages
-from .forms import RegistrationForm, LoginForm, AdminUserCreateForm,AmaliyotTuriForm,NewsForm,SahifaRasmiForm,CourseForm,QuestionForm,QuizForm,CourseModuleForm,LessonForm,CourseEnrollmentForm,AnswerForm,KutubxonaCategoryForm,KutubxonaItemForm,AmaliyotItemForm,AmaliyotVideoForm,AmaliyotSectionForm,RelatedPracticeForm,CustomUserForm
+from .forms import RegistrationForm, LoginForm, AdminUserCreateForm, AmaliyotTuriForm, NewsForm, SahifaRasmiForm, \
+    CourseForm, QuestionForm, QuizForm, CourseModuleForm, LessonForm, CourseEnrollmentForm, AnswerForm, \
+    KutubxonaCategoryForm, KutubxonaItemForm, AmaliyotItemForm, AmaliyotVideoForm, AmaliyotSectionForm, \
+    RelatedPracticeForm, CustomUserForm, VideoForm, VideoCategoryForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice
+from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory
 from django.http import JsonResponse,HttpResponseNotAllowed,FileResponse
 from django.utils import timezone
 import mimetypes
@@ -510,7 +513,72 @@ def admin_delete_amaliyotsection(request,amaliyotsection_id):
     amaliyotsection.delete()
     return redirect('inclusive_app:admin_add_amaliyotsection')
 # ================== AMALIYOT SECTIONLAR END ======================
+# ================== VIDEO ======================
+def admin_add_video(request,video_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if video_id:
+        video = get_object_or_404(Video, id=video_id)
+    else:
+        video = None
+    if request.method == "POST":
+        form = VideoForm(request.POST, request.FILES, instance=video)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_video')
+    else:
+        form = VideoForm(instance=video)
+        videolar = Video.objects.all()
+    return render(request, 'admin/add-video.html', {'form': form, 'videolar': videolar,'video': video})
+
+
+def admin_delete_video(request,video_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    video = get_object_or_404(Video, id=video_id)
+    video.delete()
+    return redirect('inclusive_app:admin_add_video')
+# ================== VIDEO END ======================
+# ================== VIDEO CATEGORY ======================
+def admin_add_videocat(request,videocat_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if videocat_id:
+        videocat = get_object_or_404(VideoCategory, id=videocat_id)
+    else:
+        videocat = None
+    if request.method == "POST":
+        form = VideoCategoryForm(request.POST, request.FILES, instance=videocat)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_videocat')
+    else:
+        form = VideoCategoryForm(instance=videocat)
+        videocatlar = VideoCategory.objects.all()
+    return render(request, 'admin/add-videocategory.html', {'form': form, 'videocatlar': videocatlar,'videocat': videocat})
+
+
+def admin_delete_videocat(request,videocat_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    videocat = get_object_or_404(VideoCategory, id=videocat_id)
+    videocat.delete()
+    return redirect('inclusive_app:admin_add_videocat')
+# ================== VIDEO CATEGORY END ======================
+
+
+
+
+
+
+
 # =====================================================USER VIEWS=================================================================
+
+
+
+
+
+
 # ======================================================================================================================
 def index(request):
     amaliyotlar = AmaliyotTuri.objects.all()
@@ -523,6 +591,10 @@ def courses(request):
     kurslar = Course.objects.prefetch_related('modules__lessons')
     return render(request, 'pages/courses.html', {'kurslar': kurslar})
 
+def videolar(request):
+    kategoriyalar = VideoCategory.objects.prefetch_related('videos').all().order_by('-name')
+
+    return render(request, 'pages/videolar.html', {'kategoriyalar': kategoriyalar})
 
 def kurslar(request,cat_id=None):
     kurslar = Course.objects.prefetch_related('modules__lessons')

@@ -2,17 +2,14 @@
     <div class="container">
         <div class="d-flex align-items-center">
             <div class="site-logo">
-                <a href="{% url 'inclusive_app:index' %} " class="d-block text-siyoh">
-                    Inclusive ta'lim
+                <a href="{% url 'inclusive_app:index' %} " class="d-block text-siyoh m-0 p-0">
+                    Bosh Sahifa
                 </a>
             </div>
-            <div class="mr-auto">
+
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li class="text-siyoh">
-                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Bosh sahifa</a>
-                        </li>
-                        <li class="has-children">
+                          <li class="has-children">
                             <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">O'qitish amaliyoti <i class="fa-solid fa-angle-down"></i></a>
                             <ul class="dropdown">
                                 {% for amal in amaliyotlar %}
@@ -31,19 +28,18 @@
                         <li>
                             <a href="admissions.html" class="nav-link text-left">Yangiliklar</a>
                         </li>
-                        <li class="has-children">
-                            <a href="{% url 'inclusive_app:index' %}" class="nav-link text-left">Kurslar <i class="fa-solid fa-angle-down"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="{% url 'inclusive_app:kurslar' %}">Kurslar</a></li>
-                                <li><a href="{% url 'inclusive_app:videolar' %}">Videolar</a></li>
-                            </ul>
+                        <li>
+                                <a href="{% url 'inclusive_app:kurslar' %}">Kurslar</a>
+                        </li>
+                         <li>
+                            <a href="{% url 'inclusive_app:videolar' %}" class="nav-link text-left">Videolar</a>
                         </li>
                         <li>
                             <a href="contact.html" class="nav-link text-left">Biz Haqimizda</a>
                         </li>
                     </ul>
                 </nav>
-            </div>
+
         </div>
 
     </div>

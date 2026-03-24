@@ -323,6 +323,7 @@ class KutubxonaItem(models.Model):
         blank=True,
         null=True
     )
+    image = models.ImageField(upload_to='library/',blank=True, null=True)
     external_link = models.URLField(
         "Tashqi sayt havolasi",
         blank=True,

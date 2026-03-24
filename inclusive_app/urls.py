@@ -30,6 +30,7 @@ urlpatterns = [
     path('lesson-complete/<int:lesson_id>/', views.mark_lesson_complete, name='mark_lesson_complete'),
     path('course-enroll/<int:course_id>/', views.course_enroll, name='course_enroll'),
     path('kutubxona/', views.kutubxona, name='kutubxona'),
+    path('kutubxona-detail/<int:kut_id>', views.kutubxona_detail, name='kutubxona_detail'),
     path('kutubxona/category/<int:cat_id>', views.kutubxona, name='kutubxona_category'),
     path('kutubxona/file/<int:pk>/',views.kutubxona_file_view,name='kutubxona_file_view'),
     path('certificate/<int:course_id>/', views.download_certificate, name='download_certificate'),

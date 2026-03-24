@@ -707,6 +707,11 @@ def kutubxona(request, cat_id=None):
 
     return render(request, 'pages/kutubxona.html', {'manbalar': manbalar, 'items': items, 'active_category': active_category})
 
+def kutubxona_detail(request, kut_id):
+    item = get_object_or_404(KutubxonaItem, id=kut_id)
+    return render(request, 'pages/kutubxona-detail.html', {'item': item})
+
+
 def kutubxona_file_view(request, pk):
     item = get_object_or_404(KutubxonaItem, pk=pk, is_active=True)
 

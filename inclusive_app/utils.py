@@ -15,13 +15,13 @@ def fill_certificate(template_path, output_path, user, test_name,created_at=None
     c = canvas.Canvas(packet, pagesize=landscape(A4))
 
     c.setFont("Helvetica-Bold", 28)
-    c.drawCentredString(PAGE_WIDTH/2+40, PAGE_HEIGHT/2+140, f"{user.first_name} {user.last_name}")
+    c.drawCentredString(PAGE_WIDTH/2, PAGE_HEIGHT/2+100, f"{user.first_name} {user.last_name}")
 
     c.setFont("Helvetica-Bold", 20)
-    c.drawCentredString(PAGE_WIDTH / 2 + 100, PAGE_HEIGHT / 2+40, f'"{test_name}"')
+    c.drawCentredString(PAGE_WIDTH / 2, PAGE_HEIGHT / 2+40, f'"{test_name}"')
 
-    c.setFont("Helvetica-Bold", 18)
-    c.drawCentredString(PAGE_WIDTH / 2 + 180 , PAGE_HEIGHT / 2-240, f'{created_at}')
+    c.setFont("Helvetica-Bold", 16)
+    c.drawCentredString(PAGE_WIDTH / 2 , PAGE_HEIGHT / 2-250, f'{created_at}')
 
     c.save()
     packet.seek(0)

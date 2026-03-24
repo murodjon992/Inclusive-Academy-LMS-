@@ -80,8 +80,9 @@ background-color: rgba(93, 62, 188, 0.1); /* Yengil fon */
                     {% for manba in items %}
                     <div class="col-lg-4">
                         <div class="my-3  flex-wrap">
-                            <img style="border-radius: 8px; object-fit:cover;" width="100%" height="150"
-                                 src="{{ manba.image.url }}" alt="">
+                            {% if manba.image %}
+                            <img style="border-radius: 8px; object-fit:cover;" width="100%" height="150" src="{{ manba.image.url }}" alt="">
+                            {% endif %}
                             <p style="font-size:13px;" class="text-info mt-5">{{ manba.category }}</p>
                             <h3 class="card-title d-flex flex-wrap text-black">{{ manba.title }}</h3>
                             <div class="d-flex justify-content-between align-items-center">

@@ -60,7 +60,7 @@ def admin_add_coursemodule(request,coursemodule_id=None):
 def admin_delete_coursemodule(request,coursemodule_id):
     if not request.user.is_superuser:
         return redirect("inclusive_app:login_user")
-    coursemodule = get_object_or_404(Course, id=coursemodule_id)
+    coursemodule = get_object_or_404(CourseModule, id=coursemodule_id)
     coursemodule.delete()
     return redirect('inclusive_app:admin_add_coursemodule')
 # ================== COURSE MODULE END ==========================

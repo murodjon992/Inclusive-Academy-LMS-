@@ -3,6 +3,10 @@
 {% block content %}
 {% load static %}
 
+<style>
+
+
+
 /* Radio buttonni yashirish */
 .custom-radio input[type="radio"] {
 display: none;
@@ -48,7 +52,7 @@ color: #5d3ebc !important;
 font-weight: bold;
 background-color: rgba(93, 62, 188, 0.1); /* Yengil fon */
 }
-
+</style>
 <div class="custom-breadcrumns border-bottom">
     <div style="background-color: #320266">
         <div class="container">
@@ -75,30 +79,30 @@ background-color: rgba(93, 62, 188, 0.1); /* Yengil fon */
 <div class="site-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mb-4">
+            <div class="col-lg-9 mb-4">
                 <div class="row">
                     {% for manba in items %}
                     <div class="col-lg-4">
-                        <div style="height: 350px;" class="my-3 d-flex flex-column justify-content-between">
+                        <div style="height: 390px; border-radius: 12px;" class="my-3 card p-2 d-flex shadow flex-column justify-content-between">
                             {% if manba.image %}
                             <img style="border-radius: 8px; object-fit:cover;" width="100%" height="150" src="{{ manba.image.url }}" alt="">
                             {% endif %}
-                            <p style="font-size:13px;" class="text-info mt-5">{{ manba.category }}</p>
+                            <small style="font-size:13px; width:max-content; border-radius: 10px;" class="badge p-1 text-light rounded-6 bg-siyoh mt-5">{{ manba.category }}</small>
                             <h5 class="card-title d-flex flex-wrap text-black">{{ manba.title|truncatechars:20 }}</h5>
-                            <div class="d-flex flex-column justify-content-between align-items-center">
+                            <div class="d-flex flex-column">
 
                                 {% if manba.file %}
-                                <a class="text-siyoh p-0 m-0" target="_blank" href="{{ manba.file.url }}">Yuklab olish <i
+                                <a style="border-radius: 25px;" class="text-light bg-siyoh rounded-pill btn btn-primary p-2 m-0" target="_blank" href="{{ manba.file.url }}">Yuklab olish <i
                                         style="font-size:13px" class="fa fa-chevron-right"></i></a>
                                 {% endif %}
-                                <a class="text-siyoh" href="{% url 'inclusive_app:kutubxona_detail' manba.id %}">Batafsil...</a>
+                                <a style="border-radius: 25px;" class="btn btn-outline-info mt-2" href="{% url 'inclusive_app:kutubxona_detail' manba.id %}">Batafsil...</a>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-lg-4 ml-auto">
+            <div class="col-lg-3 ml-auto">
                 <h2 class="section-title-underline mb-5">
                     Turkumlar
                 </h2>

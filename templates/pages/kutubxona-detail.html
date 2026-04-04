@@ -31,6 +31,7 @@
                     <div class="d-block my-3">
                         <img style="border-radius: 10px; object-fit:cover;" width="100%" height="400" src="{{ item.image.url }}" alt="">
                        <p style="width:100%; word-wrap: break-word;" class="text-black mt-5">{{ item.description }}</p>
+                         <iframe src="{{ item.file.url }}#toolbar=0" width="100%" height="600px"></iframe>
                         </div>
                     </div>
 
@@ -39,7 +40,8 @@
 
                 <small class="text-info"> {{ item.created_at|date:"d M Y" }}</small>
                 {% if item.file %}
-                <a href="{{ item.file.url }}" class="btn bg-siyoh text-light my-5"><i class="fa fa-file"></i> Ma'lumotni yuklab olish</a>
+                <a href="{{ item.file.url }}" class="btn bg-siyoh text-light my-3"><i class="fa fa-file"></i> Ma'lumotni yuklab olish</a>
+                <a href="" class="btn btn-outline-info"><i class="fa fa-eye"></i> O'qish</a>
                 {% endif %}
                 <h2 class="section-title-underline mt-5">
                     Turkumlar <br> <a href="" class="btn btn-outline-info">{{ item.category }}</a>

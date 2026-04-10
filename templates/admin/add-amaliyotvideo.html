@@ -5,79 +5,111 @@
 {% load crispy_forms_tags %}
 
 <div class="pagetitle">
-      <h1>Form Layouts</h1>
-      <nav>
+    <h1>Form Layouts</h1>
+    <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Forms</li>
-          <li class="breadcrumb-item active">Layouts</li>
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item">Forms</li>
+            <li class="breadcrumb-item active">Layouts</li>
         </ol>
-      </nav>
-    </div><!-- End Page Title -->
-    <section class="section">
-      <div class="row">
+    </nav>
+</div><!-- End Page Title -->
+<section class="section">
+    <div class="row">
 
- <div class="col-lg-3">
+        <div class="col-lg-3">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">O'qitish Amaliyoti qo'shish</h5>
-              <!-- Vertical Form -->
-                <form action="" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <button class="btn btn-success" type="submit">
-                        {% if amaliyot %}
-                        Amaliyot tahrirlash
-                        {% else %}
-                        Amaliyot qo'shish
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">O'qitish Amaliyoti qo'shish</h5>
+                    <!-- Vertical Form -->
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        {% if amaliyotvideo.video_file %}
+                        <video width="200" height="100" controls>
+                            <source src="{{ amaliyotvideo.video_file.url }}">
+                        </video>
                         {% endif %}
-                    </button>
-                </form>
+                        <button class="btn btn-success" type="submit">
+                            {% if amaliyot %}
+                            Amaliyot tahrirlash
+                            {% else %}
+                            Amaliyot qo'shish
+                            {% endif %}
+                        </button>
+                    </form>
 
+                </div>
             </div>
-          </div>
- </div>
-<div class="col-lg-9">
-      <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">O'qitish Amaliyoti ro'yxati</h5>
-              <!-- Active Table -->
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Amaliyot Bo'lim</th>
-                    <th>Nomi</th>
-                    <th>Video</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                      {% for i in amaliyotVideolar %}
-                  <tr>
-                    <th scope="row">{{ i.id }}</th>
-                    <td>{{ i.item }}</td>
-                    <td>{{ i.title }}</td>
-                    <td>
-                        <div class="mb-3">
-                        <iframe width="200" height="115" src=" {{ i.embed_url }}" title="{{ i.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="{% url 'inclusive_app:admin_add_amaliyotvideo' i.id %}" class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
-                        <a href="{% url 'inclusive_app:admin_delete_amaliyotvideo' i.id %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-              <!-- End Tables without borders -->
+        </div>
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">O'qitish Amaliyoti ro'yxati</h5>
+                    <!-- Active Table -->
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Amaliyot Bo'lim</th>
+                            <th>Nomi</th>
+                            <th>Video</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in amaliyotVideolar %}
+                        <tr>
+                            <th scope="row">{{ i.id }}</th>
+                            <td>{{ i.item }}</td>
+                            <td>{{ i.title }}</td>
+                            <td>
+                                <div class="mb-3">
+                                   {% if i.video_type == 'url' %}
+                                    <iframe width="200" height="115" src=" {{ i.embed_url }}" title="{{ i.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                   {% else %}
+                                        <video width="200" height="115" controls>
+                                            <source src="{{ i.video_file.url }}">
+                                        </video>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{% url 'inclusive_app:admin_add_amaliyotvideo' i.id %}"
+                                   class="btn btn-sm btn-outline-success"><i class="bi bi-pen"></i></a>
+                                <a href="{% url 'inclusive_app:admin_delete_amaliyotvideo' i.id %}"
+                                   class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- End Tables without borders -->
 
+                </div>
             </div>
-          </div>
-</div>
-      </div>
-    </section>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const videoType = document.getElementById('id_video_type');
+        const urlInput = document.getElementById('div_id_youtube_url');
+        const fileInput = document.getElementById('div_id_video_file');
+        function toggleFields() {
+            if (videoType.value === 'url') {
+                urlInput.style.display = 'block';
+                fileInput.style.display = 'none';
+            } else {
+                urlInput.style.display = 'none';
+                fileInput.style.display = 'block';
+            }
+        }
+        toggleFields();
+        videoType.addEventListener('change', toggleFields);
+    });
+</script>
 
 {% endblock %}

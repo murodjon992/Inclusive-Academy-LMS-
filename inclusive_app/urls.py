@@ -87,6 +87,9 @@ urlpatterns = [
     path('admin-add-relatedamaliyot/', views.admin_add_relatedamaliyot, name='admin_add_relatedamaliyot'),
     path('admin-edit-relatedamaliyot/<int:relamal_id>', views.admin_add_relatedamaliyot, name='admin_add_relatedamaliyot'),
     path('admin-delete-relatedamaliyot/<int:relamal_id>', views.admin_delete_relatedamaliyot, name='admin_delete_relatedamaliyot'),
+    path('admin-add-amaliyotyordam/', views.admin_add_amaliyotyordam, name='admin_add_amaliyotyordam'),
+    path('admin-edit-amaliyotyordam/<int:amalyor_id>', views.admin_add_amaliyotyordam, name='admin_add_amaliyotyordam'),
+    path('admin-delete-amaliyotyordam/<int:amalyor_id>', views.admin_delete_amaliyotyordam, name='admin_delete_amaliyotyordam'),
     # Yangiliklar uchun
     path('admin-add-yangiliklar/', views.admin_add_yangiliklar, name='admin_add_yangiliklar'),
     path('admin-edit-yangiliklar/<int:yangilik_id>', views.admin_add_yangiliklar, name='admin_add_yangiliklar'),

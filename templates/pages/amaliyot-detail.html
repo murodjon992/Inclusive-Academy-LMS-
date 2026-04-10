@@ -3,6 +3,22 @@
 {% block content %}
 {% load static %}
 
+<style>
+    .oquv{
+        position: relative;
+    }
+    .oquv::after{
+    content: " ";
+    height: 80px;
+    width:2px;
+    background: purple;
+    position:absolute;
+    right: 20px;
+    top: 0;
+
+    }
+</style>
+
 <div class="custom-breadcrumns border-bottom">
     <div class="container">
         <a href="index.html">Home</a>
@@ -16,70 +32,91 @@
 <div class="site-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-12">
                 <img width="100%" class="m-0 p-0" height="400" style="object-fit:cover;" src="{{ item.image.url }}"
                      alt="">
             </div>
-            <div class="col-lg-9 mt-3 shadow">
+             </div>
+            <div class="row m-0 p-0">
+            <div class="col-9 mt-3 shadow">
                 <div class="card my-3">
-                    <h5 class="card-title p-4">{{ item.title }}</h5>
+                    <h1 class="card-title text-black pl-4">{{ item.title }}</h1>
+                    <p class="text-black pl-4">{{ item.turi }}</p>
                     <div class="card-body">
-                        <p>{{ item.description }}</p>
-                        <p class="badge bg-warning ">{{ item.created_at|date:"d M Y"}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9 mt-3 shadow">
-                {% for section in item.sections.all %}
-                <div class="card my-3">
-                    <h5 class="card-title p-4">{{ section.title }}</h5>
-                    <div class="card-body">
-                        <p>{{ section.content }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% if item.videos.all %}
-            <div class="col-lg-9 mt-3 shadow">
-                {% for video in item.videos.all %}
-                <div class="card d-flex justify-contentcenter my-3">
-                    <h5 class="card-title pt-4 px-4">{{ video.title }}</h5>
-                    <small style="width:max-content" class="badge bg-warning ml-4"> Davomiyligi: {{ video.duration
-                        }}</small>
-                    <div class="card-body">
-                        <p class="float-right">
-                            <iframe width="400" height="315" src=" {{ video.embed_url }}" title="{{ i.title }}"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="col-lg-3"></div>
-            <br>
-            {% if related_items %}
-            <h3 class="my-3">Related practices</h3>
-            <div class="row">
-                        {% for rp in related_items %}
-                <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body p-3">
-                            <img width="100%" src="{{ rp.to_item.image.url }}" alt="">
-                            <h4>{{ rp.to_item.title }}</h4>
-                            <p>{{ rp.to_item.description|truncatewords:20 }}</p>
-                            <a href="{% url 'inclusive_app:amaliyot_item_detail' rp.to_item.turi.slug rp.to_item.slug %}">View details</a>
+                        <div class="row">
+                            <div class="col-6 oquv">
+                                <h4 class="text-black">O'quvchilarga yordam beradi</h4>
+                                <ul>
+                                    {% for h in item.helps.all %}
+                                        {% if h.help_type == 'pupil' %}
+                                            <li>{{ h.text }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-black">O'qituvchilarga yordam beradi</h4>
+                                <ul>
+                                    {% for h in item.helps.all %}
+                                        {% if h.help_type == 'teacher' %}
+                                            <li>{{ h.text }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                        {% endfor %}
+                <div class="card p-3 text-black mb-3">
+                    <p>{{ item.description }}</p>
+                    <hr>
+                    {% for i in item.videos.all %}
+                    <div class="d-flex justify-content-between">
+                        <div class="left">
+                            <h2>{{ i.title }}</h2>
+                            <h4>Amaliyot qanday ishlaydi</h4>
+                            <p>Videoni tomosha qiling va ko'proq ma'lumot olin</p>
+                            <small>Davomiyligi: {{ i.duration }}</small>
+                        </div>
+                        <div class="right">
+                            {% if i.video_type == 'url' %}
+                            <iframe
+                            style="border-radius: 8px;"
+                            width="100%"
+                            height="180"
+                            src="{{ i.embed_url }}"
+                            title="{{ i.title }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                        {% else %}
+                            <video width="100%" height="180" controls style="border-radius: 8px; background: #000;">
+                                <source src="{{ i.video_file.url }}">
+                            </video>
+                        {% endif %}
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    {% for i in item.sections.all %}
+                    <h3>{{ i.title }}</h3>
+                    <p>{{ i.content }}</p>
+                    <hr>
+                    {% endfor %}
+
+                </div>
             </div>
-            {% endif %}
+            <div style="height:300px;" class="col-3 mt-3 shadow">
+                <div class="card p-2 my-3">
+                <h5 class="text-black">Ta'lim Jarayoni</h5>
+                    <img src="{% static 'images/siklp.png' %}" alt="">
+                </div>
+            </div>
+            </div>
 
 
-        </div>
     </div>
 </div>
 </div>

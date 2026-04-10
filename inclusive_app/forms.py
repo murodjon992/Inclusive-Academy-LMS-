@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Lesson,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory
+from .models import CustomUser, CourseTest, Question,AmaliyotTuri,SahifaRasmi,News,KutubxonaItem,Course,CourseModule,CourseEnrollment,KutubxonaCategory,Lesson,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory,AmaliyotItemHelp
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Row, Column,Field, Div
 from django.contrib.auth import authenticate
@@ -118,10 +118,48 @@ class RelatedPracticeForm(forms.ModelForm):
             )
         return cleaned
 
+class AmaliyotItemHelpForm(forms.ModelForm):
+    class Meta:
+            model = AmaliyotItemHelp
+            fields = '__all__'
+
+
 class AmaliyotVideoForm(forms.ModelForm):
     class Meta:
         model = AmaliyotVideo
-        fields = '__all__'
+        fields = ['item','title','video_type','youtube_url','video_file','duration','order']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('youtube_url', wrapper_class='url_input'),
+            Field('video_file', wrapper_class='file_input'),
+            Div(
+                Field('youtube_url'),
+                css_class='url_input'
+            ),
+
+            Div(
+                Field('video_file'),
+                css_class='file_input'
+            ),
+        )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        video_type = cleaned_data.get("video_type")
+        youtube_url = cleaned_data.get("youtube_url")
+        video_file = cleaned_data.get("video_file")
+
+        if video_type == "url" and not youtube_url:
+            self.add_error("youtube_url", "YouTube link kiriting!")
+
+        if video_type == "file" and not video_file:
+            self.add_error("video_file", "Video fayl yuklang!")
+
+        return cleaned_data
 
 class AmaliyotSectionForm(forms.ModelForm):
     class Meta:
@@ -213,7 +251,7 @@ class NewsForm(forms.ModelForm):
 class KutubxonaItemForm(forms.ModelForm):
     class Meta:
         model = KutubxonaItem
-        fields = '__all__'
+        fields = ['category', 'title','resource_type','file','external_link','image','description']
 
 class KutubxonaCategoryForm(forms.ModelForm):
     class Meta:

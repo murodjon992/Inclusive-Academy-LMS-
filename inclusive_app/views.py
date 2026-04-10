@@ -2,11 +2,11 @@ from django.contrib import messages
 from .forms import RegistrationForm, LoginForm, AdminUserCreateForm, AmaliyotTuriForm, NewsForm, SahifaRasmiForm, \
     CourseForm, QuestionForm, QuizForm, CourseModuleForm, LessonForm, CourseEnrollmentForm, AnswerForm, \
     KutubxonaCategoryForm, KutubxonaItemForm, AmaliyotItemForm, AmaliyotVideoForm, AmaliyotSectionForm, \
-    RelatedPracticeForm, CustomUserForm, VideoForm, VideoCategoryForm
+    RelatedPracticeForm, CustomUserForm, VideoForm, VideoCategoryForm,AmaliyotItemHelpForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory
+from .models import  Question,CustomUser,Certificate,AmaliyotTuri,News,SahifaRasmi,QuizResult,CourseTest,Course,CourseModule,CourseEnrollment,KutubxonaItem,KutubxonaCategory,Lesson,LessonProgress,Answer,AmaliyotItem,AmaliyotSection,AmaliyotVideo,RelatedPractice,Video,VideoCategory,AmaliyotItemHelp
 from django.http import JsonResponse,HttpResponseNotAllowed,FileResponse
 from django.utils import timezone
 import mimetypes
@@ -476,6 +476,8 @@ def admin_add_amaliyotvideo(request,amaliyotvideo_id=None):
         if form.is_valid():
             form.save()
             return redirect('inclusive_app:admin_add_amaliyotvideo')
+        else:
+            print(form.errors)
     else:
         form = AmaliyotVideoForm(instance=amaliyotvideo)
         amaliyotVideolar = AmaliyotVideo.objects.all()
@@ -488,6 +490,35 @@ def admin_delete_amaliyotvideo(request,amaliyotvideo_id):
     amaliyotvideo.delete()
     return redirect('inclusive_app:admin_add_amaliyotvideo')
 # ================== AMALIYOT VIDEOLAR END ======================
+# ================== AMALIYOT YORDAM ======================
+def admin_add_amaliyotyordam(request,amalyor_id=None):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    if amalyor_id:
+        amalyor = get_object_or_404(AmaliyotItemHelp, id=amalyor_id)
+    else:
+        amalyor = None
+    if request.method == "POST":
+        form = AmaliyotItemHelpForm(request.POST, request.FILES, instance=amalyor)
+        if form.is_valid():
+            form.save()
+            return redirect('inclusive_app:admin_add_amaliyotyordam')
+        else:
+            print(form.errors)
+    else:
+        form = AmaliyotItemHelpForm(instance=amalyor)
+        amaliyotYordamlar = AmaliyotItemHelp.objects.all()
+    return render(request, 'admin/add-amaliyotyordam.html', {'form': form, 'amaliyotYordamlar': amaliyotYordamlar,'amalyor': amalyor})
+
+def admin_delete_amaliyotyordam(request,amalyor_id):
+    if not request.user.is_superuser:
+        return redirect("inclusive_app:login_user")
+    amalyor = get_object_or_404(AmaliyotItemHelp, id=amalyor_id)
+    amalyor.delete()
+    return redirect('inclusive_app:admin_add_amaliyotyordam')
+
+
+# ================== AMALIYOT YORDAM END ======================
 # ================== AMALIYOT SECTIONLAR ==========================
 def admin_add_amaliyotsection(request,amaliyotsection_id=None):
     if not request.user.is_superuser:
@@ -658,8 +689,8 @@ def check_test(request, quiz_id):
     return redirect('inclusive_app:test_detail')
 
 def amaliyot_list(request):
-    amaliyotlar = AmaliyotItem.objects.all()
-    return render(request, 'pages/amaliyotlar.html', {'amaliyotlar': amaliyotlar})
+    amaliyotlarList = AmaliyotItem.objects.all()
+    return render(request, 'pages/amaliyotlar.html', {'amaliyotlarList': amaliyotlarList})
 
 
 def yangilik_detail(request,slug):

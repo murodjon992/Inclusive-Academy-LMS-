@@ -59,6 +59,28 @@ class AmaliyotItem(models.Model):
         super().save(*args, **kwargs)
     def __str__(self):
         return self.title
+
+class AmaliyotItemHelp(models.Model):
+    TYPE_CHOICES = (
+        ('pupil', "O‘quvchiga yordam"),
+        ('teacher', "O‘qituvchiga yordam"),
+    )
+
+    item = models.ForeignKey(
+        AmaliyotItem,
+        related_name='helps',
+        on_delete=models.CASCADE
+    )
+    help_type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    text = models.CharField(max_length=255)
+    order = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.text
+
 class AmaliyotVideo(models.Model):
     item = models.ForeignKey(
         AmaliyotItem,
@@ -66,29 +88,34 @@ class AmaliyotVideo(models.Model):
         on_delete=models.CASCADE
     )
     title = models.CharField(max_length=255)
-    youtube_url = models.URLField()
+    VIDEO_TYPE_CHOICES = (
+        ('url', 'YouTube URL'),
+        ('file', 'Fayl Yuklash'),
+    )
+    video_type = models.CharField(max_length=50, choices=VIDEO_TYPE_CHOICES)
+    youtube_url = models.URLField(blank=True,null=True)
+    video_file = models.FileField(upload_to='amaliyot/videos/', blank=True, null=True)
     duration = models.CharField(max_length=20, blank=True)
+    description = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=1)
     class Meta:
         ordering = ['order']
+
     def embed_url(self):
-        """
-        https://youtu.be/abc
-        https://www.youtube.com/watch?v=abc
-        """
-        patterns = [
-            r'youtu\.be/(?P<id>[^/?]+)',
-            r'youtube\.com/watch\?v=(?P<id>[^&]+)'
-        ]
-
-        for p in patterns:
-            match = re.search(p, self.youtube_url)
-            if match:
-                return f"https://www.youtube.com/embed/{match.group('id')}"
-
-        return None
+        try:
+            patterns = [
+                r'youtu\.be/(?P<id>[^/?&]+)',
+                r'youtube\.com/watch\?v=(?P<id>[^&]+)',
+            ]
+            for p in patterns:
+                match = re.search(p, self.youtube_url)
+                if match:
+                    return f"https://www.youtube.com/embed/{match.group('id')}"
+        except Exception as e:
+            print("EMBED ERROR:", e)
     def __str__(self):
         return self.title
+
 class AmaliyotSection(models.Model):
     item = models.ForeignKey(
         AmaliyotItem,
@@ -343,12 +370,8 @@ class KutubxonaItem(models.Model):
 class VideoCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Kategoriya nomi")
     slug = models.SlugField(unique=True, blank=True, null=True) # URL uchun qulay (masalan: sport-videolari)
-
-
-
     def __str__(self):
         return self.name
-
     def save(self, *args, **kwargs):
         if not self.slug:
             base_slug = slugify(self.name)
@@ -359,7 +382,6 @@ class VideoCategory(models.Model):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
-
     class Meta:
         verbose_name = "Video Kategoriya"
         verbose_name_plural = "Video Kategoriyalar"
@@ -374,6 +396,23 @@ class Video(models.Model):
     video_type = models.CharField(max_length=10, choices=VIDEO_TYPE_CHOICES)
     youtube_url = models.URLField(blank=True, null=True)
     video_file = models.FileField(upload_to='videos/', blank=True, null=True)
+
+    def embed_url(self):
+        """
+        https://youtu.be/abc
+        https://www.youtube.com/watch?v=abc
+        """
+        patterns = [
+            r'youtu\.be/(?P<id>[^/?]+)',
+            r'youtube\.com/watch\?v=(?P<id>[^&]+)'
+        ]
+
+        for p in patterns:
+            match = re.search(p, self.youtube_url)
+            if match:
+                return f"https://www.youtube.com/embed/{match.group('id')}"
+
+        return None
 
     def __str__(self):
         return self.title

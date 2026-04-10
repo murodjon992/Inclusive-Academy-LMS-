@@ -92,9 +92,11 @@
                             allowfullscreen>
                         </iframe>
                         {% else %}
+                            {% if i.video_file %}
                             <video width="100%" height="180" controls style="border-radius: 8px; background: #000;">
                                 <source src="{{ i.video_file.url }}">
                             </video>
+                            {% endif %}
                         {% endif %}
                         </div>
                     </div>

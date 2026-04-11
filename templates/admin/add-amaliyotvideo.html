@@ -69,9 +69,11 @@
                                    {% if i.video_type == 'url' %}
                                     <iframe width="200" height="115" src=" {{ i.embed_url }}" title="{{ i.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                    {% else %}
-                                        <video width="200" height="115" controls>
-                                            <source src="{{ i.video_file.url }}">
-                                        </video>
+                                        {% if i.video_file %}
+                                            <video width="200" height="115" controls>
+                                                <source src="{{ i.video_file.url }}">
+                                            </video>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </td>

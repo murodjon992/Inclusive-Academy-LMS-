@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path,include
-from debug_toolbar.toolbar import debug_toolbar_urls
 
 
 urlpatterns = [
@@ -9,8 +8,3 @@ urlpatterns = [
     path('', include('inclusive_app.urls', namespace='inclusive_app')),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-    urlpatterns += [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ]

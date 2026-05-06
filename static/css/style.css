@@ -579,7 +579,7 @@ h1, h2, h3, h4, h5,
     height: 100%;
     width: 100%;
     background: #222;
-    opacity: .7;
+    opacity: .1;
     border-bottom-right-radius: 0px;
     background-size: cover;
     background-position: center;
@@ -756,6 +756,7 @@ h1, h2, h3, h4, h5,
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
     background: #fff; }
     .hero-slide .owl-nav .owl-prev > span,
     .hero-slide .owl-nav .owl-next > span {
@@ -763,12 +764,15 @@ h1, h2, h3, h4, h5,
       position: absolute;
       top: 50%;
       left: 50%;
+      background:#000;
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%); }
   .hero-slide .owl-nav .owl-prev {
+  clip-path: polygon(100% 0, 14% 51%, 100% 100%);
     left: 0; }
   .hero-slide .owl-nav .owl-next {
+   clip-path: polygon(1% 0, 0% 100%, 80% 49%);
     right: 0; }
   .hero-slide .owl-dots {
     position: absolute;

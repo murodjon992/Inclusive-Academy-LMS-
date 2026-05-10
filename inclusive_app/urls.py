@@ -21,6 +21,7 @@ urlpatterns = [
     path('testlar/', views.testlar, name='testlar'),
     path('test/check/<int:quiz_id>', views.check_test, name='check_test'),
     path('test/<int:test_id>', views.test_detail, name='test_detail'),
+    path('evidenve/', views.evidenve, name='evidenve'),
 
     path('courses/', views.courses, name='courses'),
     path('kurslar/category/<int:cat_id>', views.kurslar, name='kurslar_category'),

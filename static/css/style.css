@@ -1065,6 +1065,337 @@ h1, h2, h3, h4, h5,
   animation: loader-dash 1.5s ease-in-out infinite;
   stroke-linecap: round; }
 
+
+.evidence-text{
+    position: absolute;
+    bottom: 20%;
+    right: 100px;
+    color: #ffff;
+    font-size: 30px;
+    border: 1px solid #fff;
+    padding: 15px;
+    width: 300px;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+.evedince-title{
+    position: absolute;
+    top: 20%;
+    left: 100px;
+    color: #ffff;
+    line-height: 1,2;
+    font-size: 80px;
+    padding: 15px;
+    width: 600px;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+.evidence-blog{
+  position: relative;
+}
+.ilmiy-title{
+  font-size: 80px;
+  position: absolute;
+  font-weight: 700;
+  top: 0;
+  line-height: 0.9;
+  padding-top: 25px;
+  color: #000;
+  text-align: center;
+  margin-left: auto;
+}
+.ilmiy-blog{
+  display: flex;
+  position: absolute;
+  bottom: 10%;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.ilmiy-text{
+  color: #000;
+  font-size: 39px;
+  font-weight: 700;
+}
+.ilmiy-text:last-child{
+  width: 500px;
+  text-align: center;
+  line-height: 1;
+  margin-right: 60px;
+}
+.ilmiy-text:first-child{
+  margin-left: 130px;
+}
+.ilmiy-pastki-text{
+  position: absolute;
+  bottom: 0;
+  color: #000;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 95%;
+  border: 2px solid #555;
+  border-radius: 20px;
+  background: rgba(151, 151, 151, 0.174);
+  margin: 0 auto;
+  left: 2.5%;
+}
+.evedence-ilmiy{
+  position: relative;
+  width: 100%;
+}
+.evidence-diagnos{
+  padding-top: 100px;
+  position: relative;
+}
+.diagnos-title{
+  color: #000;
+  font-size: 50px;
+  position: absolute;
+  top: 35px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  font-weight: 500;
+}
+.diagnos-subtitle{
+  color: #000;
+  position: absolute;
+  top: 150px;
+  text-align: center;
+  width: 100%;
+  font-size: 36px;
+  font-weight: 700;
+}
+.evidence-diagnostik-markaz{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: -30px;
+  left: 0;
+}
+.evidence-diagnostik-markaz h1{
+  color: #012061;
+  font-size: 50px;
+}
+.evidence-diagnostik-markaz p{
+  color: #383838;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+
+.diagnos-pastki-blog{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  bottom: 120px;
+  font-size: 35px;
+  color: #000;
+  justify-content: space-around;
+  width: 100%;
+}
+.diadnos-pastki-text{
+  width: 350px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1;
+}
+.diadnos-pastki-text:last-child{
+  margin-right: 50px;
+}
+.evidence-natija{
+  padding-top: 100px;
+  position: relative;
+}
+.natija-title{
+  color: #012061;
+  font-size: 50px;
+  position: absolute;
+  width: 100%;
+  top: 30px;
+  text-align: center;
+}
+.natija-subtitle{
+  position: absolute;
+  top: 165px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  font-size: 44px;
+}
+.natija-chizma{
+  position: absolute;
+  top: -80px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.chizma-text{
+  background-color: #072755;
+  padding: 15px 25px;
+  color: #fff;
+  border-radius: 70px;
+  border: 3px solid orange;
+  font-size: 23px;
+  width: 250px;
+  text-align: center;
+  line-height: 1.2;
+}
+.chizma-uch{
+  margin-top: -450px;
+}
+.chizma-text:first-child{
+  margin-top: 450px;
+}
+.natija-text{
+  position: absolute;
+  left: -15px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  color: #012061;
+  height: 100%;
+  font-size: 26px;
+  font-weight: 700;
+  transform: rotate(-90deg);
+}
+.natija-pastki-text{
+  position: absolute;
+  bottom: 200px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #012061;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.evidence-oquv{
+  position: relative;
+}
+
+.oquv-title{
+  position: absolute;
+  top: 0;
+  left: auto;
+  color: #000;
+  font-size: 55px;
+  width: 100%;
+  padding: 30px 300px 0;
+  text-align: center;
+}
+.oquv-blog{
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 120px;
+  left: 0;
+  width: 100%;
+}
+.oquv-text{
+  width: 350px;
+  font-size: 30px;
+  color: #000;
+  text-align: center;
+  line-height: 1;
+  font-weight: 700;
+}
+.oquv-text:nth-child(2){
+  width: 600px;
+  font-size: 28px;
+  margin-top: 200px;
+}
+.oquv-markzatitle{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 40px;
+  color: #012061;
+  font-size: 55px;
+}
+.oquv-pastkititle{
+  position: absolute;
+  bottom: 200px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  line-height: 1.1;
+  color: #012061;
+  font-weight: 500;
+  font-size: 30px;
+  margin: 0 auto;
+}
+.evidence-dalil{
+  position: relative;
+  margin-top: 100px;
+  /* padding-top: 100px; */
+}
+.evidence-dalil img{
+  margin-left: 15%;
+}
+.dalil-blog{
+  position: absolute;
+  top: -260px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dalil-text{
+  color: #000;
+  width: 430px;
+  font-size: 26px;
+  line-height: 1.2;
+  text-align: center;
+
+}
+.dalil-text span{
+  font-weight: 700;
+}
+.dalil-text:nth-child(2){
+  margin-top: 1200px;
+}
+.dalil-title{
+  position: absolute;
+  top: -50px;
+  left: 0;
+  color: #000;
+  font-size: 50px;
+  text-align: center;
+  width: 100%;
+}
+.dalil-markaz-title{
+  position: absolute;
+  color: #000;
+  font-weight: 700;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  text-align: center;
+}
 @-webkit-keyframes loader-rotate {
   100% {
     -webkit-transform: rotate(360deg);

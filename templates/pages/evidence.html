@@ -1,0 +1,79 @@
+{% extends "base.html" %} 
+{% block title %} Bosh sahifa {% endblock %}
+ {% block content %} 
+ {% load static %}
+
+<div class="site-section">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 mb-4">
+        <div class="evidence-blog">
+          <img width="100%" src="{% static 'images/evidence/evie1.png' %}" />
+          <h1 class="evedince-title">Dalilga Asoslangan Inklyuziv Ta'lim</h1>
+          <p class="evidence-text">Diagnostikadan natijaga qadar</p>
+        </div>
+        <div class="evedence-ilmiy">
+            <img width="100%" src="{% static 'images/evidence/evie2.png' %}" alt="">
+            <h2 class="ilmiy-title">Inklyuziv ta'limda qarorlar hissiyotga emas, dalillarga asoslanishi shart</h2>
+            <div class="ilmiy-blog">
+                <p class="ilmiy-text">Ilmiy Ma'lumotlar</p>
+                <p class="ilmiy-text">Diagnostik tahlil</p>
+                <p class="ilmiy-text">Inklyuziv ta'limdagi ahamiyati va muvaffaqiyati</p>
+            </div>
+            <p class="ilmiy-pastki-text">Ilmiy va diagnostik malumotlarga tayangan qarorlar sifatli ta'limning poydevori hisoblanadi.</p>
+        </div>
+        <div class="evidence-dalil">
+            <img  width="70%" src="{% static 'images/evidence/evie6.png' %}" alt="">
+            <h1 class="dalil-title">Dalilga Asoslangan yondashuvning uch bosqichli uzluksiz sikli</h1>
+            <div class="dalil-blog">
+                <p class="dalil-text"><span>3. Baholash</span><br>Aniqlangan natijalarga tayangan holda oqibatlarni baholash va o'zlashtirishni kuzatish</p>
+                <p class="dalil-text"><span>2. Rejalashtirish</span><br>Ma'lumotlar asosida individual ta'lim rejalshtirish va yanada samarali metodlarni tanlash</p>
+                <p class="dalil-text"><span>1. Aniqlash</span><br>Aniqlangan diagnostik usullar yordamid har bir o'quvchining ehtiyojlari va qobiliyatlarini samarali aniqlash</p>
+            </div>
+            <h2 class="dalil-markaz-title">Asosiy <br> Vazifalar</h2>
+        </div>
+        <div class="evidence-diagnos">
+            <img width="100%" src="{% static 'images/evidence/evie3.png'%}" alt="">
+            <h3 class="diagnos-title">Diagnostik tahlildan individual ta'lim rejasiga o'tish mexanizmi</h3>
+            <h4 class="diagnos-subtitle">Umumiy o'quvchilar oqimi va yashirin qobiliyatlar</h4>
+            <div class="evidence-diagnostik-markaz">
+                <h1>Diagnostik usullar</h1>
+                <p>O'quvchi ehtiyojini samarali aniqlash</p>
+            </div>
+            <div class="diagnos-pastki-blog">
+                <p class="diadnos-pastki-text">Individual ta'lim rejasini ishlab chiqish</p>
+                <p class="diadnos-pastki-text">Samarali metodlarni saralash</p>
+                <p class="diadnos-pastki-text">Moslashtirilgan muhitini yaratish</p>
+
+            </div>
+        </div>
+        <div class="evidence-natija">
+            <img width="100%" src="{% static 'images/evidence/evie4.png'%}" alt="">
+            <h1 class="natija-title">Natijalarga tayangan holda o'zlashtirish dinamik kuzatish</h1>
+            <p class="natija-subtitle">Aniqlangan natijalarga tayangan holda oqibatlarni baholash</p>
+            <div class="natija-chizma">
+                <p class="chizma-text">O'zlashtirish darajasini o'lchash</p>
+                <p class="chizma-text">Ta'lim rejasiga tuzatish kiritish</p>
+                <p class="chizma-text chizma-uch">Yangi diagnostik xulosalar shakllantirish</p>
+            </div>
+            <p class="natija-text">O'zlashtirish darajasi</p>
+            <p class="natija-pastki-text">Vaqt o'lchovi / Rivojlanish davri</p>
+        </div>
+        <div class="evidence-oquv">
+            <img width="100%" src="{% static 'images/evidence/evie7.png'%}" alt="">
+            <h1 class="oquv-title">O'qituvchi ilmiy ma'lumot va o'quvchi o'rtasidagi 
+asosiy bog'lovchi ko'prikdir</h1>
+            <div class="oquv-blog">
+                <p class="oquv-text">Ilmiy ma'lumotlar</p>
+                <p class="oquv-text">Olingan ilmiy ma'lumotlarni o'qitish jarayoniga moslashtirishda samarali qo'llash</p>
+                <p class="oquv-text">O'quvchining ehtiyojlari va rivojlanish</p>
+            </div>
+            <h2 class="oquv-markzatitle">O'qituvchi</h2>
+            <p class="oquv-pastkititle">Har bir o'quvchining ehtiyojiga <br> moslangan qarorlar qabul qilish</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

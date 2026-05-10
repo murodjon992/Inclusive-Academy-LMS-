@@ -994,3 +994,7 @@ def login_user(request):
 def user_logout(request):
     logout(request)
     return redirect("inclusive_app:login_user")
+
+
+def evidenve(request):
+    return render(request, "pages/evidence.html")

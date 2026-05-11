@@ -41,7 +41,7 @@
          </div>
          <h4 class="text-black">Har bir o'quvchining imkoniyatlarini ochib beradigan inklyuziv ta'lim strategiyalari</h4>
          <p class="text-black">Asosiy konsepsiyalar, rahbarlik,o'qitish strategiyalari,hamkorlik,qo'llab-quvvatlash,rejalashtirish, baholash va monitorish bilan yo'naltirilgan,</p>
-         <a class="btn text-light bg-siyoh shadow" >Hech kim e'tibordan chetda qolmasligi kerak</a>
+         <a class="btn text-light bg-siyoh shadow" href="{% url 'inclusive_app:inclusive' %}" >Hech kim e'tibordan chetda qolmasligi kerak</a>
        </div>
        <div class="col-lg-6 my-5">
          <img class="img-fluid" src="{% static 'images/s33.png' %}" alt="">
@@ -70,7 +70,7 @@
              <p style="margin:0; line-height: 1.1;" class="pl-3 text-black">Xilma-xil metodikalarni qo'llab, moslashtirilgan ta'limni ta'minlash</p>
            </li>
          </ul>
-         <button class="btn text-light btn-warning ml-5 text-black shadow"  type="submit">Xilma Xillikni qabul qilish</button>
+         <a class="btn text-light btn-warning ml-5 text-black shadow" href="{% url 'inclusive_app:diversity' %}">Xilma Xillikni qabul qilish</a>
        </div>
          <div class="col-lg-6 my-5 text-left">
          <div class="blog mb-3 d-flex align-items-center">
@@ -144,7 +144,7 @@
            </li>
          </ul>
             </div>
-         <button class="btn text-light btn-warning mt-4 text-light shadow"  type="submit">Moslashtirilgan yondashuvni qo'llash</button>
+         <a class="btn text-light btn-warning mt-4 text-light shadow" href="{% url 'inclusive_app:adapting' %}">Moslashtirilgan yondashuvni qo'llash</a>
        </div>
   </div>
 </div>

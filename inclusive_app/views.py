@@ -998,3 +998,12 @@ def user_logout(request):
 
 def evidenve(request):
     return render(request, "pages/evidence.html")
+
+def inclusive(request):
+    return render(request, "pages/inclusive.html")
+
+def diversity(request):
+    return render(request, "pages/diversity.html")
+
+def adapting(request):
+    return render(request, "pages/adapting.html")

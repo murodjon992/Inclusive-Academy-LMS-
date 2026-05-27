@@ -1,59 +1,62 @@
 {% extends "base.html" %} 
 {% block title %} Bosh sahifa {% endblock %}
- {% block content %} 
- {% load static %}
+{% block content %} 
+{% load static %}
 
- 
 <div class="site-section">
   <div class="container-fluid">
+    
+    <!-- 1-Blok: Xilma-xillikni Qabul qilish -->
     <div class="diver-xil">
         <div class="row align-items-center">
-            <div class="offset-1 col-6">
+            <div class="col-12 col-lg-6 offset-lg-1 order-2 order-lg-1">
                 <h2 class="xil-title text-secondary">Xilma-xillikni Qabul qilish</h2>
                 <p class="xil-text text-secondary">Inklyuziv ta'limning asosiy g'oyasi - barcha bolalar uchun adolatli, qo'llab-quvvatlash va imkoniyat yaratuvchi ta'lim muhiti</p>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap gap-2">
                     <a href="#" class="xil-btn">inklyuziv ta'lim</a>
                     <a href="#" class="xil-btn">pedagogik rivojlanish</a>
                 </div>
             </div>
-            <div class="offset-1 col-4">
-                <img width="100%" height="1000px" src="{% static 'images/dicersity/diver1.png' %}" alt="">
+            <div class="col-12 col-lg-4 offset-lg-1 order-1 order-lg-2 mb-4 mb-lg-0">
+                <img class="img-fluid diver-img" src="{% static 'images/dicersity/diver1.png' %}" alt="Xilma-xillik">
             </div>
         </div>
-
     </div>
+
+    <!-- 2-Blok: Xilma-xillik nima? -->
     <div class="diver-ikki">
-        <div class="row">
-            <div class="offset-1 col-5">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-5 offset-lg-1 mb-4 mb-lg-0">
                 <h2 class="ikki-title">Xilma-xillik nima?</h2>
-            <p class="ikki-text">Xilma-xillikni qabul qilish - sinfdagi o'quvchilarning jismoniy, aqliy, hissiy, ijtimoiy, madaniy, til, qobiliyat, o'rganish sur'ati va ehtiyojlaridagi farqlarni  
-                <b class="text-black">"muammo" yoki "kamchilik"</b> sifatida emas, balki ta'lim jarayonini boyituvchi imkoniyat sifatida ko'rishdir.</p>
-            <p class="ikki-text">UNESCOning Salamanca bayonotida ham inklyuziv maktablar o'quvchilarning turli ehtiyojlarini tan olishi va ularga mos javob berishi lozimligi alohida ta'kidlangan.</p>
-        </div>
-            <div class="col-5">
+                <p class="ikki-text">Xilma-xillikni qabul qilish - sinfdagi o'quvchilarning jismoniy, aqliy, hissiy, ijtimoiy, madaniy, til, qobiliyat, o'rganish sur'ati va ehtiyojlaridagi farqlarni <b class="text-black">"muammo" yoki "kamchilik"</b> sifatida emas, balki ta'lim jarayonini boyituvchi imkoniyat sifatida ko'rishdir.</p>
+                <p class="ikki-text">UNESCOning Salamanca bayonotida ham inklyuziv maktablar o'quvchilarning turli ehtiyojlarini tan olishi va ularga mos javob berishi lozimligi alohida ta'kidlangan.</p>
+            </div>
+            <div class="col-12 col-lg-5">
                 <div class="ikki-card">
                     <h2 class="ikki-card-title">Asosiy tamoyil</h2>
-                    <p class="ikki-card-text">Barcha bolalar imkon qadar bir maktabda, bir sinf muhitida birga o'qishi, maktab esa ularning turli ehtiyojlariga <b class="text-black"> moslashishi</b> kerak.</p>
+                    <p class="ikki-card-text">Barcha bolalar imkon qadar bir maktabda, bir sinf muhitida birga o'qishi, maktab esa ularning turli ehtiyojlariga <b class="text-black">moslashishi</b> kerak.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 3-Blok: Kimlar uchun -->
     <div class="diver-talim">
         <div class="row align-items-center">
-            <div class="col-4">
-                <img width="100%" height="1000px" src="{% static 'images/dicersity/diver2.png' %}" alt="">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                <img class="img-fluid diver-img" src="{% static 'images/dicersity/diver2.png' %}" alt="Inklyuziv ta'lim">
             </div>
-            <div class="offset-1 col-6">
+            <div class="col-12 col-lg-6 offset-lg-1">
                 <h2 class="talim-title text-secondary">Inklyuziv ta'lim kimlar uchun</h2>
-                <p class="talim-text text-secondary">Inklyuziv ta'lim faqat nogironligi bo'lgan bolalarni umumiy sinfga qo'shish emas. UNICEF ta'rifiga ko'ra, u barcha bolalarning bir xil maktab va sinflarda o'qishini taminlaydi</p>
+                <p class="talim-text text-secondary mb-4">Inklyuziv ta'lim faqat nogironligi bo'lgan bolalarni umumiy sinfga qo'shish emas. UNICEF ta'rifiga ko'ra, u barcha bolalarning bir xil maktab va sinflarda o'qishini taminlaydi</p>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="talim-card">
-                            <h2>Noginronligi bo'lgan bolalar</h2>
+                            <h2>Nogironligi bo'lgan bolalar</h2>
                             <p>Jismoniy yoki aqliy qiyinchiliklari bor o'quvchilar uchun real o'rganish imkoniyatlari</p>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="talim-card">
                             <h2>Ozchilik tilida so'zlashuvchilar</h2>
                             <p>Ona tili farqli bo'lgan yoki ikki tilli muhitda o'sayotgan bolalar</p>
@@ -68,176 +71,189 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <!-- 4-Blok: Nima uchun imkoniyat? -->
     <div class="diver-tor">
         <div class="row">
-            <div class="col-10 offset-1">
+            <div class="col-12 col-lg-10 offset-lg-1">
                 <h2 class="tor-title">Nima uchun xilma-xillik imkoniyat hisoblanadi?</h2>
-                <p class="tor-text">Sinfda o'quvchilar turlicha bo'lsa, bu o'qituvchini moslashuvchan, ijodiy va adolatli yondashuv ishlab chiqishga undaydi. Har bir o'quvchi o'ziga xos tarzda o'rganadi:</p>
-                <div class="row">
-                    <div class="col-4">
-                        <div class="d-flex">
-                            <i class="fa-solid fa-2x fa-book-open"></i>
+                <p class="tor-text mb-4">Sinfda o'quvchilar turlicha bo'lsa, bu o'qituvchini moslashuvchan, ijodiy va adolatli yondashuv ishlab chiqishga undaydi. Har bir o'quvchi o'ziga xos tarzda o'rganadi:</p>
+                <div class="row g-4">
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex align-items-start">
+                            <i class="fa-solid fa-2x fa-book-open mt-1 text-primary"></i>
                             <p class="tor-card-text"><span>O'qib tushunuvchi</span> <br> Ba'zi o'quvchilar matnni o'qib, uni mustaqil tahlil qilish orqali yaxshi o'zlashtiradi</p>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="d-flex">
-                           <i class="fa-solid fa-2x fa-ear-listen"></i>
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex align-items-start">
+                           <i class="fa-solid fa-2x fa-ear-listen mt-1 text-primary"></i>
                             <p class="tor-card-text"><span>Eshitib o'rganuvchi</span> <br> Boshqa o'quvchilar audio tushuntirish, og'zaki muhokama orqali tezroq o'zlashtiradi</p>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="d-flex">
-                           <i class="fa-solid fa-2x fa-chalkboard-user"></i>
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex align-items-start">
+                           <i class="fa-solid fa-2x fa-chalkboard-user mt-1 text-primary"></i>
                             <p class="tor-card-text"><span>Ko'rgazmali o'rganuvchi</span> <br> Rasm, jadval yoki amaliy mashq orqali anglash ular uchun eng samarali yo'l bo'ladi</p>
                         </div>
                     </div>
                 </div>
-                <p class="tor-pastkitext"><i class="fa-solid fa-2x text-info fa-circle-info"></i>UDL (Universal Design for Learning) tamoyillariga ko'ra, o'quv muhiti shunday loyihalanishi kerakki, barcha o'quvchilar mazmunli va murakkab o'quv jarayonida to'liq ishtirok eta olsin.</p>
+                <p class="tor-pastkitext mt-4"><i class="fa-solid fa-circle-info text-info"></i>UDL (Universal Design for Learning) tamoyillariga ko'ra, o'quv muhiti shunday loyihalanishi kerakki, barcha o'quvchilar mazmunli va murakkab o'quv jarayonida to'liq ishtirok eta olsin.</p>
             </div>
         </div>
     </div>
+
+    <!-- 5-Blok: Jadval -->
     <div class="diver-besh">
         <div class="row">
-            <div class="col-10 offset-1">
+            <div class="col-12 col-lg-10 offset-lg-1">
                 <h2 class="besh-title">Sinfdagi xilma-xillik turlari</h2>
-                <p class="besh-text">Inklyuziv sinfda o'qituvchi quyidagi xilma-xillik turlarini muntazam uchratadi va ularga mos pedagogik yondashuv ishlab chiqishi zarur:</p>
-                <table class="table-bordered w-100">
-                    <thead>
-                        <tr>
-                            <th>Xilma-xillik turlari</th>
-                            <th>Sinfdagi ko'rinishi</th>
-                            <th>O'qituvchi yondashuvi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>O'rganish sur'ati</td>
-                            <td>Bazilar tex, boshqalari sekin o'zlashtiradi</td>
-                            <td>Qo'shimcha vaqt, bosqichma-bosqich topshiriq</td>
-                        </tr>
-                        <tr>
-                            <td>Nutq va til farqlari</td>
-                            <td>Fikrini og'zaki ifodalashda qiynaladi</td>
-                            <td>Rasm, yozma javob, juftlikda ishlash</td>
-                        </tr>
-                        <tr>
-                            <td>Jismoniy imkoniyatlar</td>
-                            <td>Yozish yoki ko'rishda qiyinchilik</td>
-                            <td>Moslashtirilgan jihoz, texnologiya</td>
-                        </tr>
-                        <tr>
-                            <td>Ijtimoiy-emotsional holat</td>
-                            <td>Tortinchoqlik, xavotir, darsga qo'shilmaslik</td>
-                            <td>Xavfsiz muhit, rag'bat, ijobiy muloqot</td>
-                        </tr>
-                        <tr>
-                            <td>Madaniy va oilaviy farqlar</td>
-                            <td>Turli qadriyat, til, tarbiya muhiti</td>
-                            <td>Hurmat, diskriminatsiyasiz muloqot</td>
-                        </tr>
-                        <tr>
-                            <td>Qobiliyat va qiziqish farqlari</td>
-                            <td>Kimdir san'atga, kimdir texnikaga moyil</td>
-                            <td>Tanlovli topshiriqlar, loyiha ishlari</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p class="besh-text mb-4">Inklyuziv sinfda o'qituvchi quyidagi xilma-xillik turlarini muntazam uchratadi va ularga mos pedagogik yondashuv ishlab chiqishi zarur:</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th>Xilma-xillik turlari</th>
+                                <th>Sinfdagi ko'rinishi</th>
+                                <th>O'qituvchi yondashuvi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>O'rganish sur'ati</td>
+                                <td>Bazilar tex, boshqalari sekin o'zlashtiradi</td>
+                                <td>Qo'shimcha vaqt, bosqichma-bosqich topshiriq</td>
+                            </tr>
+                            <tr>
+                                <td>Nutq va til farqlari</td>
+                                <td>Fikrini og'zaki ifodalashda qiynaladi</td>
+                                <td>Rasm, yozma javob, juftlikda ishlash</td>
+                            </tr>
+                            <tr>
+                                <td>Jismoniy imkoniyatlar</td>
+                                <td>Yozish yoki ko'rishda qiyinchilik</td>
+                                <td>Moslashtirilgan jihoz, texnologiya</td>
+                            </tr>
+                            <tr>
+                                <td>Ijtimoiy-emotsional holat</td>
+                                <td>Tortinchoqlik, xavotir, darsga qo'shilmaslik</td>
+                                <td>Xavfsiz muhit, rag'bat, ijobiy muloqot</td>
+                            </tr>
+                            <tr>
+                                <td>Madaniy va oilaviy farqlar</td>
+                                <td>Turli qadriyat, til, tarbiya muhiti</td>
+                                <td>Hurmat, diskriminatsiyasiz muloqot</td>
+                            </tr>
+                            <tr>
+                                <td>Qobiliyat va qiziqish farqlari</td>
+                                <td>Kimdir san'atga, kimdir texnikaga moyil</td>
+                                <td>Tanlovli topshiriqlar, loyiha ishlari</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- 6-Blok: Pedagogik tafakkur -->
     <div class="diver-olti">
         <div class="row">
-            <div class="col-10 offset-1">
+            <div class="col-12 col-lg-10 offset-lg-1">
                 <h2 class="olti-title">Pedagogik tafakkurdagi muhim burilish</h2>
                 <p class="olti-text">Bo'lajak o'qituvchi sinfdagi har bir farqni <span>pedagogik signal</span> sifatida ko'ra olishi kerak.</p>
                 <p class="olti-text1">O'quvchi darsda sust ishtirok etsa, bu darhol "qobiliyatsiz" degani emas. Balki unga topshiriq shakli, material tili, baholash mezoni, vaqt yoki psixologik muhit mos kelmayotgan bo'lishi mumkin.</p>
-                <div class="row">
-                     <div class="col-6">
-                        <div class="yetti-card d-flex">
-                            <i class="fa-regular text-danger pt-2 fa-circle-xmark"></i>
-                            <p class="yetti-card-text"> <i class="fa-solid fa-xmark text-danger"></i><span>Noto'g'ri:</span><br>"U matnni o'qiy olmaydi"</p>
+                <div class="row g-3 mt-2">
+                     <div class="col-12 col-md-6">
+                        <div class="yetti-card d-flex align-items-center">
+                            <i class="fa-regular fa-2x text-danger fa-circle-xmark"></i>
+                            <p class="yetti-card-text"><span>Noto'g'ri:</span><br>"U matnni o'qiy olmaydi"</p>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="yetti-card yetti-card-on d-flex">
-                            <i class="fa-regular text-success pt-2 fa-circle-check"></i>
-                            <p class="yetti-card-text"><i class="fa-solid text-success fa-square-check"></i><span>To'g'ri:</span><br>"U matnni eshitish orqali yaxshiroq tushunadi - demak audio material kerak."</p>
+                    <div class="col-12 col-md-6">
+                        <div class="yetti-card yetti-card-on d-flex align-items-center">
+                            <i class="fa-regular fa-2x text-success fa-circle-check"></i>
+                            <p class="yetti-card-text"><span>To'g'ri:</span><br>"U matnni eshitish orqali yaxshiroq tushunadi - demak audio material kerak."</p>
                         </div>
                     </div>
                 </div>
-                <p class="olti-pastki-text">Bu o'zgarish bo'lajak o'qituvchining professional tafakkurida juda muhim va hal qiluvchi burilish hisoblanadi.</p>
+                <p class="olti-pastki-text mt-4">Bu o'zgarish bo'lajak o'qituvchining professional tafakkurida juda muhim va hal qiluvchi burilish hisoblanadi.</p>
             </div>
         </div>
     </div>
+
+    <!-- 7-Blok: Yorliqsiz baholash -->
     <div class="diver-yetti">
         <div class="row align-items-center">
-            <div class="col-4">
-                <img width="100%" height="1000px" src="{% static 'images/dicersity/diver3.png' %}" alt="">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                <img class="img-fluid diver-img" src="{% static 'images/dicersity/diver3.png' %}" alt="Yorliqsiz baholash">
             </div>
-            <div class="offset-1 col-6">
+            <div class="col-12 col-lg-6 offset-lg-1">
                 <h2 class="yetti-title">Amaliy tavsiya №1: Yorliqsiz baholash</h2>
                 <p class="yetti-text">"Bu bola sust", "bu bola qiyin" kabi yondashuvlar o'quvchining imkoniyatini cheklaydi. O'qituvchi har bir o'quvchining <span>kuchli tomonlarini, qiziqishlarini va qo'llab-quvvatlashga muhtoj jihatlarini</span> aniqlay olishi kerak.</p>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="yetti-card d-flex">
-                            <i class="fa-regular text-danger pt-2 fa-circle-xmark"></i>
-                            <p class="yetti-card-text"> <i class="fa-solid fa-xmark text-danger"></i><span>Noto'g'ri:</span><br>"U matnni o'qiy olmaydi"</p>
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <div class="yetti-card d-flex align-items-center">
+                            <i class="fa-regular fa-2x text-danger fa-circle-xmark"></i>
+                            <p class="yetti-card-text"><span>Noto'g'ri:</span><br>"U matnni o'qiy olmaydi"</p>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="yetti-card yetti-card-on d-flex">
-                            <i class="fa-regular text-success pt-2 fa-circle-check"></i>
-                            <p class="yetti-card-text"><i class="fa-solid text-success fa-square-check"></i><span>To'g'ri:</span><br>"U matnni eshitish orqali yaxshiroq tushunadi - demak audio material kerak."</p>
+                    <div class="col-12 col-md-6">
+                        <div class="yetti-card yetti-card-on d-flex align-items-center">
+                            <i class="fa-regular fa-2x text-success fa-circle-check"></i>
+                            <p class="yetti-card-text"><span>To'g'ri:</span><br>"U matnni eshitish orqali yaxshiroq tushunadi - demak audio material kerak."</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 8-Blok: Dars dizayni -->
     <div class="diver-sakkiz">
         <h2 class="sakkiz-title">Amaliy tavsiyalar: Dars va muhit dizayni</h2>
-        <div class="row">
-            <div class="offset-1 col-3">
+        <div class="row g-4">
+            <div class="col-12 col-md-4">
                 <div class="sakkiz-card">
                     <h2 class="sakkiz-card-title">Darsni turli usullarda tashkil qiling</h2>
                     <p class="sakkiz-card-text">Matn, rasm, jadval, video, audio, amaliy mashq va guruhli faoliyatni birlashtiring. UDL yondashuvida ma'lumotni turli shakllarda taqdim etish barcha o'quvchilar uchun o'rganish imkoniyatini kengaytiradi.</p>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-md-4">
                 <div class="sakkiz-card">
                     <h2 class="sakkiz-card-title">Psixologik xavfsizlik yarating</h2>
-                    <p class="sakkiz-card-text">O'quvchi xato qilishdan qo'rqmasa, savol berishga uyalmasa va tengdoshlari tomonidan kamsitilmasa, u faolroq o'rganadi. Sinf qoidalari: "Xato qilish 4 o'rganishning bir qismi", "Har kimning fikri qadrlanadi."</p>
+                    <p class="sakkiz-card-text">O'quvchi xato qilishdan qo'rqmasa, savol berishga uyalmasa va tengdoshlari tomonidan kamsitilmasa, u faolroq o'rganadi. Sinf qoidalari: "Xato qilish o'rganishning bir qismi", "Har kimning fikri qadrlanadi."</p>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-md-4">
                 <div class="sakkiz-card">
                     <h2 class="sakkiz-card-title">Differensial topshiriqlardan foydalaning</h2>
-                    <p class="sakkiz-card-text">Adolat 4 hammaga bir xil narsa berish emas, har bir o'quvchiga o'z imkoniyatiga mos sharoit yaratishdir. Bitta mavzu bo'yicha: kuchli o'quvchi insho, o'rtacha o'quvchi jadval, qo'llab-quvvatlashga muhtoj o'quvchi rasm asosida javob berishi mumkin.</p>
+                    <p class="sakkiz-card-text">Adolat hammaga bir xil narsa berish emas, har bir o'quvchiga o'z imkoniyatiga mos sharoit yaratishdir. Bitta mavzu bo'yicha: kuchli o'quvchi insho, o'rtacha o'quvchi jadval, o'quvchi rasm asosida javob berishi mumkin.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 9-Blok: Hamkorlik va Baholash -->
     <div class="diver-toqqiz">
-        <div class="row">
-            <div class="offset-1 col-10">
+        <div class="row w-100 m-0">
+            <div class="col-12 col-lg-10 offset-lg-1">
                 <h2 class="toqqiz-title">Hamkorlik va moslashuvchan baholash</h2>
-                <div class="row">
-                    <div class="col-6">
+                <div class="row g-4">
+                    <div class="col-12 col-md-6">
                         <h2 class="toqqiz-left-title">Hamkorlikda o'qitish metodlari</h2>
                         <p class="toqqiz-left-text">Guruhli ish, juftlikda ishlash va zamonaviy metodlar o'quvchilarning bir-biridan o'rganishiga yordam beradi. Turli qobiliyatli o'quvchilar birgalikda ishlaganda nafaqat bilim oladi, balki empatiya, hurmat va ijtimoiy hamkorlik ko'nikmalarini ham rivojlantiradi.</p>
-                        <div class="row mt-4">
-                            <div class="col-6 w-100">
-                                <a href="#" class="toqqiz-btn talim-card">Think-Pair-Share</a>
+                        <div class="row g-3 mt-2">
+                            <div class="col-12 col-sm-6">
+                                <a href="#" class="toqqiz-btn talim-card d-block text-center text-decoration-none">Think-Pair-Share</a>
                             </div>
-                            <div class="col-6 w-100">
-                                <a href="#" class="toqqiz-btn talim-card">Jigsaw</a>
+                            <div class="col-12 col-sm-6">
+                                <a href="#" class="toqqiz-btn talim-card d-block text-center text-decoration-none">Jigsaw</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="toqqiz-right-card">
                             <h2 class="toqqiz-right-title">Baholash shakllari</h2>
                             <ul class="toqqiz-right-list">
@@ -254,101 +270,105 @@
             </div>
         </div>
     </div>
+
+    <!-- 10-Blok: Oila bilan hamkorlik -->
     <div class="diver-on">
         <div class="row align-items-center">
-            <div class="offset-1 col-7">
+            <div class="col-12 col-lg-7 offset-lg-1 order-2 order-lg-1">
                 <h2 class="on-title">Oilalar bilan hamkorlik</h2>
-                <p class="on-text">Ota-onalar o'quvchining ehtiyoji, qiziqishi va kundalik xatti-harakatlari haqida o'qituvchi bilmaydigan muhim ma'lumotlarni bera oladi. UNICEF ham inklyuziv ta'limda oila va jamoalarning ishtiroki muhimligini alohida ta'kidlaydi.</p>
-                <div class="d-flex">
-                    <div class="cude"></div>
+                <p class="on-text mb-4">Ota-onalar o'quvchining ehtiyoji, qiziqishi va kundalik xatti-harakatlari haqida o'qituvchi bilmaydigan muhim ma'lumotlarni bera oladi. UNICEF ham inklyuziv ta'limda oila va jamoalarning ishtiroki muhimligini alohida ta'kidlaydi.</p>
+                <div class="d-flex mb-3">
+                    <div class="cude flex-shrink-0"></div>
                     <div class="cube-right">
                         <h3 class="cube-title">Hamkor, tanqidchi emas</h3>
                         <p class="cube-text">Bo'lajak o'qituvchi ota-onani tanqid qiluvchi emas, balki jarayonning teng huquqli hamkori sifatida ko'rishi kerak. Birgalikdagi muloqot o'quvchi uchun eng yaxshi yechimni topishga yordam beradi.</p>
                     </div>
                 </div>
                 <div class="d-flex">
-                    <div class="cude"></div>
+                    <div class="cude flex-shrink-0"></div>
                     <div class="cube-right">
                         <h3 class="cube-title">Ma'lumot almashish muhim</h3>
                         <p class="cube-text">Oilaviy muhit, madaniy xususiyatlar va bolaning uy sharoitini bilish o'qituvchiga sinfdagi xatti-harakatlarni to'g'ri tushunishga va individual yondashuvni moslashtirishga imkon beradi.</p>
                     </div>
                 </div>
-
             </div>
-            <div class="col-4">
-               <img width="100%" height="1000px" src="{% static 'images/dicersity/diver4.png' %}" alt="">
+            <div class="col-12 col-lg-4 order-1 order-lg-2 mb-4 mb-lg-0">
+               <img class="img-fluid diver-img" src="{% static 'images/dicersity/diver4.png' %}" alt="Oilalar bilan hamkorlik">
             </div>
         </div>
     </div>
+
+    <!-- 11-Blok: Professional pozitsiya -->
     <div class="diver-onbir py-5 my-5">
         <div class="row">
-            <div class="col-10 offset-1">
-                <h2 class="onbir-title">O'qituvching professional pozitsiyasi</h2>
-                <p class="onbir-text">Bo'lajak o'qituvchi quyidagi fundamental professional pozitsiyani o'z faoliyatining asosiga qo'yishi zarur:</p>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="onbir-card talim-card">
-                            <div class="icon-blog"><i class="fa-solid fa-2x fa-user-check"></i></div>
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <h2 class="onbir-title">O'qituvchining professional pozitsiyasi</h2>
+                <p class="onbir-text mb-4">Bo'lajak o'qituvchi quyidagi fundamental professional pozitsiyani o'z faoliyatining asosiga qo'yishi zarur:</p>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6">
+                        <div class="onbir-card talim-card h-100">
+                            <div class="icon-blog mb-3"><i class="fa-solid fa-user-check"></i></div>
                             <h4 class="onbir-card-title">Har bir bola o'rganishga qodir</h4>
                             <p class="onbir-card-text">Imkoniyat yaratilganda, har qanday bola o'z salohiyatini namoyon etadi</p>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="onbir-card talim-card">
-                            <div class="icon-blog"><i class="fa-solid fa-2x fa-shapes"></i></div>
-                            <h4 class="onbir-card-title">Farqlar 4 resurs</h4>
+                    <div class="col-12 col-md-6">
+                        <div class="onbir-card talim-card h-100">
+                            <div class="icon-blog mb-3"><i class="fa-solid fa-shapes"></i></div>
+                            <h4 class="onbir-card-title">Farqlar resurs sifatida</h4>
                             <p class="onbir-card-text">Sinfdagi turlilik muammo emas, o'quv jarayonini boyituvchi pedagogik resursdir</p>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="onbir-card talim-card">
-                            <div class="icon-blog"><i class="fa-solid fa-2x fa-person-running"></i></div>
+                    <div class="col-12 col-md-6">
+                        <div class="onbir-card talim-card h-100">
+                            <div class="icon-blog mb-3"><i class="fa-solid fa-person-running"></i></div>
                             <h4 class="onbir-card-title">Dars o'quvchiga moslashadi</h4>
                             <p class="onbir-card-text">Faqat o'quvchi darsga emas, dars ham o'quvchiga moslashishi shart</p>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="onbir-card talim-card">
-                            <div class="icon-blog"><i class="fa-solid fa-2x fa-scale-unbalanced"></i></div>
+                    <div class="col-12 col-md-6">
+                        <div class="onbir-card talim-card h-100">
+                            <div class="icon-blog mb-3"><i class="fa-solid fa-scale-unbalanced"></i></div>
                             <h4 class="onbir-card-title">Ta'limiy adolat</h4>
-                            <p class="onbir-card-text">Inklyuziv ta'lim 4 bu rahm-shafqat emas, har bir o'quvchining huquqi va ta'limiy adolatdir</p>
+                            <p class="onbir-card-text">Inklyuziv ta'lim bu rahm-shafqat emas, har bir o'quvchining huquqi va ta'limiy adolatdir</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- 12-Blok: Xulosa -->
     <div class="diver-onikki">
-        <div class="row">
-            <div class="col-4">
-                <img width="100%" height="1000px" src="{% static 'images/dicersity/diver5.png' %}" alt=""> 
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                <img class="img-fluid diver-img" src="{% static 'images/dicersity/diver5.png' %}" alt="Zamonaviy o'qituvchi"> 
             </div>
-            <div class="offset-1 col-7">
-                <h2 class="onikki-title">Xulosa: Zamonaviy o'qituvchi kimdir?</h2>
+            <div class="col-12 col-lg-7 offset-lg-1">
+                <h2 class="onikki-title">Xulosa: Zamonaviy o'qituvchi kim?</h2>
                 <p class="onikki-text">Xilma-xillikni qabul qilish inklyuziv ta'limning markaziy g'oyalaridan biridir. O'quvchilarning farqlari kamchilik sifatida emas, sinfdagi o'quv jarayonini boyituvchi imkoniyat sifatida talqin qilinadi.</p>
-                <div class="d-flex">
-                    <i class="fa-solid fa-2x text-dark fa-arrow-right"></i>
-                   <p class="onikki-right-text"><span>Moslashtiruvchi pedagog</span><br>Darsni har bir o'quvchining ehtiyojiga mos holda qayta shakllantira oladi</p>
+                
+                <div class="d-flex align-items-start mb-3">
+                    <i class="fa-solid fa-arrow-right mt-1 text-dark"></i>
+                    <p class="onikki-right-text"><span>Moslashtiruvchi pedagog</span><br>Darsni har bir o'quvchining ehtiyojiga mos holda qayta shakllantira oladi</p>
                 </div>
-                <div class="d-flex">
-                    <i class="fa-solid fa-2x text-dark fa-arrow-right"></i>
-                   <p class="onikki-right-text"><span>Qo'llab-quvvatlovchi mutaxassis</span><br>Har bir bolaning kuchli tomonlarini kashf etib, ularni rivojlanishga yo'naltiradi</p>
+                <div class="d-flex align-items-start mb-3">
+                    <i class="fa-solid fa-arrow-right mt-1 text-dark"></i>
+                    <p class="onikki-right-text"><span>Qo'llab-quvvatlovchi mutaxassis</span><br>Har bir bolaning kuchli tomonlarini kashf etib, ularni rivojlanishga yo'naltiradi</p>
                 </div>
-                <div class="d-flex">
-                    <i class="fa-solid fa-2x text-dark fa-arrow-right"></i>
-                   <p class="onikki-right-text"><span>Adolatli muhit yaratuvchi</span><br>Barcha o'quvchilar uchun teng imkoniyat va hurmatga asoslangan sinf yaratadi</p>
+                <div class="d-flex align-items-start mb-4">
+                    <i class="fa-solid fa-arrow-right mt-1 text-dark"></i>
+                    <p class="onikki-right-text"><span>Adolatli muhit yaratuvchi</span><br>Barcha o'quvchilar uchun teng imkoniyat va hurmatga asoslangan sinf yaratadi</p>
                 </div>
-                <div class="d-flex onikki-past-blog">
-                    <i class="fa-regular fa-circle-check"></i>
-                    <p class="onikki-pastkitext">Zamonaviy o'qituvchi faqat bilim beruvchi emas - u moslashtiruvchi, qo'llab-quvvatlovchi, rag'batlantiruvchi va adolatli ta'lim muhitini yaratuvchi pedagogdir.</p>
+                
+                <div class="onikki-past-blog d-flex align-items-start">
+                    <i class="fa-regular fa-circle-check mt-1"></i>
+                    <p class="onikki-pastkitext m-0">Zamonaviy o'qituvchi faqat bilim beruvchi emas - u moslashtiruvchi, qo'llab-quvvatlovchi, rag'batlantiruvchi va adolatli ta'lim muhitini yaratuvchi pedagogdir.</p>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
 
-
-    
- {% endblock  %}
-    
+  </div>
+</div>
+{% endblock %}

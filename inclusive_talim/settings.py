@@ -33,6 +33,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'inclusive_app.middleware.MaintenanceModeMiddleware',
 ]
 
 ROOT_URLCONF = 'inclusive_talim.urls'
